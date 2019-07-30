@@ -6609,7 +6609,6 @@ gui-shell-win32	gui_w32.twx	/*gui-shell-win32*
 gui-start	gui.twx	/*gui-start*
 gui-toolbar	gui.twx	/*gui-toolbar*
 gui-vert-scroll	gui.twx	/*gui-vert-scroll*
-gui-w16	gui_w16.twx	/*gui-w16*
 gui-w32	gui_w32.twx	/*gui-w32*
 gui-w32-cmdargs	gui_w32.twx	/*gui-w32-cmdargs*
 gui-w32-dialogs	gui_w32.twx	/*gui-w32-dialogs*
@@ -6631,7 +6630,6 @@ gui-x11-printing	gui_x11.twx	/*gui-x11-printing*
 gui-x11-start	gui_x11.twx	/*gui-x11-start*
 gui-x11-various	gui_x11.twx	/*gui-x11-various*
 gui.txt	gui.twx	/*gui.txt*
-gui_w16.txt	gui_w16.twx	/*gui_w16.txt*
 gui_w32.txt	gui_w32.twx	/*gui_w32.txt*
 gui_x11.txt	gui_x11.twx	/*gui_x11.txt*
 guifontwide_gtk	options.twx	/*guifontwide_gtk*
@@ -6669,6 +6667,7 @@ hebrew.txt	hebrew.twx	/*hebrew.txt*
 help	helphelp.twx	/*help*
 help-context	help.twx	/*help-context*
 help-summary	usr_02.twx	/*help-summary*
+help-tags	tags-tw	1
 help-translated	helphelp.twx	/*help-translated*
 help-writing	helphelp.twx	/*help-writing*
 help-xterm-window	helphelp.twx	/*help-xterm-window*
@@ -9303,19 +9302,6 @@ whitespace	pattern.twx	/*whitespace*
 wildcard	editing.twx	/*wildcard*
 wildcards	editing.twx	/*wildcards*
 wildmenumode()	eval.twx	/*wildmenumode()*
-win16-!start	gui_w16.twx	/*win16-!start*
-win16-clipboard	gui_w16.twx	/*win16-clipboard*
-win16-colors	gui_w16.twx	/*win16-colors*
-win16-default-editor	gui_w16.twx	/*win16-default-editor*
-win16-dialogs	gui_w16.twx	/*win16-dialogs*
-win16-drag-n-drop	gui_w16.twx	/*win16-drag-n-drop*
-win16-gui	gui_w16.twx	/*win16-gui*
-win16-maximized	gui_w16.twx	/*win16-maximized*
-win16-printing	gui_w16.twx	/*win16-printing*
-win16-shell	gui_w16.twx	/*win16-shell*
-win16-start	gui_w16.twx	/*win16-start*
-win16-truetype	gui_w16.twx	/*win16-truetype*
-win16-various	gui_w16.twx	/*win16-various*
 win32	os_win32.twx	/*win32*
 win32-!start	gui_w32.twx	/*win32-!start*
 win32-PATH	os_win32.twx	/*win32-PATH*
