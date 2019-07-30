@@ -6667,7 +6667,7 @@ hebrew.txt	hebrew.twx	/*hebrew.txt*
 help	helphelp.twx	/*help*
 help-context	help.twx	/*help-context*
 help-summary	usr_02.twx	/*help-summary*
-help-tags	tags-cn	1
+help-tags	tags-tw	1
 help-translated	helphelp.twx	/*help-translated*
 help-writing	helphelp.twx	/*help-writing*
 help-xterm-window	helphelp.twx	/*help-xterm-window*
