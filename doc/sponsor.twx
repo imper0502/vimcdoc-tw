@@ -1,7 +1,7 @@
-*sponsor.txt*   For Vim version 7.4.  最後更新: 2008年4月
+*sponsor.txt*   For Vim version 8.0.  最近更新: 2008年4月
 
 
-		  VIM 參 考 手 冊    作者: Bram Moolenaar
+		  VIM 參考手冊    by Bram Moolenaar
 		                     譯者: Dasn, tocer
 		                     http://vimcdoc.sf.net
 
@@ -162,7 +162,7 @@ SourceForge 會把 5% 的捐贈留給他們自己。如果您想支援 SourceFor
 即生效。
 
 
-我能增加投票的項目麼？
+我能增加投票的專案麼？
 
 您無法直接增加。您可以向 Bram 建議。他將考慮把您的提議加進去。
 
@@ -176,14 +176,14 @@ SourceForge 會把 5% 的捐贈留給他們自己。如果您想支援 SourceFor
 我已經捐了 $$$，那麼請加入 XYZ 新功能！
 
 Bram 的工作和您的捐助沒有直接的關係。否則，就變成了您為 Bram 的工作付錢，而我
-們應該為這些捐助繳稅。如果您想僱 Bram 做一些別的工作，直接和他聯繫，請不要使用
+們應該為這些捐助繳稅。如果您想僱 Bram 做一些別的工作，直接和他聯絡，請不要使用
 捐助系統。
 
 
 捐助可以免稅麼？
 
 這取決於您的國家。贊助烏干達 |Uganda| 的兒童在荷蘭、德國、加拿大，還有美國是免
-稅的。見 ICCF 的網站 http://iccf-holland.org/donate.html。您可以發送電郵告知
+稅的。見 ICCF 的網站 http://iccf-holland.org/donate.html。您可以傳送電郵告知
 Bram，讓他知道您的捐獻是因為使用 Vim 的結果。
 
 

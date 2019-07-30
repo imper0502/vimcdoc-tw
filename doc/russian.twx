@@ -1,7 +1,7 @@
-*russian.txt*   For Vim version 7.4.  最近更新: 2006年7月
+*russian.txt*   For Vim version 8.0.  最近更新: 2006年7月
 
 
-		  VIM 參考手冊            by Vassily Ragosin
+		  VIM 參考手冊    by Vassily Ragosin
 				譯者: Willis
 				http://vimcdoc.sf.net
 
@@ -43,16 +43,16 @@ Vim 的俄羅斯語支援已經相當完善。你可以像其他語言一樣輸�
 ===============================================================================
 3. 本地化							 *russian-l18n*
 
-如果你希望把訊息，幫助檔案，選單，和其他項目翻譯成俄語，你需要安裝 RuVim 語言
+如果你希望把訊息，幫助檔案，選單，和其他專案翻譯成俄語，你需要安裝 RuVim 語言
 包。多種內碼表的該軟體可以從這裡得到:
 
     http://www.sourceforge.net/projects/ruvim/
 
 請你確定你的 Vim 至少是 6.2.506 或以上的版本，並且如果要自動安裝，請使用 ruvim
-0.5 或以上的版本。Vim 必須在編譯時加入 |+gettext| 特性，才能使使用者介面的項目被
+0.5 或以上的版本。Vim 必須在編譯時加入 |+gettext| 特性，才能使使用者介面的專案被
 翻譯。
 
-下載了 RuVim 項目的軟體包以後，把它解壓到 $VIMRUNTIME 目錄。如果你的 Vim 編譯
+下載了 RuVim 專案的軟體包以後，把它解壓到 $VIMRUNTIME 目錄。如果你的 Vim 編譯
 時加入 |+multi_byte| 特性的話，我們建議使用 UTF-8 包。
 
 要看到俄語的文件，請將 'helplang' 選項設為 "ru"。

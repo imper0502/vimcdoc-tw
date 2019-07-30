@@ -1,7 +1,7 @@
-*if_pyth.txt*   For Vim version 7.4.  最近更新: 2013年8月
+*if_pyth.txt*   For Vim version 8.0.  最近更新: 2017年7月
 
 
-		  VIM REFERENCE MANUAL    by Paul Moore
+		  VIM 參考手冊    by Paul Moore
 		  譯者: lang2，Willis http://vimcdoc.sf.net
 
 
@@ -14,20 +14,22 @@ Vim 的 Python 程式設計介面					*python* *Python*
 5. 視窗物件					|python-window|
 6. 標籤頁物件					|python-tabpage|
 7. vim.bindeval 物件				|python-bindeval-objects|
-8. pyeval()、py3eval() Vim 函數			|python-pyeval|
+8. pyeval()、py3eval() Vim 函式			|python-pyeval|
 9. 動態調入					|python-dynamic|
 10. Python 3					|python3|
+11. Python X					|python_x|
+12. 編譯時帶 Python 支援			|python-building|
 
 {Vi 無此功能}
 
-Vim 的 Python 2.x 介面僅當 |+python| 特性被編譯進 Vim 時纔有效。
-Vim 的 Python 3 介面僅當 |+python3| 特性被編譯進 Vim 時纔有效。
+Vim 的 Python 2.x 介面僅當 |+python| 特性被編譯進 Vim 時才有效。
+Vim 的 Python 3 介面僅當 |+python3| 特性被編譯進 Vim 時才有效。
 可以同時使用兩者，但請閱讀 |python-2-and-3|。
 
 ==============================================================================
 1. 命令							*python-commands*
 
-					*:python* *:py* *E205* *E263* *E264*
+					*:python* *:py* *E263* *E264* *E887*
 :[range]py[thon] {stmt}
 			執行 Python 語句 {stmt}。一個判斷 ":python" 命令是否可
 			用的簡單檢查: >
@@ -52,15 +54,19 @@ Vim 的 Python 3 介面僅當 |+python3| 特性被編譯進 Vim 時纔有效。
 			print 'EAT ME'
 	EOF
 	endfunction
-<
+
+要看執行的 Python 版本: >
+	:python import sys
+	:python print(sys.version)
+
 備註: Python 對於縮排是非常敏感的。要確保 "class" 所在行及 "EOF" 沒有任何縮
 進。
 
 							*:pydo*
-:[range]pydo {body}	對 [range] 裡的每一行執行 Python 函數 "def
-			_vim_pydo(line, linenr): {body}"，其中的函數參數設為每
-			行不帶尾部 <EOL> 的文字，以及行號。該函數應該返回字元
-			串或者 None。如果返回字元串，它會用來替代當前執行的
+:[range]pydo {body}	對 [range] 裡的每一行執行 Python 函式 "def
+			_vim_pydo(line, linenr): {body}"，其中的函式引數設為每
+			行不帶尾部 <EOL> 的文字，以及行號。該函式應該返回字元
+			串或者 None。如果返回字串，它會用來替代當前執行的
 			行。預設 [range] 為整個檔案: "1,$"。
 			{Vi 無此功能}
 
@@ -71,7 +77,7 @@ Vim 的 Python 3 介面僅當 |+python3| 特性被編譯進 Vim 時纔有效。
 <
 							*:pyfile* *:pyf*
 :[range]pyf[ile] {file}
-			執行 {file} 檔案中包含的 Python 指令碼。整個參數被用作一
+			執行 {file} 檔案中包含的 Python 指令碼。整個引數被用作一
 			個檔名。 {Vi 無此功能}
 
 這些命令根本上都差不多 － 它們都將當前範圍 |python-range| 設定為指定的行範圍，
@@ -82,7 +88,7 @@ Vim 的 Python 3 介面僅當 |+python3| 特性被編譯進 Vim 時纔有效。
 
 Python 命令不能在 |sandbox| 裡使用。
 
-需要傳遞參數的話，你得使用 sys.argv[]。例如: >
+需要傳遞引數的話，你得使用 sys.argv[]。例如: >
 
 	:python import sys
 	:python sys.argv = ["foo", "bar"]
@@ -135,7 +141,7 @@ vim.command(str)					*python-command*
 <	下面的定義可以執行普通模式命令: >
 		def normal(str):
 			vim.command("normal "+str)
-		# 注意使用單引號標識出含有雙引號的字元串
+		# 注意使用單引號標識出含有雙引號的字串
 		normal('"a2dd"aP')
 <								*E659*
 	":python" 在 Python 2.2 及之前版本上不能巢狀使用。下面命令只對 Python
@@ -144,22 +150,22 @@ vim.command(str)					*python-command*
 
 
 vim.eval(str)						*python-eval*
-	使用 vim 內部的表示式處理器來對表示式 str 求值。(參閱 |expression|)。
+	使用 vim 內部的表示式處理器來對錶達式 str 求值。(參閱 |expression|)。
 	返回表示式的結果:
-	-如果 Vim 表示式計算結果是字元串或者數值，那麼返回一個字元串。
+	-如果 Vim 表示式計算結果是字串或者數值，那麼返回一個字串。
 	-如果 Vim 表示式計算結果是 Vim 列表，那麼返回一個列表
 	-如果 Vim 表示式計算結果是 Vim 字典，那麼返回一個字典
-	字典和列表被遞迴擴展。
+	字典和列表被遞迴擴充套件。
 	例: >
 	    :py text_width = vim.eval("&tw")
-	    :py str = vim.eval("12+12")		# 注意: 結果是個字元串！
+	    :py str = vim.eval("12+12")		# 注意: 結果是個字串！
 						# 使用 string.atoi()
 						# 把它轉換成數字
 
 	    :py tagList = vim.eval('taglist("eval_expr")')
-<	後一個將返回一個 python 類型的字典列表，例如:
-	[{'cmd': '/^eval_expr(arg, nextcmd)$/', 'static': 0, 'name':
-	'eval_expr', 'kind': 'f', 'filename': './src/eval.c'}]
+<	後一個將返回一個 python 型別的字典列表，例如:
+	[{'cmd': '/^eval_expr(arg, nextcmd)$/', 'static': 0, 'name': ~
+	'eval_expr', 'kind': 'f', 'filename': './src/eval.c'}] ~
 
 vim.bindeval(str)					*python-bindeval*
 	類似於 |python-eval|，但返回 |python-bindeval-objects| 中描述的特殊
@@ -171,13 +177,13 @@ vim.strwidth(str)					*python-strwidth*
 
 vim.foreach_rtp(callable)				*python-foreach_rtp*
 	對 'runtimepath' 的每個路徑呼叫給定的 callable，直到某次 callable 返回
-	非 None 值、拋出例外、或者沒有更多的路徑為止。如果因為 callable 返回
-	非 None 而停止，vim.foreach_rtp 函數返回 callable 返回的值。
+	非 None 值、丟擲例外、或者沒有更多的路徑為止。如果因為 callable 返回
+	非 None 而停止，vim.foreach_rtp 函式返回 callable 返回的值。
 
 vim.chdir(*args, **kwargs)				*python-chdir*
 vim.fchdir(*args, **kwargs)				*python-fchdir*
-	運行 os.chdir 或 os.fchdir，然後做合適的 vim 的事情。
-	備註: 你不應直接使用這些函數，用 os.chdir 或 os.fchdir
+	執行 os.chdir 或 os.fchdir，然後做合適的 vim 的事情。
+	備註: 你不應直接使用這些函式，用 os.chdir 或 os.fchdir
 	代替。如果 os.fchdir 不存在，則 vim.fchdir 的行為未定義。
 
 
@@ -210,7 +216,7 @@ vim.windows						*python-windows*
 	    :py for w in vim.windows:	# 順序存取
 <	注意: vim.windows 物件總是訪問當前標籤頁。|python-tabpage|.windows 對
 	象和父 |python-tabpage| 物件繫結，總是使用該標籤頁的視窗 (如果該標籤頁
-	該刪除，拋出 vim.error)。你可以得到兩者的引用而無需儲存 vim 模組物件或
+	該刪除，丟擲 vim.error)。你可以得到兩者的引用而無需儲存 vim 模組物件或
 	|python-tabpage| 的引用。此時它們不會失去自己的屬性。
 
 vim.tabpages						*python-tabpages*
@@ -223,7 +229,7 @@ vim.tabpages						*python-tabpages*
 vim.current						*python-current*
 	一個用來提供對各種各樣當前 "current" 物件進行操作的物件。它包括一些特
 	定的屬性:
-		vim.current.line	當前行 (讀寫)			字元串
+		vim.current.line	當前行 (讀寫)			字串
 		vim.current.buffer	當前緩衝區 (讀寫)		緩衝區
 		vim.current.window	當前視窗 (讀寫)			視窗
 		vim.current.tabpage	當前標籤頁 (讀寫)		標籤頁
@@ -249,18 +255,18 @@ vim.current						*python-current*
 
 vim.vars						*python-vars*
 vim.vvars						*python-vvars*
-	類似字典的物件，分別對應全局 (|g:|) 和 vim (|v:|) 變數。等價於
+	類似字典的物件，分別對應全域性 (|g:|) 和 vim (|v:|) 變數。等價於
 	`vim.bindeval("g:")`，但更快。
 
 vim.options						*python-options*
-	部分支援對映協議 (即讀寫子項目) 的物件，用於對全局選項進行讀寫訪問。
-	注意: 和 |:set| 不同，此物件只能訪問全局選項，不能用於讀寫局部變數的
-	值或以任何方式去訪問只限局部的變數。如果沒有指定名字的全局變數，拋出
-	KeyError (也即，對 |global-local| 或只限全局的選項，不會拋出此例外，
-	但對局部於視窗或局部於緩衝區的則會)。|python-buffer| 物件可用於訪問局
-	部於緩衝區的選項，|python-window| 選項則可用於訪問局部於視窗的選項。
+	部分支援對映協議 (即讀寫子專案) 的物件，用於對全域性選項進行讀寫訪問。
+	注意: 和 |:set| 不同，此物件只能訪問全域性選項，不能用於讀寫區域性變數的
+	值或以任何方式去訪問只限區域性的變數。如果沒有指定名字的全域性變數，丟擲
+	KeyError (也即，對 |global-local| 或只限全域性的選項，不會丟擲此例外，
+	但對區域性於視窗或區域性於緩衝區的則會)。|python-buffer| 物件可用於訪問局
+	部於緩衝區的選項，|python-window| 選項則可用於訪問區域性於視窗的選項。
 
-	可通過 vim 模組的 "Options" 屬性取得此物件的類型。
+	可通過 vim 模組的 "Options" 屬性取得此物件的型別。
 
 Python 的輸出						*python-output*
 	Vim 將所有 Python 程式碼的輸出都顯示在資訊區。普通的輸出會以一般資訊出
@@ -307,8 +313,8 @@ Python 'runtimepath' 處理				*python-special-path*
             fmr = find_module(fullname, path)
             return load_module(fullname, *fmr)
 
-    # It uses vim module itself in place of VimPathFinder class: it does not 
-    # matter for python which object has find_module function attached to as 
+    # It uses vim module itself in place of VimPathFinder class: it does not
+    # matter for python which object has find_module function attached to as
     # an attribute.
     class VimPathFinder(object):
         @classmethod
@@ -331,8 +337,8 @@ Python 'runtimepath' 處理				*python-special-path*
     sys.path_hooks.append(hook)
 
 vim.VIM_SPECIAL_PATH					*python-VIM_SPECIAL_PATH*
-	字元串常數，和 vim 路徑鉤聯合使用。如果 vim 安裝的路徑鉤被要求處理任何
-	非 vim.VIM_SPECIAL_PATH 常數的路徑，拋出 ImportError。在唯一可能的另一
+	字串常數，和 vim 路徑鉤聯合使用。如果 vim 安裝的路徑鉤被要求處理任何
+	非 vim.VIM_SPECIAL_PATH 常數的路徑，丟擲 ImportError。在唯一可能的另一
 	種情況下，使用特殊載入程式。
 
 	注意: 不能直接使用該常數的值，必須使用 vim.VIM_SPECIAL_PATH 物件。
@@ -344,7 +350,7 @@ vim.path_hook(path)					*python-path_hook*
 	任何這裡描述的物件會繼續存在。
 
 vim._get_paths						*python-_get_paths*
-	用於產生給路徑鉤搜索的路徑列表的方法。可以用於偵錯，但不要假定將來的
+	用於產生給路徑鉤搜尋的路徑列表的方法。可以用於除錯，但不要假定將來的
 	vim 版本中此方法會繼續存在。
 
 	返回 'runtimepath' 中每個 {rtp} 對應的 {rtp}/python2 (或
@@ -361,10 +367,10 @@ vim._get_paths						*python-_get_paths*
 緩衝區物件有兩個只讀屬性 - name - 緩衝區的檔案全名，還有 number - 緩衝區號。
 該物件還包括三個方法 (append，mark 及 range；見下)。
 
-你也可以將緩衝區物件視為序列物件。這樣的話，它們就可以被看作字元串的列表進行存
+你也可以將緩衝區物件視為序列物件。這樣的話，它們就可以被看作字串的列表進行存
 取 (它們是可變的)。每一個元素是緩衝區中的一行。所有通常的序列存取操作，包括索
 引，索引賦值，切片 (slice) 及切片賦值，等等，都可以被使用。注意 索引 (切片) 操
-作的結果是一個字元串 (字元串列表)。這產生了一個意想不到的結果 - b[:] 和 b 是不
+作的結果是一個字串 (字串列表)。這產生了一個意想不到的結果 - b[:] 和 b 是不
 同的。確切一些，"b[:] = None" 會清空整個緩衝區，而 "b = None" 僅僅更新變數 b
 的值，完全不會影響到緩衝區。
 
@@ -373,12 +379,12 @@ vim._get_paths						*python-_get_paths*
 
 緩衝區物件的屬性有:
 	b.vars		類似字典的物件，可用於訪問 |buffer-variable|。
-	b.options	對映物件 (支援子項目的讀寫和刪除)，用於訪問局部於緩衝
-			區的選項和 |global-local| 選項的緩衝區局部值。如果選項
-			局部於視窗，請使用 |python-window|.options，使用此物件
-			會拋出 KeyError。如果選項是 |global-local| 而沒有局部
+	b.options	對映物件 (支援子專案的讀寫和刪除)，用於訪問區域性於緩衝
+			區的選項和 |global-local| 選項的緩衝區區域性值。如果選項
+			區域性於視窗，請使用 |python-window|.options，使用此物件
+			會丟擲 KeyError。如果選項是 |global-local| 而沒有區域性
 			的部分，返回 None。
-	b.name		字元串，可讀寫。包含緩衝區名 (完整路徑)。
+	b.name		字串，可讀寫。包含緩衝區名 (完整路徑)。
 			備註: 給 b.name 賦值時啟用 |BufFilePre| 和
 			|BufFilePost| 自動事件。
 	b.number	緩衝區編號。可用作 |python-buffers| 的鍵。只讀。
@@ -389,7 +395,7 @@ vim._get_paths						*python-_get_paths*
 	b.append(str)	對緩衝區附加一行
 	b.append(str, nr)  同上，在第 "nr" 行之後
 	b.append(list)	對緩衝區附加一系列行
-			備註: append 方法可以帶一個字元串列表作為參數，這和
+			備註: append 方法可以帶一個字串列表作為引數，這和
 			Python 中內建的列表物件的對應方法是不同的。
 	b.append(list, nr)  同上，在第 "nr" 行之後
 	b.mark(name)	返回一個 tuple (行，列) 用來代表該位置上的一個命名標記
@@ -402,16 +408,16 @@ vim._get_paths						*python-_get_paths*
 但會被忽略，所以下面的操作是可以的:
 	:py b.append(f.readlines())
 
-可通過 vim 模組的 "Buffer" 屬性取得緩衝區物件的類型。
+可通過 vim 模組的 "Buffer" 屬性取得緩衝區物件的型別。
 
 例如 (假定 b 是當前緩衝區) >
 	:py print b.name		# 輸出緩衝區的名字
 	:py b[0] = "hello!!!"		# 替換最頂上的一行
 	:py b[:] = None			# 刪除整個緩衝區
 	:py del b[:]			# 刪除整個緩衝區
-	:py b[0:0] = [ "a line" ]	# 在第一行前添加一行
+	:py b[0:0] = [ "a line" ]	# 在第一行前新增一行
 	:py del b[2]			# 刪除一行 (第三行)
-	:py b.append("bottom")		# 在緩衝區結尾添加一行
+	:py b.append("bottom")		# 在緩衝區結尾新增一行
 	:py n = len(b)			# 總行數
 	:py (row,col) = b.mark('a') 	# 命名標記
 	:py r = b.range(1,5)		# 緩衝區內的一個範圍
@@ -439,14 +445,14 @@ vim._get_paths						*python-_get_paths*
 	r.append(str)	給範圍附加一行
 	r.append(str, nr)  同上，在第 "nr" 行之後
 	r.append(list)	給範圍附加一系列行
-			備註: append 方法可以帶一個字元串列表作為參數，這和
+			備註: append 方法可以帶一個字串列表作為引數，這和
 			Python 中內建的列表物件的對應方法是不同的。
 	r.append(list, nr)  同上，在第 "nr" 行之後
 
-可通過 vim 模組的 "Range" 屬性取得範圍物件的類型。
+可通過 vim 模組的 "Range" 屬性取得範圍物件的型別。
 
 例如 (假設 r 是當前範圍):
-	# 發送範圍內的所有行給預設列印機
+	# 傳送範圍內的所有行給預設印表機
 	vim.command("%d,%dhardcopy!" % (r.start+1,r.end+1))
 
 ==============================================================================
@@ -468,11 +474,11 @@ vim._get_paths						*python-_get_paths*
 	width (讀寫)		列數表示的視窗寬度
 	vars (只讀)		視窗 |w:| 變數。不能給本屬性賦值，但可以用此屬
 				性修改視窗變數
-	options (只讀)		局部於視窗的選項。不能給本屬性賦值，但可以用此
-				屬性修改視窗選項。只能用於訪問局部於視窗的選
-				項，對局部於緩衝區的選項要用 |python-buffer|，
-				對全局選項用 |python-options|。如果選項是
-				|global-local| 的而沒有局部值，返回 None。
+	options (只讀)		區域性於視窗的選項。不能給本屬性賦值，但可以用此
+				屬性修改視窗選項。只能用於訪問區域性於視窗的選
+				項，對區域性於緩衝區的選項要用 |python-buffer|，
+				對全域性選項用 |python-options|。如果選項是
+				|global-local| 的而沒有區域性值，返回 None。
 	number (只讀)		視窗編號。首個視窗的編號為 1。如果不能決定才
 				會返回 0 (例如當視窗物件屬於其他標籤頁時)。
 	row、col (只讀)		視窗在螢幕上的位置，以顯示單元計。首個位置為
@@ -481,10 +487,10 @@ vim._get_paths						*python-_get_paths*
 	valid (讀寫)		True 或 False。當對應視窗關閉時視窗物件成為非
 				法。
 
-height 屬性只有當螢幕被水平分割時纔可寫。
-width  屬性只有當螢幕被垂直分割時纔可寫。
+height 屬性只有當螢幕被水平分割時才可寫。
+width  屬性只有當螢幕被垂直分割時才可寫。
 
-可通過 vim 模組的 "Window" 屬性取得視窗物件的類型。
+可通過 vim 模組的 "Window" 屬性取得視窗物件的型別。
 
 ==============================================================================
 6. 標籤頁物件						*python-tabpage*
@@ -501,13 +507,13 @@ width  屬性只有當螢幕被垂直分割時纔可寫。
 	vars		標籤頁 |t:| 變數。
 	valid		True 或 False。當對應標籤頁關閉時標籤頁物件成為非法。
 
-可通過 vim 模組的 "TabPage" 屬性取得標籤頁物件的類型。
+可通過 vim 模組的 "TabPage" 屬性取得標籤頁物件的型別。
 
 ==============================================================================
 7. vim.bindeval 物件				*python-bindeval-objects*
 
 vim.Dictionary 物件				*python-Dictionary*
-    類字典物件，用於訪問 vim |Dictionary| 類型。
+    類字典物件，用於訪問 vim |Dictionary| 型別。
     屬性:
         屬性       描述 ~
         locked     以下值之一                   *python-.locked*
@@ -523,7 +529,7 @@ vim.Dictionary 物件				*python-Dictionary*
                     vim.VAR_DEF_SCOPE  |g:| 或 |l:| 字典
                     vim.VAR_SCOPE      其他作用域的字典，
                                        見 |internal-variables|
-    方法 (備註: 方法不支援關鍵字參數):
+    方法 (備註: 方法不支援關鍵字引數):
         方法        描述 ~
         keys()      返回字典所有鍵的列表。
         values()    返回字典所有值的列表。
@@ -534,7 +540,7 @@ vim.Dictionary 物件				*python-Dictionary*
                     從字典讀入 key 對應值，如果不存在返回 default。
         pop(key[, default])
                     從字典中刪除給定 key 並返回對應值。如果找不到 key 且給出
-                    default 返回 default，不然拋出 KeyErrror。
+                    default 返回 default，不然丟擲 KeyErrror。
         popitem()
                     從字典中刪除隨機鍵，並返回 (鍵, 值) 對。
         has_key(key)
@@ -543,13 +549,13 @@ vim.Dictionary 物件				*python-Dictionary*
         __new__(), __new__(iterable), __new__(dictionary), __new__(update)
                     用 `vim.Dictionary()` 可以建立新的 vim 字典。
                     `d=vim.Dictionary(arg)` 等價於
-                    `d=vim.bindeval('{}');d.update(arg)`。無參數的版本構建空
+                    `d=vim.bindeval('{}');d.update(arg)`。無引數的版本構建空
                     字典。
 
     示例: >
         d = vim.Dictionary(food="bar")		# 建構函式
-        d['a'] = 'b'				# 子項目賦值
-        print d['a']				# 讀取子項目
+        d['a'] = 'b'				# 子專案賦值
+        print d['a']				# 讀取子專案
         d.update({'c': 'd'})			# .update(dictionary)
         d.update(e='f')				# .update(**kwargs)
         d.update((('g', 'h'), ('i', 'j')))	# .update(iterable)
@@ -563,32 +569,51 @@ vim.Dictionary 物件				*python-Dictionary*
     注意: 遍歷鍵時不應對字典進行修改。
 
 vim.List 物件					*python-List*
-    類序列物件，用於訪問 vim |List| 類型。
+    類序列物件，用於訪問 vim |List| 型別。
     支援 `.locked` 屬性，見 |python-.locked|。還支援以下方法:
         方法            描述 ~
-        extend(item)    給列表加入項目 item。
+        extend(item)    給列表加入專案 item。
 
         __new__(), __new__(iterable)
                         用 `vim.List()` 可以建立新的 vim 列表。
                         `l=vim.List(iterable)` 等價於
-                        `l=vim.bindeval('[]');l.extend(iterable)`。無參數的版
+                        `l=vim.bindeval('[]');l.extend(iterable)`。無引數的版
                         本方法構建空列表。
     示例: >
         l = vim.List("abc")		# 建構函式，返回: ['a', 'b', 'c']
         l.extend(['abc', 'def'])	# .extend() 方法
         print l[1:]			# 分片 (slicing)
         l[:0] = ['ghi', 'jkl']		# 分片賦值
-        print l[0]			# 讀取項目
+        print l[0]			# 讀取專案
         l[0] = 'mno'			# 賦值
         for i in l:			# 遍歷
         print isinstance(l, vim.List)	# True
         class List(vim.List):		# 子類
 
 vim.Function 物件				*python-Function*
-    類函數物件，相當於 vim |Funcref| 物件。支援 `.name`  屬性。可以進行呼叫。
-    接受特殊的關鍵字參數 `self`，見 |Dictionary-function|。還可用
-    `vim.Function(name)` 建構函式，等價於
+    類函式物件，相當於 vim |Funcref| 物件。接受特殊關鍵字引數 `self`，見
+    |Dictionary-function|。也可用 `vim.Function(name)` 建構函式，等價於
     `vim.bindeval('function(%s)'%json.dumps(name))`。
+
+    屬性 (只讀):
+        屬性         描述 ~
+        name         函式名。
+	args         `None` 或用作引數的 |python-List| 物件。注意 這是引數列表
+		     的備份，每次請求參屬性時都會重新構建。列表的修改被忽略 (
+		     但不適用於引數列表裡的容器: 類似於 |copy()| 而不是
+		     |deepcopy()|)。
+        self         `None` 或用作 self 字典的 |python-Dictionary| 物件。注意
+                     呼叫函式物件時顯式的 `self` 引數覆蓋此屬性。
+        auto_rebind  布林值。如果為真，此 Python 物件建立和在 Vim 腳本里存貯的
+		     字典裡的的偏函式會在此字典被訪問時自動重新繫結此字典。這
+		     體現了 Vim 內部 `dict.func` (auto_rebind=True) 和
+		     `function(dict.func,dict)` (auto_rebind=False) 的差異。
+		     如果 `self` 屬性為 `None`，此屬性無意義。
+
+    建構函式額外接受 `args`、`self` 和 `auto_rebind` 關鍵字。如果給出 `args`
+    和/或 `self` 引數，構造偏函式，見 |function()|。只有給定 `self` 時才使用
+    `auto_rebind`，否則無論是否給出，總是假定為 `True`。如果給出 `self`，預設
+    為 `False`。
 
     示例: >
         f = vim.Function('tr')			# 建構函式
@@ -602,27 +627,43 @@ vim.Function 物件				*python-Function*
         print f(self={})			# 相當於 call('DictFun', [], {})
         print isinstance(f, vim.Function)	# True
 
-==============================================================================
-8. pyeval() 和 py3eval() Vim 函數			*python-pyeval*
+        p = vim.Function('DictFun', self={})
+        print f()
+        p = vim.Function('tr', args=['abc', 'a'])
+        print f('b')
 
-為了訪問雙向介面的方便，可用 |pyeval()| 和 |py3eval()| 函數來計算 Python 表達
-式然後返回計算結果給 Vim。
+==============================================================================
+8. pyeval() 和 py3eval() Vim 函式			*python-pyeval*
+
+為了訪問雙向介面的方便，可用 |pyeval()| 和 |py3eval()| 函式來計算 Python 表達
+式然後返回計算結果給 Vim 指令碼。也可用 |pyxeval()|。
 
 ==============================================================================
 9. 動態調入						*python-dynamic*
 
-MS-Windows 上，可以動態調入 Python 庫。|:version| 輸出這時應包括
-|+python/dyn|。
+MS-Windows 和 Unix 上，可以動態調入 Python 庫。|:version| 輸出這時應包括
+|+python/dyn| 或 |+python3/dyn|。
 
-這意味著 Vim 只有在必要時才尋找 Python DLL 檔案。如果不使用 Python 介面，你就
-不需要它。這樣，即使沒有該 DLL 檔案，你也可使用 Vim。
+這意味著 Vim 只有在必要時才尋找 Python DLL 檔案或共享庫。如果不使用 Python 接
+口，你就不需要它。這樣，即使沒有該檔案，你也可使用 Vim。
 
-要使用 Python 介面，Python DLL 必須在搜索路徑上。控制檯視窗裡輸入 "path" 可以
-看到 (搜索路徑) 當前使用的目錄。
 
-DLL 的名字必須匹配 Vim 編譯時所使用的 Python 版本。目前，該名字為
-"python24.dll"，也就是 Python 2.4。要確信這一點，編輯 "gvim.exe" 檔案並查找
-"python\d*.dll\c"。
+MS-Windows ~
+
+要使用 Python 介面，Python DLL 必須在搜尋路徑上。控制檯窗口裡輸入 "path" 可以
+看到 (搜尋路徑) 當前使用的目錄。也可用 'pythondll' 或 'pythonthreedll' 選項來
+指定 Python DLL。
+
+DLL 的名字應該匹配 Vim 編譯時所使用的 Python 版本。目前，用於 Python 2 的名字
+為 "python27.dll"，也就是 Python 2.7。用於 Python 3 的是 python35.dll (Python
+3.5)。要確信這一點，編輯 "gvim.exe" 檔案並查詢 "python\d*.dll\c"。
+
+
+Unix ~
+
+'pythondll' 或 'pythonthreedll' 選項可用來指定 Python 共享庫檔案，而不用編譯時
+指定的 DYNAMIC_PYTHON_DLL 或 DYNAMIC_PYTHON3_DLL 檔案。共享庫的版本必須和 Vim
+編譯使用的 Python 2.x 或 Python 3 版本保持一致。
 
 ==============================================================================
 10. Python 3						*python3*
@@ -631,9 +672,13 @@ DLL 的名字必須匹配 Vim 編譯時所使用的 Python 版本。目前，該
 `:py3` 和 `:python3` 命令和 `:python` 類似。判斷 `:py3` 命令是否可用的一個簡單
 檢查: >
 	:py3 print("Hello")
+
+要看執行的 Python 版本: >
+	:py3 import sys
+	:py3 print(sys.version)
 <							*:py3file*
 `:py3file` 命令和 `:pyfile` 類似。
-							*:py3do* *E863*
+							*:py3do*
 `:py3do` 命令和 `:pydo` 類似。
 
 
@@ -647,8 +692,8 @@ Vim 可以用四種方式編譯 (:version 輸出結果):
 
 要同時支援 Python 2 和 Python 3，兩者必須都是動態載入。
 
-在 Linux/Unix 系統上用這種方式並匯入全局符號的時候，使用第二個 Python 版本會導
-致系統崩潰。所以，要麼載入全局符號但只啟用一個 Python 版本，要麼考慮不載入全局
+在 Linux/Unix 系統上用這種方式並匯入全域性符號的時候，使用第二個 Python 版本會導
+致系統崩潰。所以，要麼載入全域性符號但只啟用一個 Python 版本，要麼考慮不載入全域性
 符號。後者使 Python 匯入 ("import") 某些期待 Vim 提供某些符號的庫的時候會失
 敗。
 							*E836* *E837*
@@ -660,14 +705,14 @@ Vim 的配置指令碼根據一個特定的 Python 標準庫 (termios) 對所有
 --enable-shared 進行配置，兩者會同時啟用。但沒有連結進 libPython 的第三方庫仍
 然會有問題。
 
-要迴避這些問題，有以下幾個方案:
+要回避這些問題，有以下幾個方案:
 1. 重新編譯有問題的庫，把它連結進相應的 libpython.so 裡。
 2. 重新編譯 Vim，只用一個 Python 版本。
 3. 配置完後，撤銷 auto/config.h 中 PY_NO_RTLD_GLOBAL 的定義。這可能會使 Vim 崩
    潰。
 
 							*E880*
-從 python 拋出 SystemExit 例外不是退出 vim 的好方法，要用: >
+從 python 丟擲 SystemExit 例外不是退出 vim 的好方法，要用: >
 	:py vim.command("qall!")
 <
 
@@ -682,6 +727,86 @@ Vim 的配置指令碼根據一個特定的 Python 標準庫 (termios) 對所有
 注意 不過，當 Python 2 和 3 同時存在且都是動態載入，這些 has() 呼叫會試圖載入
 它們。如果兩個版本不能同時載入，單單對 Python 2 或 3 是否可用的檢查就會導致另
 一個版本不能調入。
+
+==============================================================================
+11. Python X						*python_x* *pythonx*
+
+大多數 python 程式碼可以用 python 2.6+ 和 python 3 相容的方式編寫，因而我們提供
+了 pyx+ 函式和命令。其工作方式和 Python 2 和 3 變種完全相同，但根據
+'pyxversion' 設定選擇 Python 版本。
+
+應在 |.vimrc| 中設定 'pyxversion'，可為 Python 命令選擇 Python 2 或 Python 3。
+如果在執行時改變此設定，可能會冒丟失外掛狀態 (如初始化) 的風險。
+
+要用的模組可放在 {rtp}/pythonx 目錄裡。見 |pythonx-directory|。
+
+							*:pyx* *:pythonx*
+`:pyx` 和 `:pythonx` 命令的工作方式類似於 `:python`。要看 `:pyx` 命令是否可用
+的簡單檢查: >
+	:pyx print("Hello")
+
+要看執行的 Python 版本: >
+	:pyx import sys
+	:pyx print(sys.version)
+<
+					*:pyxfile* *python_x-special-comments*
+`:pyxfile` 命令的工作方式類似於 `:pyfile`。不過你可以加上以下注釋之一強制 Vim
+使用 `:pyfile` 或 `:py3file`: >
+  #!/任何字串/python2		" Shebang。必須是檔案的首行。
+  #!/任何字串/python3		" Shebang。必須是檔案的首行。
+  # requires python 2.x		" 最大行數取決於 'modelines'。
+  # requires python 3.x		" 最大行數取決於 'modelines'。
+和普通模式行不同，不檢查檔案尾部。如果找不到這樣註釋，使用 'pyxversion' 設定。
+							*W20* *W21*
+如果 Vim 不支援所選的 Python 版本，安靜地列印一行訊息。用 `:messages` 可讀該消
+息。
+
+							*:pyxdo*
+`:pyxdo` 命令的工作方式類似於 `:pydo`。
+
+							*has-pythonx*
+可以這樣測試 pyx* 系列命令是否可用: >
+	if has('pythonx')
+	  echo 'pyx* 命令可用. (Python ' . &pyx . ')'
+	endif
+
+如果編譯時只有 |+python| 或 |+python3| 之一，has() 返回 1。
+如果編譯時 |+python| 和 |+python3| 兩者兼有，測試結果取決於 'pyxversion' 設
+置。如果 'pyxversion' 為 0，先測試 Python 3，如果不可用再測試 Python 2。如果
+'pyxversion' 為 2 或 3，只測試對應的 Python 2 或 3。
+
+注意 為了使 `has('pythonx')` 能工作，可能會試圖動態載入 Python 3 或 2。這可能
+有副作用，尤其是 Vim 只能載入兩者之一的時候。
+
+如果使用者希望首選 Python 2 而使用 Python 3 作後備，需要在 |.vimrc| 裡顯式設定
+'pyxversion'。例如: >
+	if has('python')
+	  set pyx=2
+	elseif has('python3')
+	  set pyx=3
+	endif
+
+==============================================================================
+12. 編譯時帶 Python 支援				*python-building*
+
+編譯時帶 Python 2 或 3 支援的若干提示。
+
+UNIX
+
+關於如何開啟 Python 介面的支援，見 src/Makefile。
+
+Ubuntu 上需要為 Python 2 安裝以下包:
+	python
+	python-dev
+Python 3:
+	python3
+	pytyon3-dev
+Python 3.6:
+	python3.6
+	pytyon3.6-dev
+
+如果有多於一個 Python 3 版本，在執行 configure 前連結 python3 到你選擇的那
+個版本。
 
 ==============================================================================
  vim:tw=78:ts=8:ft=help:norl:

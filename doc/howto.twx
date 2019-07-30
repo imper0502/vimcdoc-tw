@@ -1,7 +1,7 @@
-*howto.txt*	For Vim version 7.4.  最近更新: 2006年5月
+*howto.txt*	For Vim version 8.0.  最近更新: 2006年5月
 
 
-		     Vim 參考手冊    作者: Bram Moolenaar
+		  VIM 參考手冊    by Bram Moolenaar
 	   譯者: iCrazy <icrazy@ustc.edu>  http://vimcdoc.sf.net
 
 
@@ -38,10 +38,10 @@
 |object-select|		基於文字物件的選擇
 |'whichwrap'|		移動時跳過換行符
 |'virtualedit'|		移動到沒有文字的地方
-|usr_27.txt|		指定查找的模式
-|tags-and-searches|	進行標籤和特殊查找
-|29.4|			在包含檔案中查找變數、函數或宏
-|K|			查找游標處關鍵詞的手冊頁
+|usr_27.txt|		指定查詢的模式
+|tags-and-searches|	進行標籤和特殊查詢
+|29.4|			在包含檔案中查詢變數、函式或巨集
+|K|			查詢游標處關鍵詞的手冊頁
 
 |03.7|			滾屏
 |'sidescroll'|		水平/豎直方向滾屏
@@ -52,10 +52,10 @@
 |'insertmode'|		以插入模式啟動 Vim
 
 |40.1|			對映熱鍵
-|24.7|			創建縮寫
+|24.7|			建立縮寫
 
-|ins-expandtab|		在插入模式下用空格擴展製表符
-|i_CTRL-R|		在插入模式下插入寄存器的內容
+|ins-expandtab|		在插入模式下用空格擴充套件製表符
+|i_CTRL-R|		在插入模式下插入暫存器的內容
 |24.3|			在插入模式下自動補全單詞
 |25.1|			斷開過長的行
 
@@ -74,7 +74,7 @@
 |term-dependent-settings| 設定依賴於終端名稱的選項
 |save-settings|		儲存設定
 |:quote|		對我的 .vim 檔案進行註釋
-|'helpheight'|		調整默認的幫助高度
+|'helpheight'|		調整預設的幫助高度
 |'highlight'|		設定各種高亮模式
 |'title'|		設定視窗標題
 |'icon'|		設定視窗圖示標題

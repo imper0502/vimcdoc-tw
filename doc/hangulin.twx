@@ -1,16 +1,14 @@
-*hangulin.txt*  For Vim version 7.4.  最近更新: 2010年5月
+*hangulin.txt*  For Vim version 8.0.  最近更新: 2017年7月
 
 
 		  VIM 參考手冊	By Chi-Deok Hwang and Sung-Hyun Nam
 				譯者: Willis
 				http://vimcdoc.sf.net
 
-注意: |+hangul_input| 特性即將被刪除。如果你希望保留，請給 Vim 使用者郵件列表發
-信！
 
 簡介						*hangul*
 ------------
-我們的目的是能夠在 VIM 的 GUI 版本中輸入 Hangul，韓國語的一種書寫方式。如果你
+我們的目的是能夠在 Vim 的 GUI 版本中輸入 Hangul，韓國語的一種書寫方式。如果你
 有 XIM 程式，那麼你可以用另外一個 |+xim| 特性。基本上，這個程式是給那些沒有
 XIM 程式的人用的。
 
@@ -18,31 +16,34 @@ XIM 程式的人用的。
 -------
 下面用的是些簡單的選項。你可以加上其它配置選項。 >
 
-   ./configure --with-x --enable-multibyte --enable-fontset --enable-hangulinput
+   ./configure --with-x --enable-multibyte --enable-hangulinput \
+            --disable-xim
 
 你現在應該檢視 feature.h。如果 |+hangul_input| 特性在配置時已經加入，你可以設
-置更多的選項: 如把鍵盤類型設為 2 bulsik 或者 3 bulsik。在這裡，你可以找到類似
+置更多的選項: 如把鍵盤型別設為 2 bulsik 或者 3 bulsik。在這裡，你可以找到類似
 於下述例子中的關鍵字。 >
 
 	#define HANGUL_DEFAULT_KEYBOARD 2
 	#define ESC_CHG_TO_ENG_MODE
 	/* #define X_LOCALE */
-	/* #define SLOW_XSERVER */
 
 環境變數
 ---------------------
-你應該設定 LANG 環境變數為韓國 locale，比如 ko 或者 ko_KR.euc。如果你設定了
-LC_ALL 環境變數，它應該也被設成韓國 locale。
+你應該設定 LANG 環境變數為韓國 locale，比如 ko、ko_KR、eucKR 或 ko_KR.UTF-8。
+如果你設定了 LC_ALL 環境變數，它應該也被設成韓國 locale。
 
-VIM 資源
+Vim 資源
 ------------
-你應該把下面的內容加到你自己全局的 vimrc ($HOME/.vimrc)。 >
+你可能要設定 'encoding' 和 'fileencodings'。
+下面有些例子: >
 
-	:set fileencoding=korea
+	:set encoding=euc-kr
+	:set encoding=utf-8
+	:set fileencodings=ucs-bom,utf-8,cp949,euc-kr,latin1
 
 鍵盤
 --------
-你可以通過修改 VIM_KEYWORD 或是 HANGUL_KEYBOARD_TYPE 環境變數改變你的鍵盤類型
+你可以通過修改 VIM_KEYWORD 或是 HANGUL_KEYBOARD_TYPE 環境變數改變你的鍵盤型別
 (2 bulsik 或是 3 bulsik)。在 sh 裡，只要這麼做 (2 bulsik): >
 
     export VIM_KEYBOARD="2"
@@ -53,8 +54,16 @@ or >
 
 Hangul 字型
 ------------
-你可以通過 $HOME/.Xdefaults 或自己的 .gvimrc 修改文字字型。不過對於 Hangul，你
-應該修改你自己的 vimrc 的 'guifontset'。
+如果用 GTK 版本的 gvim，應該設定 'guifont' 和 'guifontwide'。
+例如: >
+    set guifont=Courier\ 12
+    set guifontwide=NanumGothicCoding\ 12
+
+如果用 Motif 或 Athena 版本的 gvim，應該在 vimrc 中設定 'guifontset'。可以
+在 .Xdefaults 檔案裡設定字型集。
+
+$HOME/.gvimrc: >
+    set guifontset=english_font,hangul_font
 
 $HOME/.Xdefaults: >
     Vim.font: english_font
@@ -67,39 +76,35 @@ $HOME/.Xdefaults: >
     *international: True
     Vim*fontList: english_font;hangul_font:
 
-$HOME/.gvimrc: >
-    set guifontset=english_font,hangul_font
-
 要 注意 其中用的是 , (逗號) 還是 ; (分號)。
 
-還有，不要設 ':set guifont'。如果這項存在，那麼 Gvim 忽略 ':set guifontset'。
-這就意味著 VIM 不會提供 fontset 的支援，從而只有英語會正確顯示，Hangul 就不會
-了。
+還有，不要設 ':set guifont'。如果這項存在，那麼 gvim 忽略 ':set guifontset'。
+這就意味著 Vim 不會提供字型集的支援，從而只有英語會正確顯示，Hangul 就不會了。
 
-在 'fontset' 特性被開啟後，VIM 不再允許使用 'font'。比如，如果你在 .gvimrc 裡
-用 >
+在 "fontset" 特性被開啟後，Vim 不再允許設定語法高亮的 "font" 為純英語字型。
+比如，如果你在 .gvimrc 裡用 >
    :set guifontset=eng_font,your_font
 那麼你的語法高亮應該這樣寫  >
    :hi Comment guifg=Cyan font=another_eng_font,another_your_font
 如果你只是這麼寫  >
    :hi Comment font=another_eng_font
-那麼你會看到一個_很好的_錯誤資訊。要 注意 ！
+那麼你會看到錯誤資訊。要 注意 ！
 
 hangul 字型 hangul_font 的寬度應該是英語字型 english_font 的寬度的兩倍。
 
 尚未支援的特性
 -------------------
-Johab 字型還沒能得到支援。我還沒有這方面的計劃。如果你確實想用 johab 字型，
-你可以看看 gau 包裡的 hanguldraw.c。
+不支援 Johab 字型。
+不支援 Hanja 字型。
+我們沒有這方面的計劃。
 
-Hanja 輸入還沒有支援。我也沒有這方面計劃。如果你確實想輸入 Hanja，在 hanterm
-上使用 VIM。
+如果你確實想要這些特性，可以用控制檯版本的 Vim，配上支援的終端模擬。
 
 漏洞或者意見
 --------------
 請將意見、補丁和建議送到:
 
-				    Chi-Deok Hwang <hwang@mizi.co.kr>
 				    SungHyun Nam <goweol@gmail.com>
+				    Chi-Deok Hwang <...>
 
  vim:tw=78:ts=8:ft=help:norl:

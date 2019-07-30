@@ -1,7 +1,7 @@
-*pi_gzip.txt*	For Vim version 7.4.  最近更新: 2013年8月
+*pi_gzip.txt*	For Vim version 8.0.  最近更新: 2017年8月
 
 
-		     Vim 參考手冊    作者: Bram Moolenaar
+		  VIM 參考手冊    by Bram Moolenaar
 	   譯者: iCrazy <icrazy@ustc.edu>  http://vimcdoc.sf.net
 
 
@@ -10,8 +10,8 @@
 1. 自動命令			|gzip-autocmd|
 
 這裡涉及到的功能是一個 |standard-plugin|。
-這個插件僅在 'compatible' 選項沒有被置位的情況下有效。
-您可以通過設定變數 "loaded_gzip" 來避免裝載這個插件:
+這個外掛僅在 'compatible' 選項沒有被置位的情況下有效。
+您可以通過設定變數 "loaded_gzip" 來避免裝載這個外掛:
 	:let loaded_gzip = 1
 
 {Vi 沒有以上的功能}
@@ -19,7 +19,7 @@
 ==============================================================================
 1. 自動命令						*gzip-autocmd*
 
-這個插件建立自動命令來截獲對具有以下副檔名的檔案的讀寫:
+這個外掛建立自動命令來截獲對具有以下副檔名的檔案的讀寫:
 
 	副檔名		壓縮格式 ~
 	*.Z		compress (Lempel-Ziv)
@@ -27,8 +27,10 @@
 	*.bz2		bzip2
 	*.lzma		lzma
 	*.xz		xz
+	*.lz		lzip
+	*.zst		zstd
 
-您僅僅知道這些就已經足夠了，此插件沒有選項。
+您僅僅知道這些就已經足夠了，此外掛沒有選項。
 
 在解壓縮一個檔案之後，會自動重新檢測檔案格式。這樣可能會使一個類似 "foo.c.gz"
 的檔案具有 "c" 的檔案格式。

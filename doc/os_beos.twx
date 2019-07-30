@@ -1,4 +1,4 @@
-*os_beos.txt*	For Vim version 7.4.  最近修改: 2006年2月
+*os_beos.txt*	For Vim version 8.0.  最近更新: 2017年8月
 
 
 		  VIM 參考手冊    by Bram Moolenaar
@@ -29,7 +29,7 @@
 
 1. 通用							*beos-general*
 
-一般，語法高亮用不同的前景色高亮不同的項目。這特別適用於深色背景和淺色前景的終
+一般，語法高亮用不同的前景色高亮不同的專案。這特別適用於深色背景和淺色前景的終
 端視窗。有些中等灰色的背景 (比如 (r,g,b)=(168,168,168)) 也不錯。如果你用預設的
 淺色背景和深色字元，那麼倒轉前景和背景的設定概念也許看起來會舒服許多。要這麼
 做，把以下的內容加到你的 .vimrc 檔案裡 (其中的 <Esc> 需要被換成實際的 escape
@@ -52,7 +52,7 @@ CC=$BE_C_COMPILER CFLAGS="$BE_DEFAULT_C_FLAGS -O7" \
 
 $BE_C_COMPILER 通常是 "mwcc"，$BE_DEFAULT_C_FLAGS 通常是 "-I- -I."
 
-如果已經運行過 configure，你又想加上 GUI 支援，那你必須編輯 config.mk 檔案，使
+如果已經執行過 configure，你又想加上 GUI 支援，那你必須編輯 config.mk 檔案，使
 得含有 GUI_xxx 的行指向 $(BEOSGUI_xxx) 而不是 $(NONE_xxx)。
 或者，你也可以在 Makefile 裡作此改動；這樣的效果更持久一點。找找看 "NONE_"。
 
@@ -79,9 +79,9 @@ vim-5.0s/{*.vim,doc,syntax} 複製到 $HOME/config/share/vim。為了完整起�
 需要把 nroff 的手冊頁面複製到 $HOME/config/man/man1。不要忘了 ctags/ctags 和
 xxd/xxd！
 
-明顯地，你需要用實際沒有限制的連線器實際連線 Vim。參見
+明顯地，你需要用實際沒有限制的聯結器實際連線 Vim。參見
 http://www.metrowerks.com 瞭解如果購買 BeOS 的 CodeWarrior 編譯器。目前還沒有
-其他可用的連線器。
+其他可用的聯結器。
 
 即使你有合適的檔案，以上步驟並不能包含 Perl 或者 Python 介面。|beos-perl|
 
@@ -106,7 +106,7 @@ http://www.metrowerks.com 瞭解如果購買 BeOS 的 CodeWarrior 編譯器。�
 							*beos-unicode*
 4. Unicode 還是 Latin1					*beos-utf8*
 
-BeOS 用 Unicode 和 UTF-8 來編碼文字字元串 (16-位字元編碼成 8-位字元)。Vim 假定
+BeOS 用 Unicode 和 UTF-8 來編碼文字字串 (16-位字元編碼成 8-位字元)。Vim 假定
 你用 ISO-Latin1 或者其他 8-位 字元程式碼。這對非 ASCII 的字元會產生意外的結果。
 試試命令 :digraphs 你就知道了。如果看起來一團亂，用 :set isprint=@ 可以少許改
 進對 ISO-Latin1 128-255 字元的顯示。如果你有合適的字型 (見後)，GUI 的情況會好
@@ -119,7 +119,7 @@ filename) 或者相反 (xtou -t iso1 filename)。
 5. BeOS GUI						*beos-gui*
 
 不再包含 BeOS GUI 的程式碼。有相當長的時間沒有人維護，很有可能已經不能用。如果你
-需要，從 Vim 6.x 版本中合並進相應的程式碼。
+需要，從 Vim 6.x 版本中合併進相應的程式碼。
 
 
 6。$VIM 目錄						*beos-vimdir*
@@ -128,7 +128,7 @@ $VIM 代表 Vim 支援檔案所在的位置。它的預設值在編譯時被確�
 
   :version
 
-一般，它的值是 /boot/home/config/share/vim。如果你不喜歡，你可以設定 VIM 環境
+一般，它的值是 /boot/home/config/share/vim。如果你不喜歡，你可以設定 Vim 環境
 變數來改變預設的設定，或者在你的 .vimrc 裡設定 'helpfile': >
 
   :if version >= 500
@@ -142,17 +142,17 @@ $VIM 代表 Vim 支援檔案所在的位置。它的預設值在編譯時被確�
 你可以把檔案和目錄拖放在 Vim 圖示上 (從而啟動一個新的 Vim 會話，除非你用檔案類
 型應用把 Vim 設為 "單次啟動") 或者放在 Vim 視窗上 (從而開始編輯檔案)。拖放一個
 目錄則改變 Vim 的當前工作目錄為此目錄。|:cd| |:pwd| 如果你在拖放的時候按住
-SHIFT，Vim 把當前目錄改變為放置的第一個項目所在的目錄。如果啟動新的 Vim，那就
+SHIFT，Vim 把當前目錄改變為放置的第一個專案所在的目錄。如果啟動新的 Vim，那就
 不需要按 shift 了: Vim 會做同樣的事情。
 
-放置檔案時設定當前的參數列表。|argument-list|
+放置檔案時設定當前的引數列表。|argument-list|
 
 
 8. 單次啟動還是多次啟動					*beos-launch*
 
-釋出時，Vim 的應用程式標誌位 (在檔案類型設定裡) 設為多次啟動。如果你願意，你可
+釋出時，Vim 的應用程式標誌位 (在檔案型別設定裡) 設為多次啟動。如果你願意，你可
 以把它們改為單次啟動。這樣，試圖啟動第二個 Vim 程式時會用第一個 Vim 開啟相應的
-檔案。這在 Tracker 和命令列下都適用。後者不支援非檔案 (選項) 的參數。
+檔案。這在 Tracker 和命令列下都適用。後者不支援非檔案 (選項) 的引數。
 
 NB: 只有 GUI 版本 有 BApplication (從而有應用程式標誌位)。這一節不適用於沒有
 GUI 的版本，如果你自己編譯一個的話。
@@ -224,7 +224,8 @@ Vim 把滑鼠按鈕分別稱為 LeftMouse、MiddleMouse 和 RightMouse。如果�
     Button 3 -> MiddleMouse。
 
 如果你的滑鼠沒有三個按鈕，你可以用滑鼠鍵擊和若干修飾符來定義自己的滑鼠按鈕。例
-見 vim-5.x/macros/swapmous.vim。			|gui-mouse-mapping|
+見 swapmouse 包:					 |gui-mouse-mapping|
+$VIMRUNTIME/pack/dist/opt/swapmouse/plugin/swapmouse.vim
 
 
 12. 色彩名稱						*beos-colors*
@@ -237,7 +238,7 @@ Vim 有一些內建的色彩名稱。附加的名字則從 $VIMRUNTIME/rgb.txt �
 
 帶 Perl 支援的編譯需要一點技巧。Metrowerks 編譯器在找尋包含檔案的位置上想法有
 些與眾不同。因為有些 Perl 的包含檔案和有些 Vim 的標頭檔案重名，錯誤的檔案被包含
-了。要修正這個問題，運行如下在 vim-5.0/src 目錄的 Perl 指令碼: >
+了。要修正這個問題，執行如下在 vim-5.0/src 目錄的 Perl 指令碼: >
 
    preproc.pl > perl.h
 
@@ -275,7 +276,7 @@ Vim 有一些內建的色彩名稱。附加的名字則從 $VIMRUNTIME/rgb.txt �
     chdir     $Config{installarchlib}."/CORE";
     doinclude "perl.h";
 
-它會只用其他的 Perl 標頭檔案來擴展 "perl.h" 標頭檔案。
+它會只用其他的 Perl 標頭檔案來擴充套件 "perl.h" 標頭檔案。
 
 現在，你可以用 --enable-perlinterp 選項 configure 和 make Vim。不過，要提醒的
 是，這會給 Vim 增加 616 千位元組的大小！沒有 Perl 的支援，帶著預設的特性和 GUI

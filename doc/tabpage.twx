@@ -1,4 +1,4 @@
-*tabpage.txt*   For Vim version 7.4.  最近更新: 2013年8月
+*tabpage.txt*   For Vim version 8.0.  最近更新: 2017年8月
 
 
 		  VIM 參考手冊	  by Bram Moolenaar
@@ -13,7 +13,7 @@
 
 1. 簡介				|tab-page-intro|
 2. 命令				|tab-page-commands|
-3. 其它項目			|tab-page-other|
+3. 其它專案			|tab-page-other|
 4. 設定 'tabline'		|setting-tabline|
 5. 設定 'guitablabel'		|setting-guitablabel|
 
@@ -33,7 +33,7 @@
 |:ball| (除非用 |:tab| 修飾符)。
 下面會列出那些能意識到有其它標籤頁存在的命令。
 
-標籤頁也是臨時編輯某個緩衝區而不用修改當前視窗佈局的好方法。只要開啟新標籤頁，
+標籤頁也是臨時編輯某個緩衝區而不用修改當前窗口布局的好方法。只要開啟新標籤頁，
 做你想做的事，然後關閉該標籤頁就可以了。
 
 ==============================================================================
@@ -41,7 +41,7 @@
 
 打 開 新 標 籤 頁:
 
-啟動 Vim 時用 "vim -p filename ..." 為每個檔案參數開啟一個新標籤頁 (標籤頁個數
+啟動 Vim 時用 "vim -p filename ..." 為每個檔案引數開啟一個新標籤頁 (標籤頁個數
 不能超過 'tabpagemax')。見 |-p|
 
 非 GUI 標籤頁行上雙擊滑鼠開啟新的空白標籤頁。該標籤頁出現在點選位置的左側。第
@@ -52,30 +52,44 @@
 
 GUI 標籤頁行可以用滑鼠右鍵開啟選單。|tabline-menu|。
 
+相關的自動命令可見 |tabnew-autocmd|。
+
 :[count]tabe[dit]				*:tabe* *:tabedit* *:tabnew*
 :[count]tabnew
-		在當前標籤頁之後開啟帶空視窗的新標籤頁。關於 [count] 見下面的
-		|:tab|。
+		在當前標籤頁之後開啟帶空視窗的新標籤頁。
+		如果給出 [count]，新標籤頁出現在第 [count] 個標籤頁之後，否則
+		新標籤頁出現在當前頁之後。 >
+		    :tabnew	" 在當前頁之後開啟標籤頁
+		    :.tabnew	" 同上
+		    :+tabnew	" 在下頁之後開啟標籤頁
+				" 備註: 這比 :tabnew 要後一個位置
+		    :-tabnew	" 在當前頁之前開啟標籤頁
+		    :0tabnew	" 在首頁之前開啟標籤頁
+		    :$tabnew	" 在末頁之後開啟標籤頁
 
 :[count]tabe[dit] [++opt] [+cmd] {file}
 :[count]tabnew [++opt] [+cmd] {file}
 		開啟新標籤頁並編輯 {file}，其餘和 |:edit| 類同。關於 [count]
-		見下面的 |:tab|。
+		見上面的 |:tabnew|。
 
 :[count]tabf[ind] [++opt] [+cmd] {file}			*:tabf* *:tabfind*
 		開啟新標籤頁並編輯 'path' 裡的 {file}，其餘和 |:find| 類同。關
-		於 [count] 見下面的 |:tab|。
-		{僅當編譯時加入 |+file_in_path| 特性纔有效}
+		於 [count] 見上面的 |:tabnew|。
+		{僅當編譯時加入 |+file_in_path| 特性才有效}
 
 :[count]tab {cmd}					*:tab*
 		執行 {cmd}，如果它開啟新視窗，使用新標籤頁代替。不能用於
 		|:diffsplit|、|:diffpatch|、|:execute| 和 |:normal|。
-		如果省略 [count]，標籤頁出現在當前標籤頁之後。
-		如果指定 [count]，新標籤頁出現在第 [count] 個標籤頁之後。
-		":0tab cmd" 使新標籤頁出現在第一個位置。
+		如果給出 [count]，新標籤頁出現在第 [count] 個標籤頁之後，否則
+		新標籤頁出現在當前頁之後。
 		例如: >
-			:tab split	" 在新標籤頁上開啟當前緩衝區
-			:tab help gt	" 開啟標籤頁顯示 "gt" 的幫助
+		    :tab split	    " 在新標籤頁上開啟當前緩衝區
+		    :tab help gt    " 開啟標籤頁顯示 "gt" 的幫助
+		    :.tab help gt   " 同上
+		    :+tab help	    " 在下頁之後開啟標籤頁顯示幫助
+		    :-tab help	    " 在當前頁之前開啟標籤頁顯示幫助
+		    :0tab help	    " 在首頁之前開啟標籤頁顯示幫助
+		    :$tab help	    " 在末頁之後開啟標籤頁顯示幫助
 
 CTRL-W gf	開啟新標籤頁並編輯游標所在的檔名。見 |CTRL-W_gf|。
 
@@ -96,10 +110,20 @@ CTRL-W gF	開啟新標籤頁，編輯游標所在的檔名並轉到檔名後的�
 		- 如果 'hidden' 沒有置位，沒有 [!]，緩衝區有修改，而且該緩衝區
 		  沒有其它視窗。
 		緩衝區的修改不會被寫入，也不會丟失。所以這可以說是個 "安全的"
-		命令。
+		命令。 >
+		    :tabclose	    " 關閉當前標籤頁
 
 :tabc[lose][!] {count}
-		關閉第 {count} 個標籤頁。失敗條件和上面的 `:tabclose` 相同。
+		關閉第 {count} 個標籤頁。失敗條件和上面的 `:tabclose` 相同。 >
+		    :-tabclose	    " 關閉上個標籤頁
+		    :+tabclose	    " 關閉下個標籤頁
+		    :1tabclose	    " 關閉首個標籤頁
+		    :$tabclose	    " 關閉末個標籤頁
+		    :tabclose -2    " 關閉往前第二個標籤頁
+		    :tabclose +	    " 關閉下個標籤頁
+		    :tabclose 3	    " 關閉第三個標籤頁
+		    :tabclose $	    " 關閉末個標籤頁
+<
 
 							*:tabo* *:tabonly*
 :tabo[nly][!]	關閉所有其它的標籤頁。
@@ -107,12 +131,26 @@ CTRL-W gF	開啟新標籤頁，編輯游標所在的檔名並轉到檔名後的�
 		如果沒有置位 'hidden' 但置位 'autowrite' 選項，寫回修改過的緩
 		衝區。否則，包含修改過的緩衝區的視窗不會被刪除。但如果給出
 		[!]，這些視窗成為隱藏。修改過的緩衝區永遠不會被放棄，所以永遠
-		不被丟失這些改動。
+		不被丟失這些改動。 >
+		    :tabonly	    " 關閉除了當前頁的所有標籤頁
+
+:{count}tabo[nly][!]
+:tabo[nly][!] {count}
+		關閉除了 {count} 以外的所有的標籤頁。 >
+		    :.tabonly	    " 同上
+		    :-tabonly	    " 關閉除了上一頁之外的所有標籤頁
+		    :+tabonly	    " 關閉除了下一頁之外的所有標籤頁
+		    :1tabonly	    " 關閉除了首頁之外的所有標籤頁
+		    :$tabonly	    " 關閉除了末頁之外的所有標籤頁
+		    :tabonly -	    " 關閉除了上一頁之外的所有標籤頁
+		    :tabonly +2     " 關閉除了往後第二頁之外的所有標籤頁
+		    :tabonly 1	    " 關閉除了首頁之外的所有標籤頁
+		    :tabonly $	    " 關閉除了末頁之外的所有標籤頁
 
 
 切 換 到 另 一 個 標 籤 頁:
 
-使用滑鼠: 如果顯示標籤頁行，某個標籤頁標簽上單擊可以切換到該標籤頁。沒有標籤的
+使用滑鼠: 如果顯示標籤頁行，某個標籤頁標籤上單擊可以切換到該標籤頁。沒有標籤的
 地方點選則轉到下一個標籤頁。|'tabline'|
 
 :tabn[ext]				*:tabn* *:tabnext* *gt*
@@ -120,9 +158,22 @@ CTRL-W gF	開啟新標籤頁，編輯游標所在的檔名並轉到檔名後的�
 gt					*i_CTRL-<PageDown>* *i_<C-PageDown>*
 		轉到下一個標籤頁。最後一個標籤頁則迴繞到第一個。
 
+:{count}tabn[ext]
 :tabn[ext] {count}
+		轉到第 {count} 個標籤頁。首個標籤頁編號為一。 >
+		    :-tabnext	" 轉到上個標籤頁
+		    :+tabnext	" 轉到下個標籤頁
+		    :+2tabnext	" 轉到往後第二個標籤頁
+		    :1tabnext	" 轉到首個標籤頁
+		    :$tabnext	" 轉到末個標籤頁
+		    :tabnext $	" 同上
+		    :tabnext -	" 轉到上個標籤頁
+		    :tabnext -1	" 同上
+		    :tabnext +	" 轉到下個標籤頁
+		    :tabnext +1	" 同上
+
 {count}<C-PageDown>
-{count}gt	轉到第 {count} 個標籤頁。首個標籤頁編號為 1。
+{count}gt	轉到第 {count} 個標籤頁。首個標籤頁編號為一。
 
 
 :tabp[revious]				*:tabp* *:tabprevious* *gT* *:tabN*
@@ -147,6 +198,13 @@ gT		轉到前一個標籤頁。首個標籤頁則迴繞到最後一個。
 :tabs		列出標籤頁和它們包含的視窗。
 		當前視窗顯示 ">"。
 		修改過的緩衝區顯示 "+"。
+		例如:
+			Tab page 1 ~
+			  + tabpage.txt ~
+			    ex_docmd.c ~
+			Tab page 2 ~
+			>   main.c ~
+
 
 
 重 新 排 列 標 籤 頁:
@@ -154,20 +212,34 @@ gT		轉到前一個標籤頁。首個標籤頁則迴繞到最後一個。
 :tabm[ove] [N]						*:tabm* *:tabmove*
 :[N]tabm[ove]
 		把當前標籤頁移到第 N 個標籤頁之後。用 0 使當前標籤頁成為首個標
-		籤頁。如果沒有 N，當前標籤頁成為最後一個。
+		籤頁。如果沒有 N，當前標籤頁成為最後一個。 >
+		    :.tabmove	" 什麼都不做
+		    :-tabmove	" 往左移動當前標籤頁
+		    :+tabmove	" 往右移動當前標籤頁
+		    :0tabmove	" 移動當前標籤頁到標籤頁之首
+		    :tabmove 0	" 同上
+		    :tabmove	" 移動當前標籤頁到標籤頁之末
+		    :$tabmove	" 同上
+		    :tabmove $	" 同上
 
 :tabm[ove] +[N]
 :tabm[ove] -[N]
-		移動當前標籤頁向右 (用 + 的話) 或向左 (用 - 的話) N 個位置。
+		移動當前標籤頁向右 (用 + 的話) 或向左 (用 - 的話) N 個位置。 >
+		    :tabmove -	" 往左移動當前標籤頁
+		    :tabmove -1	" 同上
+		    :tabmove +	" 往右移動當前標籤頁
+		    :tabmove +1	" 同上
 
-注意 儘管可以用 :Ntabmove 來移動標籤頁到第 N 個標籤頁之後，不能用 :+Ntabmove
-來移動 N 個位置。在此情形下 +N 的實際含義可見 |[range]| 處的解釋。
+注意 可以用 :Ntabmove 來移動標籤頁到第 N 個標籤頁之後，也可用 :+Ntabmove 來移
+動 N 個位置。在此情形下 +N 的實際含義可見 |[range]| 處的解釋。
 
 
 循 環 遍 歷 所 有 標 籤 頁:
 
 							*:tabd* *:tabdo*
-:tabd[o] {cmd}	對每個標籤頁執行 {cmd}。
+:[range]tabd[o] {cmd}
+		對每個標籤頁執行 {cmd}，如果給出 [range]，只對頁號在 [range]
+		內的標籤頁執行。
 		大致相當於: >
 			:tabfirst
 			:{cmd}
@@ -179,17 +251,18 @@ gT		轉到前一個標籤頁。首個標籤頁則迴繞到最後一個。
 		最後一個標籤頁 (或任何出錯的標籤頁) 成為當前標籤頁。
 		{cmd} 可以包含 '|' 以連線多個命令。
 		{cmd} 不能開啟標籤頁、關閉標籤頁或重排標籤頁。
-		{Vi 無此功能} {僅當編譯時加入 |+listcmds| 特性纔有效}
-		另見 |:windo|、|:argdo| 和 |:bufdo|。
+		{Vi 無此功能} {僅當編譯時加入 |+listcmds| 特性才有效}
+		另見 |:windo|、|:argdo|、|:bufdo|、|:cdo|、|:ldo|、|:cfdo| 和
+		|:lfdo|
 
 ==============================================================================
-3. 其它項目						*tab-page-other*
+3. 其它專案						*tab-page-other*
 
 							*tabline-menu*
-GUI 標籤頁行提供彈出選單。用右鍵點選可以訪問。它包含的項目有:
-	Close		關閉滑鼠指針所在的標籤頁。如果滑鼠指針不在任何標簽上，
+GUI 標籤頁行提供彈出選單。用右鍵點選可以訪問。它包含的專案有:
+	Close		關閉滑鼠指標所在的標籤頁。如果滑鼠指標不在任何標籤上，
 			關閉當前標籤頁。
-	New Tab		開啟新標籤頁並編輯空緩衝區。該標籤頁出現在滑鼠指針的左
+	New Tab		開啟新標籤頁並編輯空緩衝區。該標籤頁出現在滑鼠指標的左
 			側。
 	Open Tab...	類似於 "New Tab"，但同時提供檔案選擇器以選擇要編輯的文
 			件。
@@ -197,17 +270,18 @@ GUI 標籤頁行提供彈出選單。用右鍵點選可以訪問。它包含的�
 每個標籤頁對 diff 模式進行分別的處理。你可以在一個標籤頁上比較若干檔案。而在另
 一個標籤頁上比較不同的檔案。
 
-局部於標籤頁的變數以 "t:" 開頭。|tabpage-variable|
+區域性於標籤頁的變數以 "t:" 開頭。|tabpage-variable|
 
-目前只有一個局部於標籤頁的選項: 'cmdheight'。
+目前只有一個區域性於標籤頁的選項: 'cmdheight'。
 
+						*tabnew-autocmd*
 TabLeave 和 TabEnter 自動命令事件可以在標籤頁切換時執行任務。準確的順序取決於
 你做的事情。建立新標籤頁相當於先建立工作於同一緩衝區的新視窗，再在其上編輯別的
 緩衝區。所以，":tabnew" 依次啟用:
 	WinLeave		離開當前視窗
 	TabLeave		離開當前標籤頁
-	TabEnter		進入新標籤頁
 	WinEnter		進入新標籤頁的視窗
+	TabEnter		進入新標籤頁
 	BufLeave		離開當前緩衝區
 	BufEnter		進入新的空白緩衝區
 
@@ -236,13 +310,13 @@ TabLeave 和 TabEnter 自動命令事件可以在標籤頁切換時執行任務�
 'tabline' 選項允許你定義自己喜歡的標籤頁標籤顯示方式。實現並不簡單，所以這裡給
 出一個例子。
 
-基本知識見 'statusline' 選項。'tabline' 選項可以使用相同的項目。此外，還可用
-|tabpagebuflist()|、|tabpagenr()| 和 |tabpagewinnr()| 函數。
+基本知識見 'statusline' 選項。'tabline' 選項可以使用相同的專案。此外，還可用
+|tabpagebuflist()|、|tabpagenr()| 和 |tabpagewinnr()| 函式。
 
-因為標籤頁標籤的編號可以不同，你可以指定整個選項為一個函數。就像這樣: >
+因為標籤頁標籤的編號可以不同，你可以指定整個選項為一個函式。就像這樣: >
 	:set tabline=%!MyTabLine()
 
-然後定義 MyTabLine() 函數以列出所有標籤頁標籤。一個方便的方式是把該函數分成兩
+然後定義 MyTabLine() 函式以列出所有標籤頁標籤。一個方便的方式是把該函式分成兩
 部分: 首先遍歷所有的標籤頁並分別定義它們的標籤。然後得到每個標籤頁的標籤。 >
 
 	function MyTabLine()
@@ -273,7 +347,7 @@ TabLeave 和 TabEnter 自動命令事件可以在標籤頁切換時執行任務�
 	  return s
 	endfunction
 
-現在為每個標籤頁呼叫 MyTabLabel() 函數以得到它們的標籤。 >
+現在為每個標籤頁呼叫 MyTabLabel() 函式以得到它們的標籤。 >
 
 	function MyTabLabel(n)
 	  let buflist = tabpagebuflist(a:n)
@@ -291,17 +365,17 @@ TabLeave 和 TabEnter 自動命令事件可以在標籤頁切換時執行任務�
 如果顯示 GUI 的標籤頁行，'guitablabel' 可以用來指定每個標籤頁顯示的標籤。和
 'tabline' 不同，後者一次指定整個標籤頁行，而 'guitablabel' 分別指定每個標籤。
 
-'guitabtooltip' 與之非常類似，但用來設定同一標籤的工具提示。因為只有在滑鼠指針
-在標簽上逗留時它纔會出現，所以通常可以長一些。不過，只有部分系統支援。
+'guitabtooltip' 與之非常類似，但用來設定同一標籤的工具提示。因為只有在滑鼠指標
+在標籤上逗留時它才會出現，所以通常可以長一些。不過，只有部分系統支援。
 
 'statusline' 選項說明本選項值的格式。
 
-用 "%N" 項目可以得到當前的標籤頁號。計算此選項時，|v:lnum| 變數也設定為該值。
-使用檔名的項目引用當前標籤頁的當前視窗。
+用 "%N" 專案可以得到當前的標籤頁號。計算此選項時，|v:lnum| 變數也設定為該值。
+使用檔名的專案引用當前標籤頁的當前視窗。
 
-注意 此選項不使用語法高亮。也忽略 %T 和 %X 項目。
+注意 此選項不使用語法高亮。也忽略 %T 和 %X 專案。
 
-簡單示例，在標籤頁標簽上顯示標籤頁號和緩衝區名: >
+簡單示例，在標籤頁標籤上顯示標籤頁號和緩衝區名: >
 	:set guitablabel=%N\ %f
 
 模擬 'guitablabel' 預設值的示例: 顯示標籤頁裡的視窗數目，如果有修改過的緩衝
@@ -334,11 +408,11 @@ TabLeave 和 TabEnter 自動命令事件可以在標籤頁切換時執行任務�
 
 	set guitablabel=%{GuiTabLabel()}
 <
-注意 設定選項值前就必須已經定義好函數。否則會報錯，提示函數未知。
+注意 設定選項值前就必須已經定義好函式。否則會報錯，提示函式未知。
 
-如果你希望回到預設的標籤，返回空字元串。
+如果你希望回到預設的標籤，返回空字串。
 
-如果你希望顯示標籤頁特定的內容，可以使用局部於標籤頁的變數。|t:var|
+如果你希望顯示標籤頁特定的內容，可以使用區域性於標籤頁的變數。|t:var|
 
 
  vim:tw=78:ts=8:ft=help:norl:

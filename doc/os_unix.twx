@@ -1,7 +1,7 @@
-*os_unix.txt*   For Vim version 7.4.  最近更新: 2005年3月
+*os_unix.txt*   For Vim version 8.0.  最近更新: 2005年3月
 
 
-			VIM 使用者手冊  Bram Moolenaar 著
+		  VIM 參考手冊    by Bram Moolenaar
 		      譯者: yemao http://vimcdoc.sf.net
 
 
@@ -11,19 +11,19 @@
 首先，要在 Unix 上編譯 vim，請參考 src 目錄下的 "INSTALL" 檔案和 "Makefile" 文
 件。
 
-默認幫助檔名為 "/usr/local/lib/vim/help.txt"
+預設幫助檔名為 "/usr/local/lib/vim/help.txt"
 同時，vim 會使用 "$HOME/.vimrc" 和 "$HOME/.exrc" 而不是 "s:.vimrc" 和
 "s:.exrc"。另外它會首先使用 /usr/local/etc/vimrc 檔案。注意，如果
 "/usr/local/share" 已經存在，就會使用它來代替 "/usr/local/lib"。
 
-臨時檔案 (用於過濾程式) 默認會放在 "/tmp" 下，如果你想把它們放在別處，那麼必須
+臨時檔案 (用於過濾程式) 預設會放在 "/tmp" 下，如果你想把它們放在別處，那麼必須
 設定環境變數 $TMPDIR 為你放臨時檔案的目錄。
 
-通過擴展通配符，你可以使用 '~' (使用者主目錄) 及 '$' (系統環境變數)。
+通過擴充套件萬用字元，你可以使用 '~' (使用者主目錄) 及 '$' (系統環境變數)。
 
 							*fork* *spoon*
-執行外部命令時，會儘可能呼叫 fork()/exec()，不然會呼叫 system()。使用後者速度
-會有所減慢。正因為有兩個函數可以被呼叫，":version" 輸出資訊就有兩種，當呼叫
+執行外部命令時，會盡可能呼叫 fork()/exec()，不然會呼叫 system()。使用後者速度
+會有所減慢。正因為有兩個函式可以被呼叫，":version" 輸出資訊就有兩種，當呼叫
 fork()/exec() 時，輸出 |+fork|，否則輸出 |+system()|。編譯時可以修改。
 (GUI 上關於 fork (程序分叉) 的詳細資訊參考 |gui-fork|。)
 

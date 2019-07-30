@@ -1,31 +1,31 @@
-*usr_43.txt*	For Vim version 7.4.  最近更新: 2009年4月
+*usr_43.txt*	For Vim version 8.0.  最近更新: 2017年8月
 
-		     VIM USER MANUAL - by Bram Moolenaar
+		     VIM 使用者手冊 - by Bram Moolenaar
 		     譯者: lang2 http://vimcdoc.sf.net
 
-			       使用檔案類型
+			       使用檔案型別
 
 
-當你在編輯某一類型檔案時，例如一個 C 程式或者一個 shell 指令碼，你通常重複使用同
+當你在編輯某一型別檔案時，例如一個 C 程式或者一個 shell 指令碼，你通常重複使用同
 樣的設定和鍵盤對映。很快你就會對每一次都要手動設定這些感到厭煩。這一章就告訴你
 如果自動化這些設定。
 
-|43.1|	為一類檔案編寫的插件
-|43.2|	添加一個檔案類型
+|43.1|	為一類檔案編寫的外掛
+|43.2|	新增一個檔案型別
 
            後一章: |usr_44.txt|  自定義語法高亮
-           前一章: |usr_42.txt|  添加新的選單
+           前一章: |usr_42.txt|  新增新的選單
              目錄: |usr_toc.txt|
 
 ==============================================================================
-*43.1*	為一類檔案編寫的插件			*filetype-plugin*
+*43.1*	為一類檔案編寫的外掛			*filetype-plugin*
 
-如何使用檔案類型插件已經在 |add-filetype-plugin| 這裡討論過了。不過你很可能對
+如何使用檔案型別外掛已經在 |add-filetype-plugin| 這裡討論過了。不過你很可能對
 預設的最基本的設定不滿意。假定對於所有 C 檔案你希望將 'softtabstop' 選項定為 4
 並定義一個插入三行註釋的鍵盤對映。下面的兩步可以做到:
 
 							*your-runtime-dir*
-1. 創建你自己的運行時目錄。在 Unix 上通常是 "~/.vim"。在這個目錄下創建
+1. 建立你自己的執行時目錄。在 Unix 上通常是 "~/.vim"。在這個目錄下建立
    "ftplugin" 目錄: >
 
 	mkdir ~/.vim
@@ -40,13 +40,14 @@
    省值的話，你也可以在 |vimrc| 檔案裡把自己的目錄名加到 'runtimepath' 選項的
    最前面。
 
-2. 創建 "~/.vim/ftplugin/c.vim" 檔案，並加入以下內容: >
+2. 建立 "~/.vim/ftplugin/c.vim" 檔案，並加入以下內容: >
 
 	setlocal softtabstop=4
 	noremap <buffer> <LocalLeader>c o/**************<CR><CR>/<Esc>
+	let b:undo_ftplugin = "setl softtabstop< | unmap <buffer> <LocalLeader>c"
 
 現在試著編輯一個 C 檔案。你就會注意到 'softtabstop' 選項的值已經被設為 4 了。
-但是當你編輯另外的檔案的時候就會被復位到 0。那是因為用了 ":setlocal" 命令。這
+但是當你編輯另外的檔案的時候就會被複位到 0。那是因為用了 ":setlocal" 命令。這
 樣，對 'softtabstop' 選項的設定僅對本緩衝區有效。一旦你編輯另外一個檔案，該選
 項的值就會被設定成那個緩衝區的預設值，或者最近一次被 ":set" 命令設定的值。
 
@@ -54,29 +55,33 @@
 建立了一個僅對當前緩衝區有效的對映。其它對映命令 ":map!"，":vmap" 等也是如此。
 對映中的 |<LocalLeader>| 被 "maplocalleader" 變數的值所替代。
 
-在下面這個目錄裡你可以找到一些檔案類型插件的例子: >
+b:undo_ftplugin 的設定用於檔案型別被設成其它值的時候。那種情況下你會想撤銷自己
+的首選項。此 b:undo_ftplugin 變數作為命令執行。小心字串裡有特殊含義的字元，
+如反斜槓。
+
+在下面這個目錄裡你可以找到一些檔案型別外掛的例子: >
 
 	$VIMRUNTIME/ftplugin/
 
-進一步關於為某一類檔案編寫插件的知識可以在這裡讀到: |write-plugin|。
+進一步關於為某一類檔案編寫外掛的知識可以在這裡讀到: |write-plugin|。
 
 ==============================================================================
-*43.2*	添加一個檔案類型
+*43.2*	新增一個檔案型別
 
 如果你正在使用一種 Vim 不認識的檔案，這一節告訴你怎麼將這種檔案介紹給 Vim。你
-需要一個自己的運行時目錄。參閱上面的 |your-runtime-dir|。
+需要一個自己的執行時目錄。參閱上面的 |your-runtime-dir|。
 
-創建一個檔案 "filetype.vim" 並加入一個為你的檔案類型編寫的自動命令。(關於自動
+建立一個檔案 "filetype.vim" 並加入一個為你的檔案型別編寫的自動命令。(關於自動
 命令的闡述在 |40.3|。) 例: >
 
 	augroup filetypedetect
 	au BufNewFile,BufRead *.xyz	setf xyz
 	augroup END
 
-這樣所有以 ".xyz" 結尾的檔案將被認為 "xyz" 類型的檔案。":augroup" 命令將該自動
-命令加入到 "filetypedetect" 組。這樣做的作用是: 當使用者用 ":filetype off" 命令
-的命令時，所有檔案類型檢測的自動命令都被忽略掉。"setf" 命令將 'filetype' 選項
-設為該命令的參數，除非該選項已經被設定過。該命令保證 'filetype' 不會被重複設
+這樣所有以 ".xyz" 結尾的檔案將被認為 "xyz" 型別的檔案。":augroup" 命令將該自動
+命令加入到 "filetypedetect" 組。這樣做的作用是: 當用戶用 ":filetype off" 命令
+的命令時，所有檔案型別檢測的自動命令都被忽略掉。"setf" 命令將 'filetype' 選項
+設為該命令的引數，除非該選項已經被設定過。該命令保證 'filetype' 不會被重複設
 定。
 
 你可以使用各種各樣的模式來匹配你的檔名。也可以包括目錄名。見
@@ -98,18 +103,18 @@
 	au BufNewFile,BufRead *.txt			setf text
 	augroup END
 
-'runtimepath' 首先找到該檔案。最後纔是 ~/.vim/after/filetype.vim: >
+'runtimepath' 首先找到該檔案。最後才是 ~/.vim/after/filetype.vim: >
 
 	augroup filetypedetect
 	au BufNewFile,BufRead /usr/share/scripts/*	setf ruby
 	augroup END
 
-Vim 會在每一個 'runtimepath' 列出的目錄中查找 "filetype.vim" 檔案。先是
+Vim 會在每一個 'runtimepath' 列出的目錄中查詢 "filetype.vim" 檔案。先是
 ~/.vim/filetype.vim。匹配 *.txt 檔案的自動命令是在那裡定義的。接著 Vim 找到
 $VIMRUNTIME 中的 filetype.vim，因為該目錄在 'runtimepath' 的中部。最後才找到
-~/.vim/after/filetype.vim，然後其中檢測 ruby 檔案的自動命令才被添加到系統中。
+~/.vim/after/filetype.vim，然後其中檢測 ruby 檔案的自動命令才被新增到系統中。
    現在你在編輯 /usr/share/scripts/README.txt 時，自動命令是以其被定義的次序一
-一檢測的。因為匹配 *.txt 模式，這樣就會執行 "setf text" 命令，將檔案類型設定為
+一檢測的。因為匹配 *.txt 模式，這樣就會執行 "setf text" 命令，將檔案型別設定為
 "text"。之後 ruby 檔案的模式也匹配了，"setf ruby" 被執行。但是因為 'filetype'
 已經被設為 "text" 了，後者就什麼作用也不起了。
    當你編輯檔案 /usr/share/scripts/foobar 同樣的自動命令被檢測。但只有 ruby 文
@@ -118,12 +123,12 @@ $VIMRUNTIME 中的 filetype.vim，因為該目錄在 'runtimepath' 的中部。�
 
 依 內 容 而 定
 
-如果你的檔案無法以其檔名決定類型，你可以通過其內容來確定。例如，很多指令碼檔案
+如果你的檔案無法以其檔名決定型別，你可以通過其內容來確定。例如，很多指令碼檔案
 都是這樣開始的:
 
 	#!/bin/xyz ~
 
-為了認出這個指令碼，在你的運行時目錄 (和你的 filetype.vim 在同一個目錄) 下創建一
+為了認出這個指令碼，在你的執行時目錄 (和你的 filetype.vim 在同一個目錄) 下建立一
 個 "scripts.vim" 檔案。類似這樣: >
 
 	if did_filetype()
@@ -133,7 +138,7 @@ $VIMRUNTIME 中的 filetype.vim，因為該目錄在 'runtimepath' 的中部。�
 	  setf xyz
 	endif
 
-先用 did_filetype() 可以避免你無謂的檢查已經被檢測出檔案類型的檔案。這樣就不必
+先用 did_filetype() 可以避免你無謂的檢查已經被檢測出檔案型別的檔案。這樣就不必
 浪費時間了: "setf" 一點作用也沒有。
    scripts.vim 檔案被預設的 filetype.vim 檔案中的一個自動命令呼叫。因此，檢測
 的次序是:
@@ -145,7 +150,7 @@ $VIMRUNTIME 中的 filetype.vim，因為該目錄在 'runtimepath' 的中部。�
 	5. 'runtimepath' 內 $VIMRUNTIME 之後目錄中的 filetype.vim 檔案
 
 如果這樣對你還是不夠的話，加入一個匹配所有檔案的自動命令然後呼叫一個指令碼或者執
-行一個函數來檢查檔案的內容。
+行一個函式來檢查檔案的內容。
 
 ==============================================================================
 

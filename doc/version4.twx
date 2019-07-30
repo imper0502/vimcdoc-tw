@@ -1,4 +1,4 @@
-*version4.txt*  For Vim version 7.4.  最近改變: 2006年2月
+*version4.txt*  For Vim version 8.0.  最近更新: 2006年2月
 
 
 		  VIM 參考手冊    by Bram Moolenaar
@@ -14,7 +14,7 @@
 'backup' 選項改變預設值				|backup-changed|
 備份副檔名改變				|backup-extension|
 交換檔案結構改變				|swapfile-changed|
-"-w scriptout" 參數改變				|scriptout-changed|
+"-w scriptout" 引數改變				|scriptout-changed|
 退格和刪除鍵					|backspace-delete|
 | 轉義鍵改變					|escape-bar|
 鍵碼改變					|key-codes-changed|
@@ -55,8 +55,8 @@
 交換檔案結構改變					*swapfile-changed*
 ------------------------------
 
-交換檔案的內容增加了若干參數。Vim 儲存使用者名字和被編輯檔案的其它資訊，使得恢復
-更加容易，而且能知道交換檔案是從哪裡來的。交換檔案的第一部分可以識別位元組順序或
+交換檔案的內容增加了若干引數。Vim 儲存使用者名稱字和被編輯檔案的其它資訊，使得恢復
+更加容易，而且能知道交換檔案是從哪裡來的。交換檔案的第一部分可以識別字節順序或
 者 sizeof(int) 不同的機器，當你在這樣的機器上試圖恢復時，你會得到錯誤資訊，提
 示這不可能。
 
@@ -64,7 +64,7 @@
 檔案，用 Vim 3.0 恢復之---不要用 4.0。			|swap-file|
 
 
-"-w scriptout" 參數改變					*scriptout-changed*
+"-w scriptout" 引數改變					*scriptout-changed*
 -------------------------------
 
 "vim -w scriptout" 過去用來附加到 scriptout 檔案。因為這不合邏輯，現在它用來建
@@ -313,8 +313,8 @@ icon 標題被改變，在 vim 裡設定這一行:			|'icon'|
 "v"、"V" 和 "CTRL-V" 在可視模式的改變			*use-visual-cmds*
 -------------------------------------------
 
-在可視模式下，"v"、"V" 和 "CTRL-V" 用來終止可視模式。現在這只有在可視模式處於
-相應的類型時纔會，不然可視模式的類型發生相應的改變。現在只有 ESC 用來在所有情
+在可視模式下，"v"、"V" 和 "CTRL-V" 用來終止可視模式。現在這隻有在可視模式處於
+相應的型別時才會，不然可視模式的型別發生相應的改變。現在只有 ESC 用來在所有情
 況下不做別的，只終止可視模式。				|v_V|
 
 

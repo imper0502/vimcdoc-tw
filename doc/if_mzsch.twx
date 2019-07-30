@@ -1,4 +1,4 @@
-*if_mzsch.txt*  For Vim version 7.4.  最近更新: 2013年8月
+*if_mzsch.txt*  For Vim version 8.0.  最近更新: 2017年7月
 
 
 		  VIM 參考手冊	  by Bram Moolenaar
@@ -12,9 +12,10 @@ Vim 的 MzScheme 介面					*mzscheme* *MzScheme*
 2. 示例					|mzscheme-examples|
 3. 執行緒					|mzscheme-threads|
 4. MzScheme 對 Vim 的訪問		|mzscheme-vim|
-5. mzeval() Vim 函數			|mzscheme-mzeval|
-6. 使用函數引用				|mzscheme-funcref|
+5. mzeval() Vim 函式			|mzscheme-mzeval|
+6. 使用函式引用				|mzscheme-funcref|
 7. 動態調入				|mzscheme-dynamic|
+8. MzScheme 設定			|mzscheme-setup|
 
 {Vi 無此功能}
 
@@ -26,7 +27,7 @@ Vim 的 MzScheme 介面					*mzscheme* *MzScheme*
 MzScheme 和 PLT Scheme 已經重新命名為 Racket。詳情可查閱
 http://racket-lang.org。
 
-Racket 5.x 版本直至 5.3.1 (包含) 的 futures 和 places 和 Vim 創建的程序不能一
+Racket 5.x 版本直至 5.3.1 (包含) 的 futures 和 places 和 Vim 建立的程序不能一
 同工作。
 最簡單的解決方法是自己編譯 Racket，關閉以下這些特性: >
   ./configure --disable-futures --disable-places --prefix=your-install-prefix
@@ -56,10 +57,10 @@ Racket 5.x 版本直至 5.3.1 (包含) 的 futures 和 places 和 Vim 創建的�
 :mzscheme 執行的程式碼來自命令列。
 :mzfile 執行的程式碼來自給定檔案的內容。
 
-MzScheme 介面定義從 exn 派生的 exn:vim 例外。若干 Vim 錯誤拋出此例外。
+MzScheme 介面定義從 exn 派生的 exn:vim 例外。若干 Vim 錯誤丟擲此例外。
 
 編譯時，MzScheme 介面記住當前的 MzScheme collection 路徑。如果你想指定額外的路
-徑，使用 'current-library-collection-paths' 參數，例如，要附加 (cons) 使用者的局
+徑，使用 'current-library-collection-paths' 引數，例如，要附加 (cons) 使用者的局
 部 MzScheme collection 路徑: >
     :mz << EOF
     (current-library-collection-paths
@@ -90,6 +91,9 @@ exn:vim 無需顯式匯入 (import)。
 	:mzscheme (require (prefix vim- vimext)) ; 用於 MzScheme < 4.x
 	:mzscheme (require (prefix-in vim- 'vimext)) ; MzScheme 4.x
 	:mzscheme (vim-set-buff-line 10 "This is line #10")
+
+要看執行的 MzScheme 版本: >
+	:mzscheme (display (version))
 <
 內含指令碼的使用: >
 	function! <SID>SetFirstLine()
@@ -140,7 +144,7 @@ vimext 模組自動例項化 (可以放在 |vimrc| 裡): >
 MzScheme 介面支援執行緒。它們和作業系統的執行緒相互獨立，因此排程是必要的。
 'mzquantum' 選項決定 Vim 應每隔多久輪詢可用的 MzScheme 執行緒。
 備註
-Vim 控制臺版本的執行緒排程不如 GUI 版本的可靠。
+Vim 控制檯版本的執行緒排程不如 GUI 版本的可靠。
 
 ==============================================================================
 4. MzScheme 對 Vim 的訪問				*mzscheme-vim*
@@ -153,19 +157,19 @@ Vim 控制臺版本的執行緒排程不如 GUI 版本的可靠。
     (command {command-string})	    執行 Vim ":Ex" 風格的命令。
     (eval {expr-string})	    計算 vim 表示式，返回相應的 MzScheme 對
                                     象: |List| 返回 Scheme 列表，|Dictionary|
-				    返回 雜湊表，|Funcref| 返回函數 (另見
+				    返回 雜湊表，|Funcref| 返回函式 (另見
 				    |mzscheme-funcref|)
 				    注意 這和 MzScheme 的 eval 有衝突，可用
 				    模組限定符避免之。
     (range-start)		    Scheme 命令傳遞的行範圍的開始行
     (range-end)			    和結束行。
     (beep)			    響鈴
-    (get-option {option-name} [buffer-or-window]) 得到 Vim 選項值 (局部或全局
+    (get-option {option-name} [buffer-or-window]) 得到 Vim 選項值 (區域性或全域性
 				    值，見 set-option)。
     (set-option {string} [buffer-or-window])
-				    設定 Vim 選項。字元串 {string} 使用設定選
+				    設定 Vim 選項。字串 {string} 使用設定選
 				    項形式 (optname=optval 或 optname+=optval
-				    等)。如果帶 {buffer} 或 {window}，設定局部
+				    等)。如果帶 {buffer} 或 {window}，設定區域性
 				    選項。{buffer-or-window} 也可以使用符號
 				    'global，這時就會使用 |:setglobal|。
 
@@ -178,13 +182,13 @@ Vim 控制臺版本的執行緒排程不如 GUI 版本的可靠。
 				    得到緩衝區的行。
     (set-buff-line {linenr} {string} [buffer])
 				    設定緩衝區的行。如果 {string} 是 #f，刪除
-				    得到的行。[buffer] 參數可選。如果省略，使
+				    得到的行。[buffer] 引數可選。如果省略，使
 				    用當前緩衝區。
     (get-buff-line-list {start} {end} [buffer])
 				    得到緩衝區的行列表。{Start} 和 {end} 從 1
 				    開始。包含第 {Start} 和 {end} 行。
     (set-buff-line-list {start} {end} {string-list} [buffer])
-				    設定緩衝區的行列表。如果字元串列表
+				    設定緩衝區的行列表。如果字串列表
 				    {string-list} 是 #f 或 null，刪除所有行。
 				    如果列表短於 {end}-{start}，刪除其餘行。
     (get-buff-name [buffer])	    得到緩衝區的文字名。
@@ -225,15 +229,15 @@ Vim 控制臺版本的執行緒排程不如 GUI 版本的可靠。
     (set-cursor (line . col) [window])  設定游標位置。
 
 ==============================================================================
-5. mzeval() Vim 函數					    *mzscheme-mzeval*
+5. mzeval() Vim 函式					    *mzscheme-mzeval*
 
-使用 |mzeval()| 函數可以提供另一方向的介面，它計算 MzScheme 表示式並把結果賦給
-Vim。
+使用 |mzeval()| 函式可以提供另一方向的介面，它計算 MzScheme 表示式並把結果賦給
+Vim 指令碼。
 
 ==============================================================================
-6. 使用函數引用						    *mzscheme-funcref*
+6. 使用函式引用						    *mzscheme-funcref*
 
-MzScheme 介面允許使用 |Funcref| 來從 Scheme 裡直接呼叫 Vim 的函數。例如: >
+MzScheme 介面允許使用 |Funcref| 來從 Scheme 裡直接呼叫 Vim 的函式。例如: >
     function! MyAdd2(arg)
 	return a:arg + 2
     endfunction
@@ -246,21 +250,40 @@ MzScheme 介面允許使用 |Funcref| 來從 Scheme 裡直接呼叫 Vim 的函�
 <
 
 ==============================================================================
-7. 動態調入					    *mzscheme-dynamic* *E815*
+7. 動態調入					*mzscheme-dynamic* *E815*
 
 MS-Windows 上，可以動態調入 MzScheme 庫。|:version| 輸出這時應包括
 |+mzscheme/dyn|。
 
 這意味著 Vim 只有在必要時才尋找 MzScheme DLL 檔案。如果不使用 MzScheme 介面，
 你就不需要它們。這樣，即使沒有這些 DLL 檔案，你也可使用 Vim。
+注意 新版的 MzScheme (Racket) 需要通過 scheme_main_setup 進行早期 (蹦床式的)
+的初始化。這樣如果可能的話 Vim 總能在啟動時載入 MzScheme DLL。
 
-要使用 MzScheme 介面，MzScheme DLL 必須在搜索路徑上。控制檯視窗裡輸入 "path"
-可以看到 (搜索路徑) 當前使用的目錄。
+要使用 MzScheme 介面，MzScheme DLL 必須在搜尋路徑上。控制檯窗口裡輸入 "path"
+可以看到 (搜尋路徑) 當前使用的目錄。
 
 DLL 的名字必須匹配 Vim 編譯時所使用的 MzScheme 版本。對於 MzScheme 209 版本，
 它們的名字分別為 "libmzsch209_000.dll" 和 "libmzgc209_000.dll"。要確信這一點，
 察看 ":version" 命令的輸出，注意 "Compilation" 資訊中的 -DDYNAMIC_MZSCH_DLL=
 "內容" 和 -DDYNAMIC_MZGC_DLL="內容"。
 
+例如，如果 MzScheme (Racket) 安裝在 C:\Racket63，可能需要以下的環境變數設定: >
+
+  PATH=%PATH%;C:\Racket63\lib
+  PLTCOLLECTS=C:\Racket63\collects
+  PLTCONFIGDIR=C:\Racket63\etc
+<
+==============================================================================
+8. MzScheme 設定				    *mzscheme-setup* *E895*
+
+Vim 的 if_mzsch 核心部分需要 "racket/base" 模組 (如果不存在，"scheme/base" 作
+作為後備)，測試需要 "r5rs" 模組，Vim 編譯時需要 "raco ctool" 命令。如果
+MzScheme 沒有這些，可以通過 MzScheme 的 raco 命令安裝:
+>
+  raco pkg install scheme-lib       # scheme/base 模組
+  raco pkg install r5rs-lib         # r5rs 模組
+  raco pkg install cext-lib         # raco ctool 命令
+<
 ======================================================================
   vim:tw=78:ts=8:sts=4:ft=help:norl:

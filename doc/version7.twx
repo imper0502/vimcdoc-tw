@@ -1,4 +1,4 @@
-*version7.txt*  For Vim version 7.4.  最近更新: 2013年8月
+*version7.txt*  For Vim version 8.0.  最近更新: 2017年8月
 
 
 		  VIM 參考手冊	  by Bram Moolenaar
@@ -6,7 +6,7 @@
 				http://vimcdoc.sf.net
 
 					*vim7* *version-7.0* *version7.0*
-歡迎來到 Vim 版本 7！新版本增加了很多新特性。本文件列出所有加入的新項目、已
+歡迎來到 Vim 版本 7！新版本增加了很多新特性。本文件列出所有加入的新專案、已
 有特性的改動以及 Vim 6.x 以來的漏洞修正。使用這個命令可以看到你使用的版本: >
 	:version
 
@@ -26,7 +26,7 @@ MzScheme 介面				|new-MzScheme|
 列印多位元組文字				|new-print-multi-byte|
 標籤頁					|new-tab-pages|
 撤銷分支				|new-undo-branches|
-擴展的 Unicode 支援			|new-more-unicode|
+擴充套件的 Unicode 支援			|new-more-unicode|
 更多高亮				|new-more-highlighting|
 翻譯的手冊頁				|new-manpage-trans|
 內部 grep				|new-vimgrep|
@@ -39,7 +39,7 @@ POSIX 相容性				|new-posix|
 對映到表示式				|new-map-expression|
 可視和選擇模式對映			|new-map-select|
 位置列表				|new-location-list|
-若干新項目				|new-items-7|
+若干新專案				|new-items-7|
 
 改 進					|improvements-7|
 
@@ -91,7 +91,7 @@ Python3 介面				|new-python3|
 
 ":helpgrep" 現在使用幫助視窗來顯示匹配。
 
-參數列表裡本來可用雙引號在檔名裡包含空格。這使得 ":edit" 和 ":next" 轉義雙引
+引數列表裡本來可用雙引號在檔名裡包含空格。這使得 ":edit" 和 ":next" 轉義雙引
 號時的行為不同，而且和 Vi 有些版本也不相容。
 	命令			Vim 6.x	檔名		Vim 7.x 檔名 ~
 	:edit foo\"888		foo"888			foo"888
@@ -112,10 +112,10 @@ Python3 介面				|new-python3|
 
 次要不相容點:
 
-檔案類型檢測: 許多類型用 */.dir/filename 代替了 ~/.dir/filename，從而也能使用
+檔案型別檢測: 許多型別用 */.dir/filename 代替了 ~/.dir/filename，從而也能使用
 別的使用者的檔案。
 
-不少檔案類型的縮排設定從檔案類型插件移到了縮排插件。如果你用: >
+不少檔案型別的縮排設定從檔案型別外掛移到了縮排外掛。如果你用: >
 	:filetype plugin on
 有些縮排設定可能會丟失。你需要用: >
 	:filetype plugin indent on
@@ -148,7 +148,7 @@ Win32: <F10> 鍵的效果過去取決於 'winaltkeys'。現在它取決於 <F10>
 
 如果有兩個視窗存在且都顯示幫助檔案時，過去用 ":quit" 會退出。現在只關閉視窗。
 
-"-w {scriptout}" 只有當 {scriptout} 不以數位開頭時纔可用。否則，用它設定
+"-w {scriptout}" 只有當 {scriptout} 不以數位開頭時才可用。否則，用它設定
 'window' 選項。
 
 <Home> 和 <xHome> 過去可以分別對映。這樣做的缺點是所有對映 (加上修飾符) 不得不
@@ -159,18 +159,18 @@ Win32: <F10> 鍵的效果過去取決於 'winaltkeys'。現在它取決於 <F10>
 
 如果 .gvimrc 存在，關閉 'compatible'，就像 ".vimrc" 檔案存在時一樣。
 
-用 "vlllU" 或類似的命令使字元串大寫時，德語 sharp s 被替換為 "SS"。因為相容性
+用 "vlllU" 或類似的命令使字串大寫時，德語 sharp s 被替換為 "SS"。因為相容性
 問題，"~" 不這麼做，這也是因為 "SS" 不能被改回 sharp s。
 
-"gd" 過去在函數裡找到變數的第一次出現，而這可以是沒有類型的函數參數。現在只會
-去找包含類型的位置。
+"gd" 過去在函式裡找到變數的第一次出現，而這可以是沒有型別的函式引數。現在只會
+去找包含型別的位置。
 
-函數裡的後繼行過去不參加計算，錯誤資訊的行號是邏輯行而不是原始碼裡的行。這使得
-定位錯誤十分困難。現在包含函數開始處起算的原始碼行號。這也意味著 ":breakadd
+函式裡的後繼行過去不參加計算，錯誤資訊的行號是邏輯行而不是原始碼裡的行。這使得
+定位錯誤十分困難。現在包含函式開始處起算的原始碼行號。這也意味著 ":breakadd
 func" 裡的行號含義有了變化。
 
-用 |:command| 定義使用者命令時，過去特殊項目可以是縮寫。這導致不可預測的行為，如
-<li> 會被識別為 <line1>。現在這些項目不再允許縮寫。
+用 |:command| 定義使用者命令時，過去特殊專案可以是縮寫。這導致不可預測的行為，如
+<li> 會被識別為 <line1>。現在這些專案不再允許縮寫。
 
 執行 FileChangedRO 自動命令時，不再允許切換到另一個緩衝區或者編輯另一個檔案。
 這是為了防止崩潰 (啟用事件所在的程式碼埋藏得很深，那裡我們不期待改變緩衝區)。但
@@ -185,37 +185,37 @@ func" 裡的行號含義有了變化。
 Vim 指令碼增強						*new-vim-script*
 ------------
 
-Vim 指令碼加入以下類型:
+Vim 指令碼加入以下型別:
 
-	|List|		項目的有序列表
-	|Dictionary|	項目的關聯陣列
-	|Funcref|	指向函數的引用
+	|List|		專案的有序列表
+	|Dictionary|	專案的關聯陣列
+	|Funcref|	指向函式的引用
 
-加入許多函數和命令以支援這些新類型。
+加入許多函式和命令以支援這些新型別。
 
-用 |string()| 函數可以得到變數的字元串表示形式。這包括數值、字元串和它們的複合
-形式。用 |eval()| 又可把字元串轉換變數值。
+用 |string()| 函式可以得到變數的字串表示形式。這包括數值、字串和它們的複合
+形式。用 |eval()| 又可把字串轉換變數值。
 
 |:let| 命令現在可用 "+="，"-=" 和 ".="。 >
 	:let var += expr	" 相當於 :let var = var + expr
 	:let var -= expr	" 相當於 :let var = var - expr
 	:let var .= string	" 相當於 :let var = var . string
 
-用 |:profile| 命令，你可以確定哪個函數或指令碼最耗時。
+用 |:profile| 命令，你可以確定哪個函式或指令碼最耗時。
 
 Python 介面 vim.eval() 也能處理字典和列表。|python-eval| (G. Sumner Hayes)
 
-加入 |getscript| 插件，提供從 www.vim.org 自動更新指令碼的便捷方法。
+加入 |getscript| 外掛，提供從 www.vim.org 自動更新指令碼的便捷方法。
 (Charles Campbell)
 
-加入 |vimball| 插件，提供發布包含一組檔案 (插件檔案、autoload 指令碼、文件) 的插
+加入 |vimball| 外掛，提供釋出包含一組檔案 (外掛檔案、autoload 指令碼、文件) 的插
 件的便捷方法。(Charles Campbell)
 
 
 拼寫檢查						*new-spell*
 --------
 
-Vim 已經整合了拼寫檢查。本來有一些指令碼的實現，但都較慢和/或需要外部程式。
+Vim 已經集成了拼寫檢查。本來有一些指令碼的實現，但都較慢和/或需要外部程式。
 
 用 'spell'	  選項切換拼寫檢查的開關。
 用 'spelllang'	  選項指定能接受的語言。
@@ -241,13 +241,13 @@ Vim 已經整合了拼寫檢查。本來有一些指令碼的實現，但都較�
 
 本來可以叫 "intellisense" 的，但它已經是註冊商標了。這是一種智慧的補全形式，它
 檢視游標前面的文字，然後尋找後面可以跟什麼內容。它可以用來提供結構和類的成員，
-系統函數，等等。
+系統函式，等等。
 (譯者注: 原文為 omni completion，但 omni 具體何義並無解釋。暫按其字面意思直譯
 為 "全能"。)
 
 插入模式下用 CTRL-X CTRL-O 開始全能補全。|i_CTRL-X_CTRL-O|
 
-檔案類型插件設定 'omnifunc' 選項來定義進行補全的函數。
+檔案型別外掛設定 'omnifunc' 選項來定義進行補全的函式。
 
 目前支援的語言:
 	C					|ft-c-omni|
@@ -292,7 +292,7 @@ MzScheme 介面						*new-MzScheme*
 標籤可以快速在標籤頁間切換。鍵盤則可用 |gt| (轉到標籤頁，Goto Tab) 命令。這是
 一個需要使用很多視窗工作的便捷方式。
 
-要在啟動 Vim 時為每個檔案參數開啟一個單獨的標籤頁，使用 |-p| 參數。
+要在啟動 Vim 時為每個檔案引數開啟一個單獨的標籤頁，使用 |-p| 引數。
 用 'tabpagemax' 設定可開啟的最大標籤頁數。
 
 標籤頁標籤所在的行可以使用高亮的普通文字，也可以使用 GUI 的機制。GUI 標籤看起
@@ -302,9 +302,9 @@ MzScheme 介面						*new-MzScheme*
 
 用 |:tab| 命令修飾符，多數開啟新視窗的命令會用新標籤頁代替。
 
-|--remote-tab| 參數使已運行的 Vim 伺服器用新標籤頁編輯檔案。
+|--remote-tab| 引數使已執行的 Vim 伺服器用新標籤頁編輯檔案。
 
-"t:" 開始的變數局部於標籤頁。
+"t:" 開始的變數區域性於標籤頁。
 
 詳情見: |tabpage|
 多數 GUI 部分由 Yegappan Lakshmanan 實現。
@@ -318,20 +318,20 @@ MzScheme 介面						*new-MzScheme*
 
 為此情形，Vim 現在實現了撤銷分支機制，使你可以回到任何改變之後的文字，即使曾經
 撤銷過也沒問題。唯一的例外是你到達了 'undolevels' 的限制，這時需要釋放撤銷資訊
-以減少內存用量。
+以減少記憶體用量。
 
 要能在撤銷分支間遊歷，按順序給每個改變編號。命令 |g-| 和 |:earlier| 在時間上往
 後退到舊的改變上。而命令 |g+| 和 |:later| 在時間上往前進到新的改變上。
 
 每個改變同時記錄時間。":earlier 10m" 回到大約十分鐘前的文字。
 
-用 |:undolist| 命令瞭解存在的撤銷分支的大概情況。|:undo| 命令現在接受參數以直
-接跳轉到該列表的任意位置。用 |changenr()| 函數得到改變號。
+用 |:undolist| 命令瞭解存在的撤銷分支的大概情況。|:undo| 命令現在接受引數以直
+接跳轉到該列表的任意位置。用 |changenr()| 函式得到改變號。
 
 現在還沒有圖形化的改變樹顯示，導航機制可能不甚簡明。
 
 
-擴展的 Unicode 支援					*new-more-unicode*
+擴充套件的 Unicode 支援					*new-more-unicode*
 -------------------
 
 以前只能顯示兩個組合用字元。現在限制最高提高到 6 個。用 'maxcombine' 選項可以
@@ -340,11 +340,11 @@ MzScheme 介面						*new-MzScheme*
 |ga| 現在顯示所有的組合用字元，而不只是前面兩個。
 
 以前只支援 16 位 Unicode 字元的顯示，現在可用完整的 32 位字符集。除非編譯時手
-動關閉這項功能以減少一些內存使用。
+動關閉這項功能以減少一些記憶體使用。
 
-模式匹配現在可以搜索單個合成用字元。|patterns-composing|
+模式匹配現在可以搜尋單個合成用字元。|patterns-composing|
 
-|8g8| 命令搜索非法的 UTF-8 位元組序列。
+|8g8| 命令搜尋非法的 UTF-8 位元組序列。
 
 
 更多高亮					*new-more-highlighting*
@@ -360,8 +360,8 @@ MzScheme 介面						*new-MzScheme*
 
 |matchparen| 提供更多資訊。
 
-該插件使用 |:match| 命令。現在該命令同時支援三個匹配模式。插件使用的是第三個。
-第一個給使用者使用，第二個可以用於其它插件。
+該外掛使用 |:match| 命令。現在該命令同時支援三個匹配模式。外掛使用的是第三個。
+第一個給使用者使用，第二個可以用於其它外掛。
 
 高亮游標行和列:
 
@@ -395,13 +395,13 @@ Vim configure 時如果使用 "--disable-nls"，不自動安裝翻譯頁。但�
 內部 grep						*new-vimgrep*
 ---------
 
-用 ":vimgrep" 命令可以在一組檔案裡搜索模式。和 ":grep" 命令類似，但它不需要外
+用 ":vimgrep" 命令可以在一組檔案裡搜尋模式。和 ":grep" 命令類似，但它不需要外
 部程式。除了移植性更好之外，它還能處理不同的檔案編碼並使用多行模式。它也能用來
-在壓縮和遠端檔案上進行搜索。|:vimgrep|。
+在壓縮和遠端檔案上進行搜尋。|:vimgrep|。
 
-如果想在指令碼里使用搜索的結果，用 |getqflist()| 函數。
+如果想在腳本里使用搜索的結果，用 |getqflist()| 函式。
 
-要 grep 多個目錄下的檔案，可用 "**" 模式。它會擴展為任意深度的目錄。任何需要擴
+要 grep 多個目錄下的檔案，可用 "**" 模式。它會擴充套件為任意深度的目錄。任何需要擴
 展檔名的地方都可以用 "**"，包括 |:next| 和 |:args|。
 
 
@@ -424,7 +424,7 @@ Vim configure 時如果使用 "--disable-nls"，不自動安裝翻譯頁。但�
 它在換行符上一樣。
 
 這時有些命令的行為更加一致。以前，在空行上的游標總是跨越行尾。但這和 Vi 相容差
-得很遠，而且也可能會影響一些插件或 Vim 指令碼。小心使用！
+得很遠，而且也可能會影響一些外掛或 Vim 指令碼。小心使用！
 
 Mattias Flodin 提供此補丁。
 
@@ -436,15 +436,15 @@ POSIX 相容性						*new-posix*
 容。一些改變和傳統的 Vi 或期待的行為有衝突。設定 $VIM_POSIX 環境變數得到 POSIX
 相容行為。見 |posix|。
 
-為了 Vi 和 POSIX 的相容性而修正的項目:
+為了 Vi 和 POSIX 的相容性而修正的專案:
 - 用計數重複 "R" 只覆蓋文字一次；'cpoptions' 加入 'X' 標誌位 |cpo-X|
 - 移動到不存在行的垂直移動命令失敗；'cpoptions' 加入 '-' 標誌位 |cpo--|
 - 用 preserve 保護檔案時並執行 ":q!"，檔案可以恢復；'cpoptions' 加入 '&' 標誌
   位 |cpo-&|
 - 部分實現了 'window' 選項。指定只有一個視窗時  CTRL-F 和 CTRL-B 滾動的幅度。
-  現在接受 "-w {number}" 參數。"-w {scriptout}" 裡的 {scriptout} 必須不以數位
+  現在接受 "-w {number}" 引數。"-w {scriptout}" 裡的 {scriptout} 必須不以數位
   開始。
-- 接受 "-c{command}" 參數，"-c" 和 {command} 之間沒有空格。
+- 接受 "-c{command}" 引數，"-c" 和 {command} 之間沒有空格。
 - 用 ":w!" 寫入檔案時不復位 'readonly'，如果 'cpoptions' 裡包含 'Z' 的話。
 - 接受 ":list"、":print" 和 ":number" 的 'l' 和 '#' 標誌位。
 - 'cpoptions' 加入 '.' 標誌位: 如果緩衝區被修改，":cd" 失敗。
@@ -459,8 +459,8 @@ POSIX 相容性						*new-posix*
 - 支援使用管道讀入外部程式的輸出和把輸入寫到外部程式。加入 'shelltemp' 選項和
   has("filterpipe")。
 - Ex 安靜模式裡顯示 ":set" 的命令輸出。
-- 如果以前沒用過寄存器，":@@" 和 ":**" 報錯。
-- 搜索模式 "[]-`]" 匹配 ']'、'^'、'_' 和 '`'。
+- 如果以前沒用過暫存器，":@@" 和 ":**" 報錯。
+- 搜尋模式 "[]-`]" 匹配 ']'、'^'、'_' 和 '`'。
 - ":insert" 的自動縮排使用插入位置下方的行。
 - ":change" 的自動縮排使用第一個改變的行。
 - Ex 命令列的編輯不用加工 (cooked) 模式，因為這樣不能處理 CTRL-D 和 CTRL-T。
@@ -472,22 +472,22 @@ POSIX 相容性						*new-posix*
 偵錯程式支援						*new-debug-support*
 ----------
 
-加入 'balloonexpr' 選項。這是實現氣泡功能的通用機制。用它顯示滑鼠指針所在單詞
+加入 'balloonexpr' 選項。這是實現氣泡功能的通用機制。用它顯示滑鼠指標所在單詞
 的相關資訊。
 
 
 遠端檔案探索器						*new-netrw-explore*
 --------------
 
-netrw 插件現在支援使用 "scp://" 的目錄瀏覽。也可以刪除和換名檔案。
+netrw 外掛現在支援使用 "scp://" 的目錄瀏覽。也可以刪除和換名檔案。
 
-為了避免大量重複程式碼，以前的檔案探索器插件現在已經和 netrw 插件整合。這意味著
+為了避免大量重複程式碼，以前的檔案探索器外掛現在已經和 netrw 外掛整合。這意味著
 本地和遠端的檔案瀏覽現在使用相同的方式。
 
-":browse edit" 和 ":browse split" 在 GUI 對話方塊不可用而 netrw 插件可用時，使用
-該插件。
+":browse edit" 和 ":browse split" 在 GUI 對話方塊不可用而 netrw 外掛可用時，使用
+該外掛。
 
-Charles Campbell 維護 netrw 插件。
+Charles Campbell 維護 netrw 外掛。
 
 
 定義操作符						*new-define-operator*
@@ -495,7 +495,7 @@ Charles Campbell 維護 netrw 插件。
 
 以前你不能定義自己的操作符: 即 {motion} 動作後面可以跟隨的命令。Vim 7 引入了
 'operatorfunc' 選項和 |g@| 操作符。這樣就可以定義和操作符行為相同的對映。實際
-工作由函數完成，而 |g@| 操作符呼叫該函數。
+工作由函式完成，而 |g@| 操作符呼叫該函式。
 
 |:map-operator| 給出解釋和一個示例。
 
@@ -503,7 +503,7 @@ Charles Campbell 維護 netrw 插件。
 對映到表示式						*new-map-expression*
 ------------
 
-對映的 {rhs} 參數可以是表示式。這意味著產生的字元可以取決於上下文。例如: >
+對映的 {rhs} 引數可以是表示式。這意味著產生的字元可以取決於上下文。例如: >
 	:inoremap <expr> . InsertDot()
 這裡句號並對映到任何 InsertDot() 返回的內容。
 
@@ -526,19 +526,19 @@ Charles Campbell 維護 netrw 插件。
 --------
 
 加入了每個視窗分別擁有的 quickfix 列表 (稱為位置列表) 的支援。位置列表顯示在位
-置視窗裡 (和 quickfix 視窗類似)。你可以開啟多於一個位置列表視窗。也加入了一組
+置窗口裡 (和 quickfix 視窗類似)。你可以開啟多於一個位置列表視窗。也加入了一組
 和 quickfix 命令類似的命令，用來瀏覽位置列表。(Yegappan Lakshmanan)
 
 
-若干新項目						*new-items-7*
+若干新專案						*new-items-7*
 ----------
 
 普通模式命令: ~
 
-a"、a' 和 a`		選擇引號括起的字元串的新文字物件。|a'|
+a"、a' 和 a`		選擇引號括起的字串的新文字物件。|a'|
 i"、i' 和 i`		(Taro Muraoka)
 
-CTRL-W <Enter>		quickfix 視窗裡: 開啟新視窗，顯示游標所在錯誤的位置。
+CTRL-W <Enter>		quickfix 窗口裡: 開啟新視窗，顯示游標所在錯誤的位置。
 
 |at| 和 |it| 文字物件選擇 HTML 或 XML 標籤之間的文字塊。
 
@@ -549,7 +549,7 @@ CTRL-W <Enter>		quickfix 視窗裡: 開啟新視窗，顯示游標所在錯誤�
 gF			開始編輯游標所在的檔名並跳轉到檔名後跟隨的行號。
 			(Yegappan Lakshmanan)
 
-CTRL-W F		在新視窗裡開始編輯游標所在的檔名並跳轉到檔名後跟隨
+CTRL-W F		在新窗口裡開始編輯游標所在的檔名並跳轉到檔名後跟隨
 			的行號。(Yegappan Lakshmanan)
 
 插入模式命令: ~
@@ -560,7 +560,7 @@ CTRL-\ CTRL-O		執行普通模式命令。類似於 CTRL-O，但不移動游標�
 選項: ~
 
 'balloonexpr'		用於計算氣泡顯示文字的表示式
-'completefunc'		使用者指定的插入模式補全使用的函數名。插入模式下用
+'completefunc'		使用者指定的插入模式補全使用的函式名。插入模式下用
 			CTRL-X CTRL-U 可以進行任何形式的補全。(Taro Muraoka)
 'completeopt'		插入模式補全可以使用彈出選單。
 'cursorcolumn'		高亮游標列
@@ -571,19 +571,19 @@ CTRL-\ CTRL-O		執行普通模式命令。類似於 CTRL-O，但不移動游標�
 'fsync'			寫入檔案時是否呼叫 fsync()。(Ciaran McCreesh)
 'guitablabel'		GUI 標籤頁標籤用於顯示文字的表示式
 'guitabtooltip'		GUI 標籤頁標籤用於顯示工具提示文字的表示式
-'macatsui'		Mac: 用 ATSUI 文字顯示函數
+'macatsui'		Mac: 用 ATSUI 文字顯示函式
 'maxcombine'		顯示的組合用字元的最大數目
-'maxmempattern'		模式匹配使用的最大內存量
-'mkspellmem'		|:mkspell| 使用內存的相關參數
+'maxmempattern'		模式匹配使用的最大記憶體量
+'mkspellmem'		|:mkspell| 使用記憶體的相關引數
 'mzquantum'		毫秒計的排程 MzScheme 執行緒的時間間隔。
 'numberwidth'		'number' 和 'relativenumber' 選項使用空間的最小寬度。
 			(Emmanuel Renieris)
-'omnifunc'		全能補全使用的函數名。
-'operatorfunc'		|g@| 操作符使用的函數
+'omnifunc'		全能補全使用的函式名。
+'operatorfunc'		|g@| 操作符使用的函式
 'printmbcharset'	:hardcopy 使用的 CJK 字符集
 'printmbfont'		:hardcopy 產生的 CJK 輸出使用的字型名
-'pumheight'		彈出選單顯示的最大項目數
-'quoteescape'		字元串內轉義引號的字元。用於 a"、a' 和 a` 文字物件。
+'pumheight'		彈出選單顯示的最大專案數
+'quoteescape'		字串內轉義引號的字元。用於 a"、a' 和 a` 文字物件。
 			|a'|
 'shelltemp'		外殼命令使用臨時檔案還是管道
 'showtabline'		是否顯示標籤頁行
@@ -592,7 +592,7 @@ CTRL-\ CTRL-O		執行普通模式命令。類似於 CTRL-O，但不移動游標�
 'spellfile'		加入好詞和壞詞所用的檔案
 'spelllang'		拼寫檢查所用的語言
 'spellsuggest'		拼寫建議的方法
-'synmaxcol'		檢查語法項目的最大列數；避免長行的重畫過慢
+'synmaxcol'		檢查語法專案的最大列數；避免長行的重畫過慢
 'tabline'		標籤頁行用於顯示文字的表示式
 'tabpagemax'		|-p| 開啟的最大標籤頁數
 'verbosefile'		記錄訊息到檔案。
@@ -603,7 +603,7 @@ CTRL-\ CTRL-O		執行普通模式命令。類似於 CTRL-O，但不移動游標�
 
 Ex 命令: ~
 
-Win32: ":winpos" 命令現在支援控制臺版本。(Vipin Aravind)
+Win32: ":winpos" 命令現在支援控制檯版本。(Vipin Aravind)
 
 |:startreplace|		開始替換模式。(Charles Campbell)
 |:startgreplace| 	開始虛擬替換模式。
@@ -627,12 +627,12 @@ Win32: ":winpos" 命令現在支援控制臺版本。(Vipin Aravind)
 |:caddfile|		加入錯誤資訊到已存在的 quickfix 列表
 			(Yegappan Lakshmanan)。
 |:cbuffer|		讀入緩衝區的錯誤行。(部分由 Yegappan Lakshmanan 提供)
-|:cgetbuffer|		基於緩衝區創建 quickfix 列表，但不跳到第一個錯誤。
+|:cgetbuffer|		基於緩衝區建立 quickfix 列表，但不跳到第一個錯誤。
 |:caddbuffer|		從當前緩衝區加入錯誤到 quickfix 列表。
 |:cexpr|		從 Vim 表示式讀入錯誤資訊 (Yegappan Lakshmanan)。
 |:caddexpr|		從 Vim 表示式加入錯誤資訊到已存在的 quickfix 列表
 			(Yegappan Lakshmanan)。
-|:cgetexpr|		基於 Vim 表示式創建 quickfix 列表，但不跳到第一個錯誤
+|:cgetexpr|		基於 Vim 表示式建立 quickfix 列表，但不跳到第一個錯誤
 			(Yegappan Lakshmanan)。
 
 |:lfile|		類似於 |:cfile| 但使用位置列表。
@@ -694,7 +694,7 @@ Win32: ":winpos" 命令現在支援控制臺版本。(Vipin Aravind)
 |:nbkey|		把鍵傳遞給 NetBeans 進行處理。
 
 |:profile|		用於 Vim 指令碼刨視的命令。
-|:profdel|		為指定項目停止刨視。
+|:profdel|		為指定專案停止刨視。
 
 |:smap|			選擇模式對映。
 |:smapclear|
@@ -718,7 +718,7 @@ Win32: ":winpos" 命令現在支援控制臺版本。(Vipin Aravind)
 |:tabdo|		為每個標籤頁執行命令。
 |:tabedit|		在新標籤頁裡編輯檔案。
 |:tabnew|		開啟新標籤頁。
-|:tabfind|		搜索檔案並在新標籤頁裡開啟。
+|:tabfind|		搜尋檔案並在新標籤頁裡開啟。
 |:tabnext|		轉到下一個標籤頁。
 |:tabprevious|		轉到前一個標籤頁。
 |:tabNext|		轉到前一個標籤頁。
@@ -741,7 +741,7 @@ Ex 命令修飾符: ~
 |:tab|			開啟新視窗時，同時建立新標籤頁。
 
 
-Ex 命令參數: ~
+Ex 命令引數: ~
 
 |++bad|			指定出現不能轉換的字元或者非法位元組時的行為。(程式碼示例
 			由 Yasuhiro Matsumoto 提供)
@@ -749,22 +749,22 @@ Ex 命令參數: ~
 			行號。
 
 
-新出現和經過擴充的函數: ~
+新出現和經過擴充的函式: ~
 
-|add()|			在列表後附加項目
+|add()|			在列表後附加專案
 |append()|		附加行列表到緩衝區
-|argv()|		沒有參數返回整個參數列表
+|argv()|		沒有引數返回整個引數列表
 |browsedir()|		選擇目錄的對話方塊
-|bufnr()|		接受額外參數: 建立緩衝區
+|bufnr()|		接受額外引數: 建立緩衝區
 |byteidx()|		字元的位置 (Ilya Sher)
-|call()|		呼叫函數，參數以列表出現
+|call()|		呼叫函式，引數以列表出現
 |changenr()|		當前改變號
 |complete()|		設定插入模式補全的匹配
 |complete_add()|	加入用於 'completefunc' 的匹配
 |complete_check()|	檢察鍵擊，用於 'completefunc'
 |copy()|		建立列表或字典的淺備份
 |count()|		計算列表或字典裡某值的出現次數
-|cursor()|		也接受 'virtualedit' 的偏移，而第一個參數可以是列表:
+|cursor()|		也接受 'virtualedit' 的偏移，而第一個引數可以是列表:
 			[lnum, col, off]
 |deepcopy()|		建立列表或字典的完整備份
 |diff_filler()|		得到行 {lnum} 上方填充行的數目。
@@ -773,45 +773,45 @@ Ex 命令參數: ~
 |eval()|		計算 {string} 並返回其結果
 |extend()|		為列表/字典附加另一個列表/字典
 |feedkeys()|		把若干字元放入預輸入緩衝區
-|filter()|		刪除列表/字典的選定項目
+|filter()|		刪除列表/字典的選定專案
 |finddir()|		尋找 'path' 裡的目錄
 |findfile()|		尋找 'path' 裡的檔案 (Johannes Zellner)
 |foldtextresult()|	行 "lnum" 所在關閉摺疊的顯示用文字
-|function()|		得到函數名對應的函數引用
+|function()|		得到函式名對應的函式引用
 |garbagecollect()|	清理只含迴圈引用的 |Lists| 和 |Dictionaries|
-|get()|			得到列表/字典的項目
+|get()|			得到列表/字典的專案
 |getbufline()|		得到指定緩衝區的行列表 (Yegappan Lakshmanan)
-|getcmdtype()|		得到當前命令列的類型 (Yegappan Lakshmanan)
+|getcmdtype()|		得到當前命令列的型別 (Yegappan Lakshmanan)
 |getfontname()|		得到當前使用的字型名
-|getfperm()|		得到檔案許可權字元串 (Nikolai Weibull)
-|getftype()|		得到檔案類型 (Nikolai Weibull)
-|getline()|		帶第二個參數: 得到緩衝區行列表
-|getloclist()|		位置列表項目的列表 (Yegappan Lakshmanan)
+|getfperm()|		得到檔案許可權字串 (Nikolai Weibull)
+|getftype()|		得到檔案型別 (Nikolai Weibull)
+|getline()|		帶第二個引數: 得到緩衝區行列表
+|getloclist()|		位置列表專案的列表 (Yegappan Lakshmanan)
 |getpos()|		得到游標、位置標記等的位置的列表
 |getqflist()|		quickfix 錯誤的列表 (Yegappan Lakshmanan)
-|getreg()|		取得寄存器內容
+|getreg()|		取得暫存器內容
 |gettabwinvar()|	取得指定標籤頁的視窗變數。
 |has_key()|		檢查某鍵是否出現在字典裡
 |haslocaldir()|		檢查當前視窗是否使用過 |:lcd|
-|hasmapto()|		檢查到字元串的對映是否存在
+|hasmapto()|		檢查到字串的對映是否存在
 |index()|		列表中某值的索引
 |inputlist()|		提示使用者從列表選擇一項
-|insert()|		在列表某處插入一個項目
+|insert()|		在列表某處插入一個專案
 |islocked()|		檢查變數是否加鎖
 |items()|		得到字典的鍵-值組對的列表
-|join()|		合併列表項目成為字元串
+|join()|		合併列表專案成為字串
 |keys()|		得到字典的鍵列表
-|len()|			列表或字典項目的總數
-|map()|			改變每個列表或字典項目
-|maparg()|		額外參數: 使用縮寫
-|mapcheck()|		額外參數: 使用縮寫
-|match()|		額外參數: 計數
-|matcharg()|		返回 |:match| 命令的參數
-|matchend()|		額外參數: 計數
-|matchlist()|		字元串對模式的匹配和子匹配列表
-|matchstr()|		額外參數: 計數
-|max()|			列表或字典項目的最大值
-|min()|			列表或字典項目的最小值
+|len()|			列表或字典專案的總數
+|map()|			改變每個列表或字典專案
+|maparg()|		額外引數: 使用縮寫
+|mapcheck()|		額外引數: 使用縮寫
+|match()|		額外引數: 計數
+|matcharg()|		返回 |:match| 命令的引數
+|matchend()|		額外引數: 計數
+|matchlist()|		字串對模式的匹配和子匹配列表
+|matchstr()|		額外引數: 計數
+|max()|			列表或字典專案的最大值
+|min()|			列表或字典專案的最小值
 |mkdir()|		建立目錄
 |pathshorten()|		把目錄名簡化到一個字元
 |printf()|		格式化文字
@@ -819,13 +819,13 @@ Ex 命令參數: ~
 |range()|		產生數字序列的列表
 |readfile()|		讀入檔案到一個行列表
 |reltime()|		得到時間值，可能是相對的
-|reltimestr()|		把時間值轉換為字元串
-|remove()|		刪除列表或字典裡一或多個項目
+|reltimestr()|		把時間值轉換為字串
+|remove()|		刪除列表或字典裡一或多個專案
 |repeat()|		重複 "expr" "count" 次 (Christophe Poucet)
-|reverse()|		反轉列表項目的順序
-|search()|		額外參數:
-|searchdecl()|		查找變數的聲明
-|searchpair()|		額外參數: 停止搜索的行
+|reverse()|		反轉列表專案的順序
+|search()|		額外引數:
+|searchdecl()|		查詢變數的宣告
+|searchpair()|		額外引數: 停止搜尋的行
 |searchpairpos()|	返回匹配位置的列表
 |searchpos()|		返回匹配位置的列表
 |setloclist()|		修改位置列表 (Yegappan Lakshmanan)
@@ -836,33 +836,34 @@ Ex 命令參數: ~
 |soundfold()|		返回 "發音相似" 的單詞等價形式
 |spellbadword()|	返回錯誤拼寫的單詞
 |spellsuggest()|	返回建議的拼寫校正列表
-|split()|		分割字元串成為列表
-|str2nr()|		把字元串轉換為 8、10、16 進位制的數值
-|stridx()|		額外參數: 開始位置
-|strridx()|		額外參數: 開始位置
-|string()|		列表或字典的字元串表示形式
-|system()|		額外參數: 用外殼命令過濾 {input}
+|split()|		分割字串成為列表
+|str2nr()|		把字串轉換為 2、8、10、16 進位制的數值
+|stridx()|		額外引數: 開始位置
+|strridx()|		額外引數: 開始位置
+|string()|		列表或字典的字串表示形式
+|system()|		額外引數: 用外殼命令過濾 {input}
 |tabpagebuflist()|	得到標籤頁裡的緩衝區列表
 |tabpagenr()|		得到當前或最後一個標籤頁號
 |tabpagewinnr()|	得到標籤頁裡的視窗號
 |tagfiles()|		標籤檔名的列表
 |taglist()|		得到匹配標籤的列表 (Yegappan Lakshmanan)
 |tr()|			翻譯字元 (Ron Aaron)
+|uniq()|		刪除重複相鄰列表專案的多餘備份
 |values()|		得到列表或字典的值列表
-|winnr()|		接受參數: 使用哪個視窗
+|winnr()|		接受引數: 使用哪個視窗
 |winrestview()|		恢復當前視窗的檢視
 |winsaveview()|		儲存當前視窗的檢視
 |writefile()|		把一個行列表寫到檔案裡
 
-使用者定義的函數現在可以從 'runtimepath' 裡的 "autoload" 目錄自動載入。見
+使用者定義的函式現在可以從 'runtimepath' 裡的 "autoload" 目錄自動載入。見
 |autoload-functions|。
 
 
 新 Vim 變數: ~
 
 |v:insertmode|		用於 |InsertEnter| 和 |InsertChange| 自動命令
-|v:val|			|map()| 或 |filter()| 函數的項目值
-|v:key|			|map()| 或 |filter()| 函數的項目鍵
+|v:val|			|map()| 或 |filter()| 函式的專案值
+|v:key|			|map()| 或 |filter()| 函式的專案鍵
 |v:profiling|		":profile start" 命令之後非零
 |v:fcs_reason|		啟用 |FileChangedShell| 的原因
 |v:fcs_choice|		|FileChangedShell| 之後應該做什麼
@@ -870,12 +871,12 @@ Ex 命令參數: ~
 |v:beval_winnr|		'balloonexpr' 的視窗號
 |v:beval_lnum|		'balloonexpr' 的行號
 |v:beval_col|		'balloonexpr' 的列號
-|v:beval_text|		'balloonexpr' 滑鼠指針所在的文字
+|v:beval_text|		'balloonexpr' 滑鼠指標所在的文字
 |v:scrollstart|		螢幕上滾的原因
 |v:swapname|		|SwapExists| 事件所用的交換檔名
 |v:swapchoice|		交換檔案存在時應該做什麼
 |v:swapcommand|		處理 |SwapExists| 後應該執行的命令
-|v:char|		執行 'formatexpr' 時的參數
+|v:char|		執行 'formatexpr' 時的引數
 
 
 新自動命令事件: ~
@@ -916,8 +917,8 @@ Ex 命令參數: ~
 
 新高亮組: ~
 
-Pmenu			彈出選單: 普通項目 |hl-Pmenu|
-PmenuSel		彈出選單: 選中項目 |hl-PmenuSel|
+Pmenu			彈出選單: 普通專案 |hl-Pmenu|
+PmenuSel		彈出選單: 選中專案 |hl-PmenuSel|
 PmenuThumb		彈出選單: 滾動條 |hl-PmenuThumb|
 PmenuSbar		彈出選單: 滾動條的拇指 |hl-PmenuSbar|
 
@@ -936,7 +937,7 @@ CursorLine		'cursorline' |hl-CursorLine|
 MatchParen		匹配的括號 |pi_paren.txt| |hl-MatchParen|
 
 
-搜索模式裡的新項目: ~
+搜尋模式裡的新專案: ~
 |/\%d| \%d123		匹配十進位制指定的字元
 |/\]|  [\d123]		同上，用於字元類
 |/\%o| \%o103		匹配八進位制指定的字元
@@ -957,125 +958,125 @@ MatchParen		匹配的括號 |pi_paren.txt| |hl-MatchParen|
 |/\%>'m| \%>'m		在位置標記 m 之後匹配
 |/\%V|   \%V		在可視區域內匹配
 
-如有空匹配，巢狀的 |/multi| 項目不再是錯誤。
+如有空匹配，巢狀的 |/multi| 專案不再是錯誤。
 
 現在可用 \{0}，匹配前導的匹配原零次。沒有用處，只為相容性而設定。
 
 
-新語法/縮排/檔案類型插件檔案: ~
+新語法/縮排/檔案型別外掛檔案: ~
 
-所有縮排設定都從檔案類型插件移到了縮排檔案。
+所有縮排設定都從檔案型別外掛移到了縮排檔案。
 實現 b:undo_indent 在 'filetype' 設為其它值時撤銷縮排設定。
 
-a2ps 語法和檔案類型插件檔案。(Nikolai Weibull)
+a2ps 語法和檔案型別外掛檔案。(Nikolai Weibull)
 ABAB/4 語法檔案。(Marius van Wyk)
-alsaconf 檔案類型插件檔案。(Nikolai Weibull)
-AppendMatchGroup 檔案類型插件檔案。(Dave Silvia)
-arch 檔案類型插件檔案。(Nikolai Weibull)
+alsaconf 檔案型別外掛檔案。(Nikolai Weibull)
+AppendMatchGroup 檔案型別外掛檔案。(Dave Silvia)
+arch 檔案型別外掛檔案。(Nikolai Weibull)
 asterisk 和 asteriskvm 語法檔案。(Tilghman Lesher)
-BDF 檔案類型插件檔案。(Nikolai Weibull)
+BDF 檔案型別外掛檔案。(Nikolai Weibull)
 BibTeX 縮排檔案。(Dorai Sitaram)
 BibTeX Bibliography Style 語法檔案。(Tim Pope)
-BTM 檔案類型插件檔案。(Bram Moolenaar)
-calendar 檔案類型插件檔案。(Nikolai Weibull)
+BTM 檔案型別外掛檔案。(Bram Moolenaar)
+calendar 檔案型別外掛檔案。(Nikolai Weibull)
 Changelog 縮排檔案。(Nikolai Weibull)
 ChordPro 語法檔案。(Niels Bo Andersen)
 Cmake 縮排和語法檔案。(Andy Cedilnik)
-conf 檔案類型插件檔案。(Nikolai Weibull)
-context 語法和檔案類型插件檔案。(Nikolai Weibull)
-CRM114 檔案類型插件檔案。(Nikolai Weibull)
-cvs RC 檔案類型插件檔案。(Nikolai Weibull)
+conf 檔案型別外掛檔案。(Nikolai Weibull)
+context 語法和檔案型別外掛檔案。(Nikolai Weibull)
+CRM114 檔案型別外掛檔案。(Nikolai Weibull)
+cvs RC 檔案型別外掛檔案。(Nikolai Weibull)
 D 縮排檔案。(Jason Mills)
 Debian Sources.list 語法檔案。(Matthijs Mohlmann)
-dictconf 和 dictdconf 語法、縮排和檔案類型插件檔案。(Nikolai Weibull)
-diff 檔案類型插件檔案。(Bram Moolenaar)
-dircolors 檔案類型插件檔案。(Nikolai Weibull)
+dictconf 和 dictdconf 語法、縮排和檔案型別外掛檔案。(Nikolai Weibull)
+diff 檔案型別外掛檔案。(Bram Moolenaar)
+dircolors 檔案型別外掛檔案。(Nikolai Weibull)
 django 和 htmldjango 語法檔案。(Dave Hodder)
 doxygen 語法檔案。(Michael Geddes)
-elinks 檔案類型插件檔案。(Nikolai Weibull)
-eterm 檔案類型插件檔案。(Nikolai Weibull)
+elinks 檔案型別外掛檔案。(Nikolai Weibull)
+eterm 檔案型別外掛檔案。(Nikolai Weibull)
 eviews 語法檔案。(Vaidotas Zemlys)
-fetchmail RC 檔案類型插件檔案。(Nikolai Weibull)
-FlexWiki 語法和檔案類型插件檔案。(George Reilly)
+fetchmail RC 檔案型別外掛檔案。(Nikolai Weibull)
+FlexWiki 語法和檔案型別外掛檔案。(George Reilly)
 Generic 縮排檔案。(Dave Silvia)
-gpg 檔案類型插件檔案。(Nikolai Weibull)
+gpg 檔案型別外掛檔案。(Nikolai Weibull)
 gretl 語法檔案。(Vaidotas Zemlys)
 groovy 語法檔案。(Alessio Pace)
-group 語法和檔案類型插件檔案。(Nikolai Weibull)
-grub 檔案類型插件檔案。(Nikolai Weibull)
-Haskell 檔案類型插件檔案。(Nikolai Weibull)
-help 檔案類型插件檔案。(Nikolai Weibull)
-indent 檔案類型插件檔案。(Nikolai Weibull)
-Javascript 檔案類型插件檔案。(Bram Moolenaar)
-Kconfig 檔案類型插件和語法檔案。(Nikolai Weibull)
-ld 語法、縮排和檔案類型插件檔案。(Nikolai Weibull)
-lftp 檔案類型插件檔案。(Nikolai Weibull)
-libao config 檔案類型插件檔案。(Nikolai Weibull)
-limits 語法和檔案類型插件檔案。(Nikolai Weibull)
+group 語法和檔案型別外掛檔案。(Nikolai Weibull)
+grub 檔案型別外掛檔案。(Nikolai Weibull)
+Haskell 檔案型別外掛檔案。(Nikolai Weibull)
+help 檔案型別外掛檔案。(Nikolai Weibull)
+indent 檔案型別外掛檔案。(Nikolai Weibull)
+Javascript 檔案型別外掛檔案。(Bram Moolenaar)
+Kconfig 檔案型別外掛和語法檔案。(Nikolai Weibull)
+ld 語法、縮排和檔案型別外掛檔案。(Nikolai Weibull)
+lftp 檔案型別外掛檔案。(Nikolai Weibull)
+libao config 檔案型別外掛檔案。(Nikolai Weibull)
+limits 語法和檔案型別外掛檔案。(Nikolai Weibull)
 Lisp 縮排檔案。(Sergey Khorev)
-loginaccess 和 logindefs 語法和檔案類型插件檔案。(Nikolai Weibull)
-m4 檔案類型插件檔案。(Nikolai Weibull)
+loginaccess 和 logindefs 語法和檔案型別外掛檔案。(Nikolai Weibull)
+m4 檔案型別外掛檔案。(Nikolai Weibull)
 mailaliases 語法檔案。(Nikolai Weibull)
-mailcap 檔案類型插件檔案。(Nikolai Weibull)
-manconf 語法和檔案類型插件檔案。(Nikolai Weibull)
-matlab 檔案類型插件檔案。(Jake Wasserman)
+mailcap 檔案型別外掛檔案。(Nikolai Weibull)
+manconf 語法和檔案型別外掛檔案。(Nikolai Weibull)
+matlab 檔案型別外掛檔案。(Jake Wasserman)
 Maxima 語法檔案。(Robert Dodier)
 MGL 語法檔案。(Gero Kuhlmann)
-modconf 檔案類型插件檔案。(Nikolai Weibull)
-mplayer config 檔案類型插件檔案。(Nikolai Weibull)
-Mrxvtrc 語法和檔案類型插件檔案。(Gautam Iyer)
-MuPAD source 語法、縮排和檔案類型插件。(Dave Silvia)
-mutt RC 檔案類型插件檔案。(Nikolai Weibull)
-nanorc 語法和檔案類型插件檔案。(Nikolai Weibull)
-netrc 檔案類型插件檔案。(Nikolai Weibull)
-pamconf 語法和檔案類型插件檔案。(Nikolai Weibull)
+modconf 檔案型別外掛檔案。(Nikolai Weibull)
+mplayer config 檔案型別外掛檔案。(Nikolai Weibull)
+Mrxvtrc 語法和檔案型別外掛檔案。(Gautam Iyer)
+MuPAD source 語法、縮排和檔案型別外掛。(Dave Silvia)
+mutt RC 檔案型別外掛檔案。(Nikolai Weibull)
+nanorc 語法和檔案型別外掛檔案。(Nikolai Weibull)
+netrc 檔案型別外掛檔案。(Nikolai Weibull)
+pamconf 語法和檔案型別外掛檔案。(Nikolai Weibull)
 Pascal 縮排檔案。(Neil Carter)
-passwd 語法和檔案類型插件檔案。(Nikolai Weibull)
-PHP 編譯器插件。(Doug Kearns)
-pinfo 檔案類型插件檔案。(Nikolai Weibull)
-plaintex 語法和檔案類型插件檔案。(Nikolai Weibull，Benji Fisher)
-procmail 檔案類型插件檔案。(Nikolai Weibull)
-prolog 檔案類型插件檔案。(Nikolai Weibull)
-protocols 語法和檔案類型插件檔案。(Nikolai Weibull)
-quake 檔案類型插件檔案。(Nikolai Weibull)
-racc 語法和檔案類型插件檔案。(Nikolai Weibull)
-readline 檔案類型插件檔案。(Nikolai Weibull)
+passwd 語法和檔案型別外掛檔案。(Nikolai Weibull)
+PHP 編譯器外掛。(Doug Kearns)
+pinfo 檔案型別外掛檔案。(Nikolai Weibull)
+plaintex 語法和檔案型別外掛檔案。(Nikolai Weibull，Benji Fisher)
+procmail 檔案型別外掛檔案。(Nikolai Weibull)
+prolog 檔案型別外掛檔案。(Nikolai Weibull)
+protocols 語法和檔案型別外掛檔案。(Nikolai Weibull)
+quake 檔案型別外掛檔案。(Nikolai Weibull)
+racc 語法和檔案型別外掛檔案。(Nikolai Weibull)
+readline 檔案型別外掛檔案。(Nikolai Weibull)
 rhelp 語法檔案。(Johannes Ranke)
 rnoweb 語法檔案。(Johannes Ranke)
-Relax NG compact 檔案類型插件檔案。(Nikolai Weibull)
+Relax NG compact 檔案型別外掛檔案。(Nikolai Weibull)
 Scheme 縮排檔案。(Sergey Khorev)
-screen 檔案類型插件檔案。(Nikolai Weibull)
-sensors 語法和檔案類型插件檔案。(Nikolai Weibull)
-services 語法和檔案類型插件檔案。(Nikolai Weibull)
-setserial 語法和檔案類型插件檔案。(Nikolai Weibull)
-sieve 語法和檔案類型插件檔案。(Nikolai Weibull)
+screen 檔案型別外掛檔案。(Nikolai Weibull)
+sensors 語法和檔案型別外掛檔案。(Nikolai Weibull)
+services 語法和檔案型別外掛檔案。(Nikolai Weibull)
+setserial 語法和檔案型別外掛檔案。(Nikolai Weibull)
+sieve 語法和檔案型別外掛檔案。(Nikolai Weibull)
 SiSU 語法檔案。(Ralph Amissah)
 Sive 語法檔案。(Nikolai Weibull)
-slp config、reg 和 spi 語法和檔案類型插件檔案。(Nikolai Weibull)
+slp config、reg 和 spi 語法和檔案型別外掛檔案。(Nikolai Weibull)
 SML 縮排檔案。(Saikat Guha)
 SQL anywhere 語法和縮排檔案。(David Fishburn)
 SQL 縮排檔案。
 SQL-Informix 語法檔案。(Dean L Hill)
 SQL: 處理各種不同的變種。(David Fishburn)
-sshconfig 檔案類型插件檔案。(Nikolai Weibull)
+sshconfig 檔案型別外掛檔案。(Nikolai Weibull)
 Stata 和 SMCL 語法檔案。(Jeff Pitblado)
-sudoers 檔案類型插件檔案。(Nikolai Weibull)
-sysctl 語法和檔案類型插件檔案。(Nikolai Weibull)
-terminfo 檔案類型插件檔案。(Nikolai Weibull)
+sudoers 檔案型別外掛檔案。(Nikolai Weibull)
+sysctl 語法和檔案型別外掛檔案。(Nikolai Weibull)
+terminfo 檔案型別外掛檔案。(Nikolai Weibull)
 trustees 語法檔案。(Nima Talebi)
 Vera 語法檔案。(David Eggum)
-udev config、permissions 和 rules 語法和檔案類型插件檔案。(Nikolai Weibull)
-updatedb 語法和檔案類型插件檔案。(Nikolai Weibull)
+udev config、permissions 和 rules 語法和檔案型別外掛檔案。(Nikolai Weibull)
+updatedb 語法和檔案型別外掛檔案。(Nikolai Weibull)
 VHDL 縮排檔案。(Gerald Lai)
 WSML 語法檔案。(Thomas Haselwanter)
-Xdefaults 檔案類型插件檔案。(Nikolai Weibull)
-XFree86 config 檔案類型插件檔案。(Nikolai Weibull)
-xinetd 語法、縮排和檔案類型插件檔案。(Nikolai Weibull)
-xmodmap 檔案類型插件檔案。(Nikolai Weibull)
+Xdefaults 檔案型別外掛檔案。(Nikolai Weibull)
+XFree86 config 檔案型別外掛檔案。(Nikolai Weibull)
+xinetd 語法、縮排和檔案型別外掛檔案。(Nikolai Weibull)
+xmodmap 檔案型別外掛檔案。(Nikolai Weibull)
 Xquery 語法檔案。(Jean-Marc Vanel)
 xsd (XML schema) 縮排檔案。
-YAML 檔案類型插件檔案。(Nikolai Weibull)
-Zsh 檔案類型插件檔案。(Nikolai Weibull)
+YAML 檔案型別外掛檔案。(Nikolai Weibull)
+Zsh 檔案型別外掛檔案。(Nikolai Weibull)
 
 
 新鍵盤對映表: ~
@@ -1096,7 +1097,7 @@ cp737 的希臘語 (Panagiotis Louridas)
 
 其它: ~
 
-|:read| 參數現在有了 |++edit| 參數。從而使用檢測到的緩衝區的 'fileformat'、
+|:read| 引數現在有了 |++edit| 引數。從而使用檢測到的緩衝區的 'fileformat'、
 'fileencoding' 和其它選項。同時也修正了壓縮檔案編輯時不設定這些選項的問題。
 
 為 Sun Studio 10 更新 Netbeans 介面。協議號從 2.2 上到 2.3。(Gordon Prieur)
@@ -1104,7 +1105,7 @@ cp737 的希臘語 (Panagiotis Louridas)
 Mac: 啟動時 Vim 會載入 $VIMRUNTIME/macmap.vim 指令碼來定義預設的 command 鍵的映
 射。(多由 by Benji Fisher 提供)
 
-Mac: 加入剪貼簿選擇區的類型，這樣兩個 Vim 之間可以共享面向列塊、行和字元的選擇
+Mac: 加入剪貼簿選擇區的型別，這樣兩個 Vim 之間可以共享面向列塊、行和字元的選擇
 區。(Eckehard Berns)
 也修正設定 'clipboard' 為 "unnamed" 時 "yyp" 出現的問題。
 
@@ -1115,7 +1116,7 @@ Mac: 支援多位元組字元。(Da Woon Jung)
 
 Mac: 支援非 GUI 版本的 xterm 滑鼠。
 
-Mac: 和 Xcode 更好的整合。在 odoc 事件和拖動接收處理程式之後發送 (post) 偽滑鼠
+Mac: 和 Xcode 更好的整合。在 odoc 事件和拖動接收處理程式之後傳送 (post) 偽滑鼠
 釋放事件，以解決 Vim 載入檔案後不響應的問題。修正一個 "一行之差" 的行號錯誤。
 (Da Woon Jung)
 
@@ -1128,21 +1129,21 @@ Motif 上有了 GUI 字型選擇器。(Marcin Dalecki)
 
 Motif 有更好的工具欄按鈕。(Marcin Dalecki)
 
-Motif 有搜索/替代對話方塊助記。(Marcin Dalecki)
+Motif 有搜尋/替代對話方塊助記。(Marcin Dalecki)
 
 加入 Marcin Dalecki 提供的若干 Motif 改進。現在我們自己繪製標籤內容，使得字型
 的處理方式可以通過 Vim 定製，也相對減少了對 X11 字型管理的依賴。
 
-可以定義局部於緩衝區的自動命令。這意味著即使緩衝區沒有名字或者沒有特定的名字，
+可以定義區域性於緩衝區的自動命令。這意味著即使緩衝區沒有名字或者沒有特定的名字，
 也能使用自動命令。見 |autocmd-buflocal|。(Yakov Lerner)
 
 xterm 現在能夠識別多數功能鍵和修飾符的組合。|xterm-modifier-keys|
 
-如果設定 'verbose'，":highlight" 的輸出顯示高亮項目最近在哪裡設定。
+如果設定 'verbose'，":highlight" 的輸出顯示高亮專案最近在哪裡設定。
 如果設定 'verbose'，":map"、":abbreviate"、":command"、":function" 和
 ":autocmd" 的輸出顯示它最近在哪裡定義。(Yegappan Lakshmanan)
 
-":function /pattern" 列出匹配模式的函數。
+":function /pattern" 列出匹配模式的函式。
 
 "1gd" 和 "gd" 類似，但忽略游標位置之前的 {} 塊裡的匹配。"1gD" 和 "gD" 也是。
 
@@ -1153,12 +1154,12 @@ xterm 現在能夠識別多數功能鍵和修飾符的組合。|xterm-modifier-k
 要能處理待編輯的檔案已經被別的 Vim 例項編輯的情形，加入 |SwapExists| 事件。可
 以使用 |v:swapname|、|v:swapchoice| 和 |v:swapcommand| 變數。用此事件可以呼叫
 |client-server| 功能，把另一個 Vim 帶到前臺。
-啟動 Vim 時如有 "-t tag" 參數，已經有交換檔案而使用者選擇了 "quit" 或 "abort"，
+啟動 Vim 時如有 "-t tag" 引數，已經有交換檔案而使用者選擇了 "quit" 或 "abort"，
 退出 Vim。
 
 撤銷現在同時恢復 '< 和 '> 位置標記。"gv" 可以選擇改變和撤銷之前的相同區域。
 
-編輯 "/" 或 "?" 命令的搜索模式並且置位 'incsearch' 時，可用 CTRL-L 從當前匹配
+編輯 "/" 或 "?" 命令的搜尋模式並且置位 'incsearch' 時，可用 CTRL-L 從當前匹配
 上加一個字元。CTRL-R CTRL-W 會加入一個單詞，但排除已經輸入的單詞部分。
 
 Ruby 介面: 加入行號方法。(Ryan Paul)
@@ -1179,20 +1180,20 @@ $MYGVIMRC 環境變數設為第一個找到的 gvimrc 檔案。
 如果使用 ":silent" 並且 Ex 命令使用反向的行範圍，自動交換範圍的兩端而不詢問用
 戶是否需要這麼做。
 
-模式匹配的程式碼從遞迴函數修改為迭代機制。這樣避免了堆棧溢位錯誤。分配的內存儲存
-了狀態，所以總是可以檢測到內存溢位。允許匹配更加複雜的模式，但過程可能很長，所
+模式匹配的程式碼從遞迴函式修改為迭代機制。這樣避免了堆疊溢位錯誤。分配的記憶體儲存
+了狀態，所以總是可以檢測到記憶體溢位。允許匹配更加複雜的模式，但過程可能很長，所
 以期間 Vim 看起來可能像掛起一樣。
 
 以前總在沙盤 |sandbox| 裡計算一些選項，現在只有從模式行裡設定選項或在安全模式
-裡纔會這麼做。應用於 'balloonexpr'、'foldexpr'、'foldtext' 和 'includeexpr'。
+裡才會這麼做。應用於 'balloonexpr'、'foldexpr'、'foldtext' 和 'includeexpr'。
 (Sumner Hayes)
 
-一些命令和表示式可能包含可怕的副作用，比如編輯搜索模式時使用 CTRL-R =，而該表
-達式又呼叫了跳到其它視窗的函數的情況。加入 |textlock| 防止這種情況的發生。
+一些命令和表示式可能包含可怕的副作用，比如編輯搜尋模式時使用 CTRL-R =，而該表
+達式又呼叫了跳到其它視窗的函式的情況。加入 |textlock| 防止這種情況的發生。
 
 用 ":breakadd here" 和 ":breakdel here" 可以在游標位置設定或刪除斷點。
 
-現在可以這樣定義函數: >
+現在可以這樣定義函式: >
 	:exe "func Test()\n ...\n endfunc"
 
 教程進行了更新，使它更容易使用，也增加了一些解釋更多重要命令的文字。建議由
@@ -1201,7 +1202,7 @@ Gabriel Zachmann 提供。
 Unix: libcall() 失敗時，用 dlerror() 得到錯誤資訊並顯示。(Johannes Zellner)
 
 Mac 和 Cygwin: 編輯已有的檔案時，使檔名使用和編輯檔案相同的大小寫。因而輸入
-":e os_UNIX.c" 後檔名會成為 "os_unix.c"。
+":e os_UNIX.c" 後文件名會成為 "os_unix.c"。
 
 'listchars' 里加入 "nbsp"。(David Blanchet)
 
@@ -1213,9 +1214,9 @@ Lisp 縮排和括號匹配: (Sergey Khorev)
 - 識別 #\(、#\)、#\[ 和 #\] 為字元常數
 - 識別 Lisp 行註釋 (分號定界)
 
-match()、matchend() 和 matchstr() 加入 "count" 參數。(Ilya Sher)
+match()、matchend() 和 matchstr() 加入 "count" 引數。(Ilya Sher)
 
-winnr() 接受可選的 "$" 或 "#" 參數。(Nikolai Weibull，Yegappan Lakshmanan)
+winnr() 接受可選的 "$" 或 "#" 引數。(Nikolai Weibull，Yegappan Lakshmanan)
 
 search() 加入 's' 標誌位: 如果游標移動，設定 ' 位置標記。(Yegappan Lakshmanan)
 search() 加入 'n' 標誌位: 不移動游標。(Nikolai Weibull)
@@ -1224,15 +1225,15 @@ search() 加入 'e' 標誌位: 移到匹配的尾部。(Benji Fisher)
 search() 加入 'p' 標誌位: 返回子模式號。(Benji Fisher)
 同樣適用於 searchpos()、searchpair() 和 searchpairpos()。
 
-search() 和 searchpair() 函數包含附加參數來指定在哪裡停止搜索。如果搜索無須走
-得太遠，這加快了搜索的速度。
+search() 和 searchpair() 函式包含附加引數來指定在哪裡停止搜尋。如果搜尋無須走
+得太遠，這加快了搜尋的速度。
 
-gzip 插件解壓失敗時，給出錯誤訊息但不刪除原始文字。這有助於檔案有 .gz 副檔名但
+gzip 外掛解壓失敗時，給出錯誤訊息但不刪除原始文字。這有助於檔案有 .gz 副檔名但
 實際沒有壓縮的情形。(Andrew Pimlott)
 
 使用 C、C++ 或 IDL 語法時，可以附載入入 doxygen 語法。(Michael Geddes)
 
-支援設定 'filetype' 和 'syntax' 為 "aaa.bbb"，代表 "aaa" 加上 "bbb" 的檔案類型
+支援設定 'filetype' 和 'syntax' 為 "aaa.bbb"，代表 "aaa" 加上 "bbb" 的檔案型別
 和語法。
 
 ":registers" 命令現在正確顯示多位元組字元。
@@ -1240,9 +1241,9 @@ gzip 插件解壓失敗時，給出錯誤訊息但不刪除原始文字。這有
 VMS: 使用說明提到了可以用斜槓使標誌位大寫。加入內建的 vt320 終端程式碼色彩支援。
 (Zoltan Arpadffy)
 
-'viminfo' 的 '%' 項目允許設定緩衝區數目的上限。
+'viminfo' 的 '%' 專案允許設定緩衝區數目的上限。
 
-檔案類型的識別: 如果檔案看起來像外殼指令碼，檢查啟動 tcl 直譯器的 "exec" 命令。
+檔案型別的識別: 如果檔案看起來像外殼指令碼，檢查啟動 tcl 直譯器的 "exec" 命令。
 (Alexios Zavras 建議)
 
 支援 utf-8 和 latin9 (iso-8859-15) 的內部轉換，這樣就算沒有 iconv 也可以使用二
@@ -1251,7 +1252,7 @@ VMS: 使用說明提到了可以用斜槓使標誌位大寫。加入內建的 vt
 編輯無名且空白的緩衝區時如果載入會話檔案，徹底刪除該緩衝區。避免在緩衝區列表裡
 留下一個不用的緩衝區。
 
-Win32: 如果 libintl.dll 支援 bind_textdomain_codeset()，使用此函數。
+Win32: 如果 libintl.dll 支援 bind_textdomain_codeset()，使用此函式。
 (NAKADAIRA Yukihiro)
 
 Win32: Vim 以前不識別 NTFS 檔案系統的硬連結。現在當 'backupcopy' 為 "auto" 時
@@ -1271,55 +1272,55 @@ Unix: 通過符號連結編輯檔案時，交換檔案過去使用符號連結�
 議)
 
 客戶-伺服器通訊現在支援 'encoding'。如果在 Vim 伺服器上設定 'encoding' 為
-"utf-8" 而從控制臺上呼叫 "vim --remote fname"，"fname" 被從控制檯編碼轉換為
+"utf-8" 而從控制檯上呼叫 "vim --remote fname"，"fname" 被從控制檯編碼轉換為
 utf-8。這樣也允許使用不同 'encoding' 設定的 Vim 之間交換訊息。
 
 內部改動: 修改 ga_room 為 ga_maxlen，這樣它不需要每次都遞增/遞減。
 
-如果寄存器為空，不把它儲存到 viminfo 檔案。
+如果暫存器為空，不把它儲存到 viminfo 檔案。
 
 刪除 tcltags 指令碼，它已經廢棄了。
 
-":redir @*>>" 和 ":redir @+>>" 附加到剪貼簿。寄存器名後非法字元的檢查更嚴格。
+":redir @*>>" 和 ":redir @+>>" 附加到剪貼簿。暫存器名後非法字元的檢查更嚴格。
 |:redir|
 
 ":redir => variable" 和 ":redir =>> variable" 寫入或附加到變數。
 (Yegappan Lakshmanan) |:redir|
 
-":redir @{a-z}>>" 附加到寄存器 a 到 z。(Yegappan Lakshmanan)
+":redir @{a-z}>>" 附加到暫存器 a 到 z。(Yegappan Lakshmanan)
 
 'verbosefile' 選項可以把訊息記錄到檔案。此時不再顯示 verbose 訊息。也可用
-"-V{filename}" 參數記錄啟動訊息。
+"-V{filename}" 引數記錄啟動訊息。
 
-":let g:" 列出全局變數。
-":let b:" 列出緩衝區局部變數。
-":let w:" 列出視窗局部變數。
+":let g:" 列出全域性變數。
+":let b:" 列出緩衝區區域性變數。
+":let w:" 列出視窗區域性變數。
 ":let v:" 列出 Vim 變數。
 
-stridx() 和 strridx() 函數接受第三個參數，指定從哪裡開始搜索。(Yegappan
+stridx() 和 strridx() 函式接受第三個引數，指定從哪裡開始搜尋。(Yegappan
 Lakshmanan)
 
-getreg() 函數接受額外的一個參數，從而得到 '=' 寄存器表示式本身而不是它計算之後
+getreg() 函式接受額外的一個引數，從而得到 '=' 暫存器表示式本身而不是它計算之後
 的值。
 
-setline() 函數接受列表參數以設定多行。如果行號剛剛在末行之後，附加行。
+setline() 函式接受列表引數以設定多行。如果行號剛剛在末行之後，附加行。
 
 如果字元數和位元組數不同的話，g CTRL-G 同時顯示字元數。
 
-":debug" 和 '=' 寄存器表示式的補全。跳過行範圍和命令名之間的 ":"。
-(Peter winters)
+":debug" 和 '=' 暫存器表示式的補全。跳過行範圍和命令名之間的 ":"。
+(Peter Winters)
 
 插入模式的 CTRL-Q 現在預設同 CTRL-V。過去它被忽略。
 
-如果 'debug' 包含 "beep"，發出鈴聲的函數或指令碼會給出訊息幷包括錯誤源。
+如果 'debug' 包含 "beep"，發出鈴聲的函式或指令碼會給出訊息幷包括錯誤源。
 
 補全緩衝區名時，用 "\(^\|[\/]\)" 而不是 "^" 進行匹配，這樣 ":buf stor<Tab>"
 能同時找到 "include/storage.h" 和 "storage/main.c"。
 
-要計算 (模式匹配) 的項目數而不修改緩衝區，可用 |:substitute| 的 'n' 標誌位。見
+要計算 (模式匹配) 的專案數而不修改緩衝區，可用 |:substitute| 的 'n' 標誌位。見
 |count-items|。
 
-|:substitute| 命令的 \u、\U、\l 和 \L 項目現在支援多位元組字元。
+|:substitute| 命令的 \u、\U、\l 和 \L 專案現在支援多位元組字元。
 
 識別名為 "screen.linux" 的 $TERM 以設定 'background' 的預設值為 "dark"。
 (Ciaran McCreesh)  "cygwin" 和 "putty" 也是如此。
@@ -1329,43 +1330,43 @@ setline() 函數接受列表參數以設定多行。如果行號剛剛在末行�
 
 xterm 功能鍵過去不能識別所有的修飾符。現在終端程式碼可用 ";*X" 或 "O*X" 結尾，其
 中 X 是任何字元而 * 代表修飾符程式碼。
-加入 <xUp>、<xDown>、<xLeft> 和 <xRight> 鍵以識別 xterm 發送這些程式碼的兩種可能
+加入 <xUp>、<xDown>、<xLeft> 和 <xRight> 鍵以識別 xterm 傳送這些程式碼的兩種可能
 形式，同時仍然可以處理所有的修飾符。
 
-getwinvar() 現在也可以從指定視窗取得局部於緩衝區的選項。
+getwinvar() 現在也可以從指定視窗取得區域性於緩衝區的選項。
 
-'errorformat' 加入 "%s" 項目。(Yegappan Lakshmanan)
-'errorformat' 加入 "%>" 項目。
+'errorformat' 加入 "%s" 專案。(Yegappan Lakshmanan)
+'errorformat' 加入 "%>" 專案。
 
 'errorformat' 過去不能使用包含出現在 "%f" 之後的字元的檔名。例如，"%f:%l:%m"
-裡檔名不能包含 ":"。現在必須餘下的模式匹配以後纔會包含第一個 ":"。在這個例子
+裡檔名不能包含 ":"。現在必須餘下的模式匹配以後才會包含第一個 ":"。在這個例子
 裡，檔名可以包含後面沒有行號的 ":"。(Emanuele Giaquinta 建議)
 
 GTK GUI: 如果可能，使用 GTK 檔案對話方塊。Grahame Bowland 和 Evan Webb 補丁的混
 合。
 
-bugreport.vim 加入 ":scriptnames"，這樣可以看到使用了哪些插件。
+bugreport.vim 加入 ":scriptnames"，這樣可以看到使用了哪些外掛。
 
 Win32: 如果使用者改變了滾輪點選滾動行數的設定，立即使用。過去 Vim 需要重啟。
 
-在表示式裡使用 @= 時，值是 @= 包含的內容。用 ":let @= = value" 可以設定寄存器
+在表示式裡使用 @= 時，值是 @= 包含的內容。用 ":let @= = value" 可以設定暫存器
 內容。
 
-":popup" 可以加上 !，使彈出選單出現在滑鼠指針的位置而不是文字游標的位置。
+":popup" 可以加上 !，使彈出選單出現在滑鼠指標的位置而不是文字游標的位置。
 
 擴充了編碼表，支援許多 MS-Windows 內碼表，如 cp1250 和 cp737。這樣 Unix 就可以
 直接使用它們而無需在前面加上 "8bit-"。
 如果編碼名以 "microsoft-cp" 開始，忽略 "microsoft-" 部分。
 
-使用者定義的命令加入 "customlist" 補全參數。使用者定義的補全參數應該返回 Vim 列表
+使用者定義的命令加入 "customlist" 補全引數。使用者定義的補全引數應該返回 Vim 列表
 形式的補全的候選值，Vim 不過濾返回值。(Yegappan Lakshmanan)
 
 Win32: 如果 common controls 支援，氣泡可以多行。(Sergey Khorev)
 
-命令列補全現在對各種類型參數的匹配結果進行排序: 使用者命令、變數、語法名等。
+命令列補全現在對各種型別引數的匹配結果進行排序: 使用者命令、變數、語法名等。
 
 如果不設定 locale，使用 "C" locale。Vim 會處理 latin1 字元並使用自己的
-isupper()/toupper()/等函數。
+isupper()/toupper()/等函式。
 
 rxvt 終端模擬器用 COLORFGBG 環境變數來猜測 'background' 的值。
 (Ciaran McCreesh)
@@ -1374,7 +1375,7 @@ rxvt 終端模擬器用 COLORFGBG 環境變數來猜測 'background' 的值。
 
 如果 'foldcolumn' 為 1，放入儘量多的資訊。滑鼠點選 '-' 可以關閉摺疊。
 
-input() 接受可選的補全參數，指定輸入能接受的補全類型。(Yegappan Lakshmanan)
+input() 接受可選的補全引數，指定輸入能接受的補全型別。(Yegappan Lakshmanan)
 
 diff 模式下，"dp" 可接受多於兩個緩衝區，如果只有一個置位 'modifiable' 的話。
 
@@ -1383,7 +1384,7 @@ diff 模式下，"dp" 可接受多於兩個緩衝區，如果只有一個置位 
 如果 'include' 選項包含 \zs，找到的檔名是 \zs 到模式結束處或 \ze。這樣可以給
 'includeexpr' 傳遞更多的資訊。
 
-現在，在啟動過程的插件載入時支援 plugin 目錄下的子目錄。|load-plugins|
+現在，在啟動過程的外掛載入時支援 plugin 目錄下的子目錄。|load-plugins|
 
 foldcolumn 總是為關閉摺疊顯示 '+'，方便開啟。這可能覆蓋其它字元，'foldcolumn'
 為 1 尤其如此。
@@ -1393,7 +1394,7 @@ foldcolumn 總是為關閉摺疊顯示 '+'，方便開啟。這可能覆蓋其�
 
 Unix: open() 返回 EFBIG 時會給出合適的資訊。
 
-":mksession" 設定 SessionLoad 變數以通知插件。會話檔案也加入了模式行來設定
+":mksession" 設定 SessionLoad 變數以通知外掛。會話檔案也加入了模式行來設定
 'filetype' 為 "vim"。
 
 ATTENTION 提示把 "Delete it" 選擇放在 "Quit" 之前，這樣更合邏輯。(Robert Webb)
@@ -1410,7 +1411,7 @@ Win32: 保持 viminfo 檔案的隱藏屬性。
 CTRL-O 之後的那個命令如果不插入文字，最近插入的文字會被記住。這樣，CTRL-O 命令
 可以移動游標而不用擔心會丟失最近插入的文字。
 
-exists() 函數現在提供對自動命令組是否定義和自動命令事件是否支援的檢查。
+exists() 函式現在提供對自動命令組是否定義和自動命令事件是否支援的檢查。
 (Yegappan Lakshmanan)
 
 允許在沙盤裡使用 ":global"，因為它本身不會造成任何傷害。
@@ -1418,12 +1419,12 @@ exists() 函數現在提供對自動命令組是否定義和自動命令事件�
 如果 'filetype' 為空，":saveas asdf.c" 會設定它為 c。":w asdf.c" 如果會設定緩
 衝區的檔名，也是如此。
 
-插入模式的整行補全現在同時搜索未載入的緩衝區。
+插入模式的整行補全現在同時搜尋未載入的緩衝區。
 
 colortest.vim 指令碼現在可以用 ":source" 或 ":runtime syntax/colortest.vim" 直接
 呼叫。
 
-'statusline' 選項可以局部於視窗，這樣每個視窗就可以有不同的值。(部分由
+'statusline' 選項可以區域性於視窗，這樣每個視窗就可以有不同的值。(部分由
 Yegappan Lakshmanan 提供)
 
 現在，'statusline' 和其它支援相同格式的選項可以使用新特性:
@@ -1441,26 +1442,26 @@ Win32: 如果設定的話，安裝程式生成的批處理檔案使用 $VIMRUNTI
 Michaelis 提供了示例。
 同時新建 vimtutor.bat 批處理檔案。
 
-'balloonexpr' 選項現在變成了 |global-local| 類型。
+'balloonexpr' 選項現在變成了 |global-local| 型別。
 
-system() 函數現在運行於加工 (cooked) 模式，從而可以用 CTRL-C 中斷。
+system() 函式現在運行於加工 (cooked) 模式，從而可以用 CTRL-C 中斷。
 
 ==============================================================================
 編 譯 時 的 改 變					*compile-changes-7*
 
 放棄對 BeOS 和 Amiga GUI 的支援。沒有人維護，可能也已經無法工作。如果你想做:
-獲取 Vim 6.x 版本並重新把你的工作合並進來。
+獲取 Vim 6.x 版本並重新把你的工作合併進來。
 
-運行測試時，如果其中一個失敗而不能生成 "test.out"，其餘的測試繼續運行。如果有
-內存溢位的情況，這麼做會有幫助。
+執行測試時，如果其中一個失敗而不能生成 "test.out"，其餘的測試繼續執行。如果有
+記憶體溢位的情況，這麼做會有幫助。
 
-編譯時定義 EXITFREE 並且帶上 ccmalloc 庫可來檢測內存洩漏。有些內存總是報告為洩
-漏，例如 X11 庫函數分配的和 alloc_cmdbuff() 分配用於儲存 ":quit" 命令的內存。
+編譯時定義 EXITFREE 並且帶上 ccmalloc 庫可來檢測記憶體洩漏。有些記憶體總是報告為洩
+漏，例如 X11 庫函式分配的和 alloc_cmdbuff() 分配用於儲存 ":quit" 命令的記憶體。
 
 列印程式碼移到 src/hardcopy.c。
 
-main() 的一些程式碼移到獨立的若干函數，這使得操作更清晰。這些函數也使用結構來避
-免過多的參數。
+main() 的一些程式碼移到獨立的若干函式，這使得操作更清晰。這些函式也使用結構來避
+免過多的引數。
 
 unix_expandpath() 移到 misc1.c，這使得 os_mac.c 也可以使用它而無須複製程式碼。
 
@@ -1469,16 +1470,16 @@ unix_expandpath() 移到 misc1.c，這使得 os_mac.c 也可以使用它而無�
 "make" 現在建立 Vim.app 目錄，而 "make install" 把它複製到最終的目標位置。
 (Raf)
 
-運行時目錄不直接放在 Vim.app，而放在 Vim.app/Contents/Resources/vim，這樣做遵
+執行時目錄不直接放在 Vim.app，而放在 Vim.app/Contents/Resources/vim，這樣做遵
 從了 Mac 的規範。
 
 編譯時可以不用任何修改就加入 Motif、Athena 或 GTK 支援，而且仍然可用 MacRoman
 轉換。加入 os_mac_conv.c 檔案。
 
-運行 "make install" 時，像 Unix 那樣安裝運行時檔案，以免複製過多檔案。
-運行 "make" 時建立到運行時檔案的連結，以免遞迴複製需要太多時間。
+執行 "make install" 時，像 Unix 那樣安裝執行時檔案，以免複製過多檔案。
+執行 "make" 時建立到執行時檔案的連結，以免遞迴複製需要太多時間。
 
-configure 嘗試同時編譯 Intel 和 PowerPC 的 Vim。configure 參數 --with-mac-arch
+configure 嘗試同時編譯 Intel 和 PowerPC 的 Vim。configure 引數 --with-mac-arch
 可以改變這一點。
 
 --- Win32 ---
@@ -1503,7 +1504,7 @@ work.  Use "LPT1" then.
 The GTK font dialog uses a font size zero when the font name doesn't include a
 size.  Use a default size of 10.
 
-This example in the documentation didn't work:
+This example in the documentation didn't work: >
     :e `=foo . ".c"`
 Skip over the expression in `=expr` when looking for comments, |, % and #.
 
@@ -1860,8 +1861,8 @@ Removed the "COUNT" flag from ":argadd", to avoid ":argadd 1*" to be used like
 
 Avoid that $LANG is used for the menus when LC_MESSAGES is "en_US".
 
-Added backslashes before dashes in the vim.1 manual page to make the appear as
-real dashes. (Pierr Habouzit)
+Added backslashes before dashes in the vim.1 manual page to make them appear
+as real dashes. (Pierre Habouzit)
 
 Where "gq" left the cursor depended on the value of 'formatprg'.  Now "gq"
 always leaves the cursor at the last line of the formatted text.
@@ -1871,7 +1872,7 @@ detection may try to check the contents of the file while it's still
 compressed.  Skip setting 'filetype' for compressed files until they have been
 decompressed.  Required for patterns that end in a "*".
 
-Starting with an argument "+cmd" or "-S script" causes the cursor the be moved
+Starting with an argument "+cmd" or "-S script" causes the cursor to be moved
 to the first line.  That breaks a BufReadPost autocommand that uses g`".
 Don't move the cursor if it's somewhere past the first line.
 
@@ -2218,7 +2219,7 @@ with special attributes were redrawn.  Now only do this for characters that
 actually are bold.  Speeds up displaying considerably.
 
 When only highlighting changes and the text is scrolled at the same time
-everything is redraw instead of using a scroll and updating the changed text.
+everything is redrawn instead of using a scroll and updating the changed text.
 E.g., when using ":match" to highlight a paren that the cursor landed on.
 Added SOME_VALID: Redraw the whole window but also try to scroll to minimize
 redrawing.
@@ -2869,7 +2870,7 @@ Ruby 介面的模組名現在叫做 "Vim" 而非 "VIM"。但為了反向相容�
 	俄語教程的 utf-8 版本。
 	斯洛伐克語教程的 utf-8 版本。
 
-新檔案類型插件:
+新檔案型別外掛:
 	Bst (Tim Pope)
 	Cobol (Tim Pope)
 	Fvwm (Gautam Iyer)
@@ -2890,10 +2891,10 @@ Ruby 介面的模組名現在叫做 "Vim" 而非 "VIM"。但為了反向相容�
 	馬爾地夫語 (Ibrahim Fayaz)
 	越南語 (Samuel Thibault)
 
-其它新運行時檔案:
+其它新執行時檔案:
 	Ada 支援檔案。(Neil Bird, Martin Krischik)
 	斯洛維尼亞語選單翻譯 (Mojca Miklavec)
-	Mono C# 編譯器插件 (Jarek Sobiecki)
+	Mono C# 編譯器外掛 (Jarek Sobiecki)
 
 
 
@@ -3193,7 +3194,7 @@ Patch 7.0.049
 Patch 7.0.050
 問題:       After using the netbeans interface close command a stale pointer
 	    may be used.
-解決方案:   Clear the pointer to the closed buffer. (Xaview de Gaye)
+解決方案:   Clear the pointer to the closed buffer. (Xavier de Gaye)
 相關檔案:   src/netbeans.c
 
 Patch 7.0.051 (after 7.0.44)
@@ -3848,7 +3849,7 @@ Patch 7.0.153
 相關檔案:   src/if_cscope.c
 
 Patch 7.0.154
-問題:       When 'foldnextmax' is negative Vim can hang. (James Vega)
+問題:       When 'foldnestmax' is negative Vim can hang. (James Vega)
 解決方案:   Avoid the fold level becoming negative.
 相關檔案:   src/fold.c, src/syntax.c
 
@@ -3973,7 +3974,7 @@ Patch 7.0.173
 問題:       ":call f().TT()" doesn't work.  (Richard Emberson)
 解決方案:   When a function returns a Dictionary or another composite continue
 	    evaluating what follows.
-相關檔案:   src/eval.c    
+相關檔案:   src/eval.c
 
 Patch 7.0.174
 問題:       ":mksession" doesn't restore window layout correctly in tab pages
@@ -4087,7 +4088,7 @@ Patch 7.0.192
 	    that not all blocks are loaded into memory, causing ml_get errors
 	    later.
 解決方案:   Rename "dont_release" to "mf_dont_release" and also use it to
-	    avoid using the cached line and locked block. 
+	    avoid using the cached line and locked block.
 相關檔案:   src/globals.h, src/memfile.c, src/memline.c
 
 Patch 7.0.193
@@ -4494,7 +4495,7 @@ FileChangedShellPost 事件本來在檔案沒有改變的時候也會給出。
 
 把 fcntl.h 的包含移到了 vim.h，從所有的 .c 檔案中刪除其引用。
 
-引入 STRMOVE(d, s) 宏，類似於 STRCPY()，用於有重疊的字元串。用此宏就不需要
+引入 STRMOVE(d, s) 巨集，類似於 STRCPY()，用於有重疊的字串。用此巨集就不需要
 mch_memmove(p, p + x, STRLEN(p + x) + 1)。
 
 刪除 bulgarian.vim 鍵盤對映檔案，它被兩個更標準的檔案代替 (Boyko Bantchev)
@@ -4528,12 +4529,12 @@ mch_memmove(p, p + x, STRLEN(p + x) + 1)。
 	XBL (Doug Kearns)
 
 新教程檔案:
-	創建了所有教程檔案的 UTF-8 版本。
+	建立了所有教程檔案的 UTF-8 版本。
 	希臘文把 ".gr" 換名為 ".el" (Greek vs Greece)。
 	世界語 (Dominique Pelle)
 	克羅埃西亞語 (Paul B. Mahol)
 
-新檔案類型插件:
+新檔案型別外掛:
 	Cdrdao config (Nikolai Weibull)
 	Debian control files (Debian Vim 維護者)
 	Denyhosts (Nikolai Weibull)
@@ -4562,7 +4563,7 @@ mch_memmove(p, p + x, STRLEN(p + x) + 1)。
 	Sass (Tim Pope)
 	Tiny Fugue (Christian J. Robinson)
 
-新編譯器插件:
+新編譯器外掛:
 	RSpec (Tim Pope)
 
 新鍵盤對映表:
@@ -4571,14 +4572,14 @@ mch_memmove(p, p + x, STRLEN(p + x) + 1)。
 	烏克蘭語 Dvorak (Serhiy Boiko)
 	刪除簡單保加利亞語，"bds" 和 phonetic 足夠了。
 
-其它新運行時檔案:
+其它新執行時檔案:
 	世界語選單和訊息翻譯。(Dominique Pelle)
 	芬蘭語選單和訊息翻譯。(Flammie Pirinen)
 	巴西葡萄牙語選單和訊息翻譯。(Eduardo Dobay)
 
 加入浮點數支援。|Float|
 
-mode() 接受參數以返回關於當前模式更詳細的資訊。(Ben Schmidt)
+mode() 接受引數以返回關於當前模式更詳細的資訊。(Ben Schmidt)
 
 加入 BSD 控制檯滑鼠的支援: |sysmouse|。(Paul B. Mahol)
 
@@ -4595,7 +4596,7 @@ configure 中不使用 /usr/local/include 和 /usr/local/lib。(Philip Prindevil
 為了在 Unix 上跨平臺編譯 Cygwin 版本，在 src/vim.rc 中把 VIM.TLB 換名為
 vim.tlb。(Tsuneo Nakagawa)
 
-加入 v:searchforward 變數: 當前搜索的方向。(Yakov Lerner)
+加入 v:searchforward 變數: 當前搜尋的方向。(Yakov Lerner)
 
 
 修正							*fixed-7.2*
@@ -5846,7 +5847,7 @@ Patch 7.1.206
 相關檔案:   src/version.c
 
 Patch 7.1.207
-問題:	    Netbeans: "remove" cannot delete one line. 
+問題:	    Netbeans: "remove" cannot delete one line.
 解決方案:   Remove partial lines and whole lines properly.  Avoid a memory
 	    leak.  (Xavier de Gaye)
 相關檔案:   src/netbeans.c
@@ -6300,7 +6301,7 @@ Patch 7.1.282 (extra)
 問題:	    Win64: Edit with Vim context menu isn't installed correctly.
 	    Compiler warnings and a few other things.
 解決方案:   Add [ and ] to entry of class name.  Use UINT_PTR instead of UINT.
-	    And a fixes for the other things. (George V.  Reilly)
+	    And fixes for other things. (George V.  Reilly)
 相關檔案:   src/GvimExt/Makefile, src/dosinst.c, src/if_ole.cpp, src/if_ole.h,
 	    src/if_ole.idl, src/INSTALLpc.txt,  src/Make_mvc.mak,
 	    src/os_win32.c,
@@ -6993,7 +6994,7 @@ Mac: Could not build with Perl interface.
 
 新增 ":earlier 1f" 和 ":later 1f" 命令。
 撤銷資訊中新增檔案儲存計數。
-新增 |undotree()| 和 |undofile()| 函數。
+新增 |undotree()| 和 |undofile()| 函式。
 
 新增 'undoreload' 選項。可以在緩衝區過載時儲存當前文字，以便使過載可以撤銷。
 
@@ -7002,7 +7003,7 @@ Mac: Could not build with Perl interface.
 ---------------
 
 支援 Blowfish 加密。新增 'cryptmethod' 選項。
-主要由 Moshin Ahmed 提供。
+主要由 Mohsin Ahmed 提供。
 
 另外，也對交換檔案和撤銷檔案的文字進行加密。
 
@@ -7013,14 +7014,14 @@ Mac: Could not build with Perl interface.
 新增 |+conceal| 功能。(Vince Negri)
 這樣可以基於語法高亮隱藏成串的文字。
 也可以用單個字元替換成串的文字 |:syn-cchar|。
-'conceallevel' 選項指定文字匹配包含 conceal 屬性的語法項目時如何操作。
+'conceallevel' 選項指定文字匹配包含 conceal 屬性的語法專案時如何操作。
 'concealcursor' 選項指定游標行的行為。
 
 幫助檔案隱藏用於標記標籤和示例的字元。
 
-新增 |synconcealed()| 函數，用於 :TOhtml。(Benjamin Fritz)
+新增 |synconcealed()| 函式，用於 :TOhtml。(Benjamin Fritz)
 
-新增 'cursorbind' 函數，使相同文字的兩個視窗游標保持同步。
+新增 'cursorbind' 函式，使相同文字的兩個視窗游標保持同步。
 
 
 Lua 介面					*new-lua*
@@ -7048,9 +7049,9 @@ MS-Windows big gvim 現在使用 Python 2.7 和 3.1.2、Perl 5.12 和 Ruby 1.9.1
 要配套的 .dll 檔案才能使用。
 
 附加和語言檔案不再分別釋出。
-所有系統需要的原始碼都包含在同一個發布里。
+所有系統需要的原始碼都包含在同一個釋出裡。
 
-用 ":recover" 或其它方式來恢覆檔案後，":x" 和 "ZZ" 過去不儲存你看到的內容。這
+用 ":recover" 或其它方式來恢復檔案後，":x" 和 "ZZ" 過去不儲存你看到的內容。這
 會使得工作丟失。現在恢復後的文字會和原來文字比較。如果不同，標註緩衝區為已修改
 。
 
@@ -7070,7 +7071,7 @@ VimLeave、BufWinLeave 和 BufUnload 自動命令。
 
 切換 autoconf 2.63 到 2.65。
 
-刪除 Mupad 縮排和檔案類型插件檔案，沒有用。
+刪除 Mupad 縮排和檔案型別外掛檔案，沒有用。
 
 在歷史中記憶的訊息最大數目現在是 200 (原來是 100)。
 
@@ -7085,12 +7086,12 @@ VimLeave、BufWinLeave 和 BufUnload 自動命令。
 
 加入 NetBeans 的終端支援。加入 |:nbstart| 和 |:nbclose|。(Xavier de Gaye)
 
-更多浮點函數: |acos()|、|asin()|、|atan2()|、|cosh()|、|exp()|、|fmod()|、
+更多浮點函式: |acos()|、|asin()|、|atan2()|、|cosh()|、|exp()|、|fmod()|、
 |log()|、|sinh()|、|tan()|、|tanh()|。(Bill McCarthy)
 
-加入 |gettabvar()| 和 |settabvar()| 函數。(Yegappan Lakshmanan)
+加入 |gettabvar()| 和 |settabvar()| 函式。(Yegappan Lakshmanan)
 
-加入 |strchars()|、|strwidth()| 和 |strdisplaywidth()| 函數。
+加入 |strchars()|、|strwidth()| 和 |strdisplaywidth()| 函式。
 
 支援 Mac 上 GTK 的 GDK_SUPER_MASK。(Stephan Schulz)
 
@@ -7098,11 +7099,11 @@ VimLeave、BufWinLeave 和 BufUnload 自動命令。
 
 加入橫向滾輪的支援。(Bjorn Winckler)
 
-緩衝區處於比較模式時，:TOhtml 創建顯示並排比較的 HTML。(Christian Brabandt)
+緩衝區處於比較模式時，:TOhtml 建立顯示並排比較的 HTML。(Christian Brabandt)
 
 ":TOhtml" 和 2html.vim 指令碼的若干改進。(Benjamin Fritz)
 
-'cinoptions' 新增 'L' 項目。(Manuel Konig)
+'cinoptions' 新增 'L' 專案。(Manuel Konig)
 
 改進 Javascript 縮排。'cinoptions' 新增 "J" 標誌位。(Hari Kumar G)
 
@@ -7124,24 +7125,24 @@ Mac: 新增 Mac 控制檯的剪貼簿支援。(Bjorn Winckler)
 
 :lmap 和 :lunmap 的命令列補全。
 
-支援使用者命令的語法和檔案類型補全。(Christian Brabandt)
+支援使用者命令的語法和檔案型別補全。(Christian Brabandt)
 
 避免使用 GTK mail_loop()，以便使用 GtkFileChooser。(James Vega)
 
 'formatexpr' 計算非零時回到內部排版機制，"gq" 亦同。(James Vega)
 
-:browse 支援接受錯誤檔案的參數的命令。(Lech Lorens)
+:browse 支援接受錯誤檔案的引數的命令。(Lech Lorens)
 
 gvimext 支援寬檔名。(Szabolcs Horvat)
 
-改進合並行的測試。(Milan Vancura)
+改進合併行的測試。(Milan Vancura)
 使行範圍的合併加快很多。(Milan Vancura)
 
 新增改進 z/OS (OS/390) 支援的補丁。(Ralf Schandl)
 
 新增 helphelp.txt 檔案。文字來自原來的 various.txt。
 
-新增 'statusline' 的 "q" 項目。新增 |w:quickfix_title|。(Lech Lorens)
+新增 'statusline' 的 "q" 專案。新增 |w:quickfix_title|。(Lech Lorens)
 
 VMS 的各種改進。(Zoltan Arpadffy)
 
@@ -7164,13 +7165,13 @@ SVG - Scalable Vector Graphics (Vincent Berthoux)
 task data (John Florian)
 task 42 edit (John Florian)
 
-新檔案類型插件: ~
+新檔案型別外掛: ~
 Cucumber (Tim Pope)
 Liquid (Tim Pope)
 Markdown (Tim Pope)
 Tcl (Robert L Hicks)
 
-新縮排插件: ~
+新縮排外掛: ~
 CUDA (Bram Moolenaar)
 ChaiScript (Jason Turner)
 Cucumber (Tim Pope)
@@ -7179,7 +7180,7 @@ Liquid (Tim Pope)
 Mail (Bram Moolenaar)
 Perl 6 (Andy Lester)
 
-其它新運行時檔案: ~
+其它新執行時檔案: ~
 布列塔尼語拼寫檔案 (Dominique Pelle)
 Dvorak 鍵盤對映表 (Ashish Shukla)
 韓語翻譯。(SungHyun Nam)
@@ -7191,7 +7192,7 @@ Python 3 補全 (Aaron Griffin)
 葡萄牙語教程。
 挪威教程現在可從 tutor.nb 獲得
 
-刪除 Mupad 運行時檔案，沒有人維護。
+刪除 Mupad 執行時檔案，沒有人維護。
 
 
 修正							*fixed-7.3*
@@ -7792,7 +7793,7 @@ Patch 7.2.096
 
 Patch 7.2.097
 問題:	    "!xterm&" doesn't work when 'shell' is "bash".
-解決方案:   Ignore SIGHUP after calling setsid(). (Simon Schubert) 
+解決方案:   Ignore SIGHUP after calling setsid(). (Simon Schubert)
 相關檔案:   src/os_unix.c
 
 Patch 7.2.098
@@ -8541,7 +8542,7 @@ Patch 7.2.221
 	    src/ui.c
 
 Patch 7.2.222
-問題:	   ":mksession" doesn't work properly with 'acd' set. 
+問題:	   ":mksession" doesn't work properly with 'acd' set.
 解決方案:   Make it work. (Yakov Lerner)
 相關檔案:   src/ex_docmd.c
 
@@ -8951,7 +8952,7 @@ Patch 7.2.292
 相關檔案:   src/ops.c
 
 Patch 7.2.293
-問題:	    When setting 'comments' option it may be used in a wrong way. 
+問題:	    When setting 'comments' option it may be used in a wrong way.
 解決方案:   Don't increment after skipping over digits. (Yukihiro Nakadaira)
 相關檔案:   src/misc1.c
 
@@ -9959,7 +9960,7 @@ an error.  Was caused by patch 7.2.132.
 Make the references to features in the help more consistent. (Sylvain Hitier)
 
 ==============================================================================
-7.4 版 本					*version-7.4* *version7.4*
+7.4 版 本				*version-7.4* *version7.4* *vim-7.4*
 
 本小節討論 7.3 和 7.4 版本之間的改進。
 
@@ -9988,17 +9989,17 @@ Make the references to features in the help more consistent. (Sylvain Hitier)
 更好的 Python 介面				*better-python-interface*
 -----------------------
 
-新增 |python-bindeval| 函數。和 |python-eval| 不同，這個函數分別為字典、列表和
-函數返回 |python-Dictionary|、|python-List| 和 |python-Function| 物件，而不是
-它們的 Python 內建對應物件 (說起函數的話就是 None)。
-   對簡單類型，此函數返回 Python 內建類型，而不是像 |python-eval| 那樣返回
+新增 |python-bindeval| 函式。和 |python-eval| 不同，這個函式分別為字典、列表和
+函式返回 |python-Dictionary|、|python-List| 和 |python-Function| 物件，而不是
+它們的 Python 內建對應物件 (說起函式的話就是 None)。
+   對簡單型別，此函式返回 Python 內建型別，而不是像 |python-eval| 那樣返回
 Python `str()`。Python 3 則返回 `bytes()` 物件而不是 `str()`，以避免出錯
 UnicodeDecodeError 的可能性。
    新物件的介面一定程度上模仿標準 Python 的 `dict()` 和 `list()` 介面。將來
 會改進模仿的程度。
 
 新增特殊的 |python-vars| 物件，也可用於 |python-buffer| 和 |python-window|。
-它們方便了從 Python 訪問 VimL 變數。
+它們方便了從 Python 訪問 Vim 指令碼變數。
 
 現在你不再需要修改 `sys.path` 來匯入自己的模組: 特殊的鉤子現在負責從
 {rtp}/python2、{rtp}/python3 和 {rtp}/pythonx 目錄 (分別用於 Python 2、Python
@@ -10015,7 +10016,7 @@ UnicodeDecodeError 的可能性。
 
 新增 |:pydo| 和 |:py3do| 命令。
 
-新增 |pyeval()| 和 |py3eval()| 函數。
+新增 |pyeval()| 和 |py3eval()| 函式。
 
 現在所有過去支援 `str()` 物件的地方，都能同時接受 `str()` 和 `unicode()`
 (Python 2) 或 `bytes()` 和 `str()` (Python 3)。
@@ -10033,18 +10034,18 @@ UnicodeDecodeError 的可能性。
 
 選項:
 	非 GUI 版本的 Vim 現在可以自動儲存選擇區到系統剪貼簿 ('clipboard' 中的
-	autoselectplus)。也可以使用系統剪貼簿為預設寄存器 (以前只能用主選擇
+	autoselectplus)。也可以使用系統剪貼簿為預設暫存器 (以前只能用主選擇
 	區)。(Ivan Krasilnikov, Christian Brabandt, Bram Moolenaar)
 
 	新增 'shiftwidth' 的特殊值，使 'sw' 可以依賴於 'tabstop'。因為
-	'indentexpr' 的縮排會因此變得麻煩，又加入 |shiftwidth()| 函數。還增加
+	'indentexpr' 的縮排會因此變得麻煩，又加入 |shiftwidth()| 函式。還增加
 	了等價的 'softtabstop' 的特殊值。(Christian Brabandt, so8res)
 
 	'relativenumber' 選項開啟時在行號列顯示絕對行號。現在 'number' 和
 	'relativenumber' 有四種不同的組合。(Christian Brabandt)
 
 命令:
-	|:diffoff| 現在儲存某些設定的局部值並恢復，而不是盲目地重設為它們的缺
+	|:diffoff| 現在儲存某些設定的區域性值並恢復，而不是盲目地重設為它們的缺
 	省值。(Christian Brabandt)
 
 其他:
@@ -10052,41 +10053,41 @@ UnicodeDecodeError 的可能性。
 	Carvalho)
 
 	glob() 和自動命令的模式過去可以使用未公開的正規表示式學來的 "\{n,m\}"
-	項目。"\{" 現在是按本義出現的 "{"，因為這是外殼檔案模式的正常行為。
+	專案。"\{" 現在是按本義出現的 "{"，因為這是外殼檔案模式的正常行為。
 	現在須用 "\\\{n,m\}" 來得到類似於正規表示式模式的 "\{n,m}"。
 
 新增							*added-7.4*
 -----
 
-新增若干語法、縮排和其他插件。
+新增若干語法、縮排和其他外掛。
 
 新增 |viminfo| 對 |Lists| 和 |Dictionaries| 的支援。(Christian Brabandt)
 
-函數:
-	位操作函數: |and()|、|or()|、|invert()|、|xor()|.
+函式:
+	位操作函式: |and()|、|or()|、|invert()|、|xor()|.
 
-	新增 |luaeval()| 函數。(Taro Muraoka, Luis Carvalho)
+	新增 |luaeval()| 函式。(Taro Muraoka, Luis Carvalho)
 
-	新增 |sha256()| 函數。(Tyru, Hirohito Higashi)
+	新增 |sha256()| 函式。(Tyru, Hirohito Higashi)
 
-	新增 |wildmenumode()| 函數。(Christian Brabandt)
+	新增 |wildmenumode()| 函式。(Christian Brabandt)
 
-	偵錯函數: |screenattr()|、|screenchar()|、|screencol()|、
+	除錯函式: |screenattr()|、|screenchar()|、|screencol()|、
 	|screenrow()|。(Simon Ruderich, Bram Moolenaar)
 
-	新增 |sort()| 通過可選的第三個參數使用 |Dictionary-function| 的功能。
+	新增 |sort()| 通過可選的第三個引數使用 |Dictionary-function| 的功能。
 	(Nikolay Pavlov)
 
-	新增特殊的 |expand()|參數，用於擴展當前行號。
+	新增特殊的 |expand()|引數，用於擴充套件當前行號。
 
 	現在可以強制 |char2nr()| 給出 unicode 程式碼點，而不取決於當前編碼。
 	(Yasuhiro Matsumoto)
 
-	現在可以使返迴檔案列表的函數生成 |List| 而不是 NL 分隔的字元串。(例如
+	現在可以使返回檔案列表的函式生成 |List| 而不是 NL 分隔的字串。(例如
 	|glob()|、|expand()|) (Christian Brabandt)
 
-	從指定視窗、標籤頁或緩衝區讀取變數的函數現在可以在找不到變數時返回指定
-	的預設值，而不是空字元串。(|gettabvar()|、|getwinvar()|、
+	從指定視窗、標籤頁或緩衝區讀取變數的函式現在可以在找不到變數時返回指定
+	的預設值，而不是空字串。(|gettabvar()|、|getwinvar()|、
 	|getbufvar()|) (Shougo Matsushita, Hirohito Higashi)
 
 自動命令:
@@ -10102,18 +10103,18 @@ UnicodeDecodeError 的可能性。
 	新增 |TextChanged| 和 |TextChangedI| 事件，在文字修改時發生。
 
 命令:
-	|:syntime| 命令，用於偵錯。
+	|:syntime| 命令，用於除錯。
 
 	現在可以用 |:sign-unplace| 刪除當前緩衝區的所有標號。 (Christian
 	Brabandt)
 
 	新增 |:language| 自動補全。(Dominique Pelle)
 
-	新增更多 |:command-complete| 補全類型: |:behave| 子選項、色彩方案、編
+	新增更多 |:command-complete| 補全型別: |:behave| 子選項、色彩方案、編
 	譯器、|:cscope| 子選項、'path' 裡的檔案、|:history| 子選項、locale
-	名、|:syntime| 子選項、使用者名。(Dominique Pelle)
+	名、|:syntime| 子選項、使用者名稱。(Dominique Pelle)
 
-	加入 |:map-nowait|，若創建對映的 lhs 是另一對映的 lhs 的字首時，不允許
+	加入 |:map-nowait|，若建立對映的 lhs 是另一對映的 lhs 的字首時，不允許
 	Vim 等待使用者輸入更多字元來消除二義性，而總是迫使 Vim 使用較短的選擇:
 	帶 <nowait> 的那個。
 
@@ -10125,13 +10126,13 @@ UnicodeDecodeError 的可能性。
 
 	現在可以控制 namespace 裡如何縮排: |cino-N|。(Konstantin Lepa)
 
-	現在可以分別控制 `if` 條件內的對齊和函數參數內的對齊: |cino-k|。
+	現在可以分別控制 `if` 條件內的對齊和函式引數內的對齊: |cino-k|。
 	(Lech Lorens)
 
 其他:
 	改進 cmd.exe 的支援。(Ben Fritz, Bram Moolenaar)
 
-	加入 |v:windowid| 參數，包含 GUI Vim 的當前視窗號。(Christian J.
+	加入 |v:windowid| 引數，包含 GUI Vim 的當前視窗號。(Christian J.
 	Robinson, Lech Lorens)
 
 	加入 rxvt-unicode 和 SGR 滑鼠支援。(Yiding Jia, Hayaki Saito)
@@ -11702,7 +11703,7 @@ Patch 7.3.265
 相關檔案:   src/ex_getln.c
 
 Patch 7.3.266
-問題:       In Gvim with iBus typing space in Insert mode doesn't work.
+問題:       In gvim with iBus typing space in Insert mode doesn't work.
 解決方案:   Clear xim_expected_char after checking it.
 相關檔案:   src/mbyte.c
 
@@ -11717,7 +11718,7 @@ Patch 7.3.268
 相關檔案:   src/os_unix.c
 
 Patch 7.3.269
-問題:       'shellcmdflag' only works with one flag. 
+問題:       'shellcmdflag' only works with one flag.
 解決方案:   Split into multiple arguments. (Gary Johnson)
 相關檔案:   src/os_unix.c
 
@@ -12897,7 +12898,7 @@ Patch 7.3.476
 Patch 7.3.477
 問題:       Using ":echo" to output enough lines to scroll, then using "j" and
 	    "k" at the more prompt, displays the command on top of the output.
-	    (Marcin Szamotulski) 
+	    (Marcin Szamotulski)
 解決方案:   Put the output below the command. (Christian Brabandt)
 相關檔案:   src/eval.c
 
@@ -13150,7 +13151,7 @@ Patch 7.3.519
 相關檔案:   src/edit.c
 
 Patch 7.3.520
-問題:       Gvim starts up slow on Ubuntu 12.04.
+問題:       gvim starts up slow on Ubuntu 12.04.
 解決方案:   Move the call to gui_mch_init_check() to after fork(). (Yasuhiro
 	    Matsumoto)  Do check $DISPLAY being set.
 相關檔案:   src/gui.c, src/gui_gtk_x11.c, src/proto/gui_gtk_x11.pro
@@ -13203,7 +13204,7 @@ Patch 7.3.529
 相關檔案:   src/normal.c
 
 Patch 7.3.530 (after 7.3.520)
-問題:       Gvim does not work when 'guioptions' includes "f". (Davido)
+問題:       gvim does not work when 'guioptions' includes "f". (Davido)
 解決方案:   Call gui_mch_init_check() when running GUI in the foreground.
 	    (Yasuhiro Matsumoto)
 相關檔案:   src/gui.c
@@ -14066,7 +14067,7 @@ Patch 7.3.681 (after 7.3.680)
 Patch 7.3.682 (after 7.3.677)
 問題:       Compiler complains about incompatible types.
 解決方案:   Remove type casts. (hint by Danek Duvall)
-相關檔案:   src/edit.c 
+相關檔案:   src/edit.c
 
 Patch 7.3.683
 問題:       ":python" may crash when vimbindeval() returns None.
@@ -15562,7 +15563,7 @@ Patch 7.3.943
 	    src/testdir/test87.ok
 
 Patch 7.3.944
-問題:       External program receives the termrespone.
+問題:       External program receives the termresponse.
 解決方案:   Insert a delay and discard input. (Hayaki Saito)
 相關檔案:   src/term.c
 
@@ -16051,7 +16052,7 @@ Patch 7.3.1025
 
 Patch 7.3.1026
 問題:       New regexp: pattern that includes a new-line matches too early.
-	    (john McGowan)
+	    (John McGowan)
 解決方案:   Do not start searching in the second line.
 相關檔案:   src/regexp_nfa.c, src/testdir/test64.in, src/testdir/test64.ok
 
@@ -16119,7 +16120,7 @@ Patch 7.3.1038
 相關檔案:   src/if_cscope.c
 
 Patch 7.3.1039
-問題:       New regexp engine does not support \%23c, \%<23c and the like. 
+問題:       New regexp engine does not support \%23c, \%<23c and the like.
 解決方案:   Implement them. (partly by Yasuhiro Matsumoto)
 相關檔案:   src/regexp.h, src/regexp_nfa.c, src/testdir/test64.in,
 	    src/testdir/test64.ok
@@ -17331,9 +17332,9 @@ Patch 7.3.1251
 相關檔案:   src/testdir/test61.in
 
 Patch 7.3.1252
-問題:       Gvim does not find the toolbar bitmap files in ~/vimfiles/bitmaps
+問題:       gvim does not find the toolbar bitmap files in ~/vimfiles/bitmaps
 	    if the corresponding menu command contains additional characters
-	    like the shortcut marker '&' or if you use a non-english locale.  
+	    like the shortcut marker '&' or if you use a non-english locale.
 解決方案:   Use menu->en_dname or menu->dname. (Martin Gieseking)
 相關檔案:   src/gui_w32.c
 
@@ -17954,7 +17955,7 @@ Patch 7.4a.044
 
 Patch 7.4a.045
 問題:       Configure does not always find the right library for Lua.  Missing
-	    support for LuaJit. 
+	    support for LuaJit.
 解決方案:   Improve the configure detection of Lua. (Hiroshi Shirosaki)
 相關檔案:   src/Makefile, src/configure.in, src/auto/configure
 
@@ -18085,6 +18086,7 @@ Patch 7.4b.022
 問題:       Not waiting for a character when the tick count overflows.
 解決方案:   Subtract the unsigned numbers and cast to int. (Ken Takata)
 相關檔案:   src/os_win32.c
+
 
 
  vim:tw=78:ts=8:ft=help:norl:

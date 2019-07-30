@@ -1,4 +1,4 @@
-*message.txt*   For Vim version 7.4.  最近更新: 2013年8月
+*message.txt*   For Vim version 8.0.  最近更新: 2017年8月
 
 
 		  VIM 參考手冊    by Bram Moolenaar
@@ -7,7 +7,7 @@
 
 
 本檔案包含一個 Vim 產生的訊息和錯誤資訊按字母排序的列表。如果你不理解訊息的含
-義，可以在這裡查找。不過，本列表未必完整。
+義，可以在這裡查詢。不過，本列表未必完整。
 
 1. 以前的訊息		|:messages|
 2. 錯誤資訊		|error-messages|
@@ -19,6 +19,14 @@
 :messages" 命令可以檢視以前給出的訊息。根據 'shortmess' 選項的設定，訊息可能被
 覆蓋或者截斷。這時該命令尤其有用。
 
+	:messages		顯示所有訊息。
+
+	:{count}messages	顯示 {count} 個最近的訊息。
+
+	:messages clear		清除所有訊息。
+
+	:{count}messages clear	清除訊息，只保留 {count} 個最近的訊息。
+
 使用微小 (tiny) 特性集的版本，記住的訊息數目固定是 20。其它版本是 200。
 
 								*g<*
@@ -27,11 +35,12 @@
 滾。
 注意: 如果在提示顯示更多資訊時使用 "q" 停止輸出，那麼只顯示已輸出的那部分顯
 示。當另一個命令輸出結果時，會清空前一個命令的輸出。
+不重定向 "g<" 的輸出。
 
 如果使用翻譯的訊息，顯示的第一行會告訴你誰維護這個訊息翻譯。如果你發現問題，可
-以聯繫該維護者。
+以聯絡該維護者。
 
-如果你想要查找特定 (錯誤) 訊息，使用訊息開始的 ID 號。比如，要得到下面訊息的幫
+如果你想要查詢特定 (錯誤) 訊息，使用訊息開始的 ID 號。比如，要得到下面訊息的幫
 助: >
 
 	E72: Close error on swap file
@@ -55,6 +64,7 @@
   :echo errmsg
 或者檢視最近的訊息列表: >
   :messages
+見上 `:messages`。
 
 
 消 息 列 表
@@ -82,7 +92,7 @@
   Internal error: {function}
   fatal error in cs_manage_matches
 
-內部錯誤。如果你能夠使之重現，請發送漏洞報告。|bugs|
+內部錯誤。如果你能夠使之重現，請傳送漏洞報告。|bugs|
 
 >
   ATTENTION
@@ -111,8 +121,8 @@
   Command too recursive
 
 當 Ex 命令執行了一個 Ex 命令，後者又執行一個 Ex 命令，如此反覆的時候，就可能發
-生。最多能有 200 層。這很有可能是無窮迴圈。可能涉及的命令是 |:execute| 或
-|:source|。
+生。最多能有 200 層或 'maxfuncdepth' 的值的較大者。如果超過，很有可能是無窮循
+環。可能涉及的命令是 |:execute| 或 |:source|。
 
 							*E254*  >
   Cannot allocate color {name}
@@ -122,7 +132,7 @@
 							*E458*  >
   Cannot allocate colormap entry, some colors may be incorrect
 
-這意味著 Vim 沒有足夠的顏色可以分配。雖然 Vim 還能運行，但是有的顏色可能不會以
+這意味著 Vim 沒有足夠的顏色可以分配。雖然 Vim 還能執行，但是有的顏色可能不會以
 指定的顏色出現。試試停止其它使用很多顏色的應用程式，或者在啟動 gvim 之後啟動它
 們。已知很多瀏覽器會消耗很多顏色。要避免這個問題，你可以告訴 netscape 使用自己
 的顏色對映表: >
@@ -137,13 +147,13 @@
 							*E79*  >
   Cannot expand wildcards
 
-檔名包含特殊的字元組合，Vim 因而試圖進行通配符擴展但不成功。這_不_意味著沒有
+檔名包含特殊的字元組合，Vim 因而試圖進行萬用字元擴充套件但不成功。這_不_意味著沒有
 匹配的檔名，只是說該模式是非法的。
 
 							*E459*  >
   Cannot go back to previous directory
 
-在擴展檔名的時候，Vim 不能回到最近用過的目錄名。所有正在使用的檔名現在都可
+在擴充套件檔名的時候，Vim 不能回到最近用過的目錄名。所有正在使用的檔名現在都可
 能成為非法！你需要得到當前目錄的可執行 (遍歷) 許可權。
 
 							*E190* *E212*  >
@@ -156,7 +166,7 @@
 							*E166*  >
   Can't open linked file for writing
 
-你試圖寫入檔案，但該檔案無法被覆蓋，且該檔案是連結類型 (硬連結或者符號連結)。
+你試圖寫入檔案，但該檔案無法被覆蓋，且該檔案是連結型別 (硬連結或者符號連結)。
 其實，包含該連結或檔案的目錄可寫的時候並非不可寫入。只不過 Vim 不知道你是要刪
 除該連結並在同樣的位置寫入實際檔案呢，還是要刪除連結到的檔案並用新檔案覆蓋之。
 如果你確實需要用這個名字寫入檔案，請手動刪除這個連結或者檔案，或者改變許可權，使
@@ -165,7 +175,7 @@
 							*E46*  >
   Cannot change read-only variable "{name}"
 
-你試圖給一個函數參數 |a:var| 或者 Vim 的內部只讀變數 |v:var| 賦值。
+你試圖給一個函式引數 |a:var| 或者 Vim 的內部只讀變數 |v:var| 賦值。
 
 							*E90*  >
   Cannot unload last buffer
@@ -200,7 +210,7 @@ MS-Windows 上，期待讀入外部命令輸出的結果但是命令沒有正確
 							*E74*  >
   Command too complex
 
-某個對映產生了太長的命令列字元串。可能是因為一個對映間接的引用了自己。
+某個對映產生了太長的命令列字串。可能是因為一個對映間接的引用了自己。
 
 >
   CONVERSION ERROR
@@ -280,12 +290,12 @@ Vim 的指令碼被執行的情況。
   File not written: Writing is disabled by 'write' option
 
 'write' 選項被關閉。這使得所有試圖寫入檔案的命令都會產生這個訊息。這可能由
-|-m| 命令列參數引起。你可以用 ":set write" 開啟 'write' 選項。
+|-m| 命令列引數引起。你可以用 ":set write" 開啟 'write' 選項。
 
 							*E25*  >
   GUI cannot be used: Not enabled at compile time
 
-你運行的 Vim 版本不支援 GUI 程式碼。所以 "gvim" 和 ":gui" 都不工作。
+你執行的 Vim 版本不支援 GUI 程式碼。所以 "gvim" 和 ":gui" 都不工作。
 
 							*E49*  >
   Invalid scroll size
@@ -318,7 +328,7 @@ Vim 的指令碼被執行的情況。
 							*E173*  >
   {number} more files to edit
 
-你試圖退出，但是參數列表裡的末項還沒有被編輯到。這保護你在還有檔案要編輯的時候
+你試圖退出，但是引數列表裡的末項還沒有被編輯到。這保護你在還有檔案要編輯的時候
 意外的退出。見 |argument-list|。如果你堅持想退出，再試一次就行了。
 
 							*E23* *E194*  >
@@ -345,32 +355,32 @@ Vim 的指令碼被執行的情況。
 
 在 ":substitute" 命令裡，模式裡使用的 '~' 字元會被替換成上次用到的模式。如果這
 個命令還沒用過，就會失敗。見 |/~|。如果使用 ":s/pat/%/"，也會發生類似問題，其
-中的 "%" 表示上次的替代字元串。
+中的 "%" 表示上次的替代字串。
 
 							*E35*  >
   No previous regular expression
 
-使用空搜索模式會引用上次用到的模式。如果沒有上一次搜索，那麼就會失敗。
+使用空搜尋模式會引用上次用到的模式。如果沒有上一次搜尋，那麼就會失敗。
 
 							*E24*  >
   No such abbreviation
 
-你使用了 ":unabbreviate" 命令，但是所帶的參數不是一個已有的縮寫。這個命令的各
+你使用了 ":unabbreviate" 命令，但是所帶的引數不是一個已有的縮寫。這個命令的各
 種變形 ":cunabbrev"、":iunabbrev" 等都會給出相同的訊息。檢查一下尾部的空白。
 
 >
   /dev/dsp: No such file or directory
 
-只有在帶 Gnome 支援的 GTK GUI 纔會給出。Gnome 試圖使用音訊裝置但是它不存在。你
+只有在帶 Gnome 支援的 GTK GUI 才會給出。Gnome 試圖使用音訊裝置但是它不存在。你
 可以忽略這個錯誤。
 
 							*E31*  >
   No such mapping
 
-你使用了 ":unmap" 命令，但是所帶的參數不是已有的對映。這個命令的各種變形
+你使用了 ":unmap" 命令，但是所帶的引數不是已有的對映。這個命令的各種變形
 ":cunmap"、":unmap!" 等都會給出相同的訊息。一些提示:
 - 檢查一下尾部的空白。
-- 如果是局部於緩衝區的對映，需要使用 ":unmap <buffer>"。
+- 如果是區域性於緩衝區的對映，需要使用 ":unmap <buffer>"。
   |:map-<buffer>|
 
 							*E37* *E89*  >
@@ -401,7 +411,7 @@ Vim 的指令碼被執行的情況。
 							*E38*  >
   Null argument
 
-Vim 內部出錯，產生一個 NULL 指針。如果你知道如何重現，請報告。|bugs|
+Vim 內部出錯，產生一個 NULL 指標。如果你知道如何重現，請報告。|bugs|
 
 							*E172*  >
   Only one file name allowed
@@ -414,17 +424,15 @@ Vim 內部出錯，產生一個 NULL 指針。如果你知道如何重現，請�
   Cannot allocate any buffer, exiting...
   Cannot allocate buffer, using other one...
 
-噢，噢。你可能作了一些特別複雜的操作，或者有其它程式正在佔用你的內存。小心！
-Vim 沒有完全準備好內存溢位的情況。首先確保所有的改變被儲存。然後試圖解決內存的
+噢，噢。你可能作了一些特別複雜的操作，或者有其它程式正在佔用你的記憶體。小心！
+Vim 沒有完全準備好記憶體溢位的情況。首先確保所有的改變被儲存。然後試圖解決記憶體的
 短缺問題。要確保安全無虞，先退出 Vim，再重新開始。
 
-緩衝區只是部分儲存在內存裡，所以編輯一個很大的檔案不太可能導致內存溢位錯誤。撤
-銷資訊則是完全儲存在內存裡，可以用以下選項減少內存的佔用:
+緩衝區只是部分儲存在記憶體裡，所以編輯一個很大的檔案不太可能導致記憶體溢位錯誤。撤
+銷資訊則是完全儲存在記憶體裡，可以用以下選項減少記憶體的佔用:
 - 'undolevels'  設為較小的值，或 -1 以完全關閉之。對影響所有行的改變這會很有幫
   助。
 - 'undoreload' 設為零以關閉之。
-
-另見 |msdos-limitations|。
 
 							*E339*  >
   Pattern too long
@@ -453,7 +461,7 @@ Vim 試圖從 |swap-file| 裡讀取文字時出了問題。相關緩衝區的文
 							*E192*  >
   Recursive use of :normal too deep
 
-你在使用 ":normal" 命令，而它的參數又遞迴使用 ":normal" 命令。'maxmapdepth' 限
+你在使用 ":normal" 命令，而它的引數又遞迴使用 ":normal" 命令。'maxmapdepth' 限
 制最高的遞迴層數。下例顯示如何得到這個訊息: >
 	:map gq :normal gq<CR>
 如果你輸入 "gq"，就會執行這個對映，它又會再次呼叫 "gq"。
@@ -461,7 +469,7 @@ Vim 試圖從 |swap-file| 裡讀取文字時出了問題。相關緩衝區的文
 							*E22*  >
   Scripts nested too deep
 
-指令碼可以通過 "-s" 命令列參數或者 ":source" 命令讀取。指令碼又可以讀取別的指令碼。
+指令碼可以通過 "-s" 命令列引數或者 ":source" 命令讀取。指令碼又可以讀取別的指令碼。
 這可以繼續大概 14 層。如果需要更多的巢狀，Vim 假設其中出現了遞迴的迴圈，所以用
 此錯誤資訊停止。
 
@@ -476,16 +484,16 @@ Vim 試圖從 |swap-file| 裡讀取文字時出了問題。相關緩衝區的文
   Swap file already exists (symlink attack?)
 
 當 Vim 試圖開啟交換檔案並發現它已經存在，而且是一個符號連結時，顯示該錯誤。這
-不應該發生，因為 Vim 已經檢查過該檔案不存在。除非別人同時開啟了相同的檔案 (非
+不應該發生，因為 Vim 已經檢查過該檔案不存在。除非別人同時打開了相同的檔案 (非
 常不太可能) 或者有人試圖一個符號連結攻擊 (如果編輯 /tmp 下的檔案或者
 'directory' 以 "/tmp" 開始時可能發生。這是一個壞的選擇)。
 
 							*E432*  >
   Tags file not sorted: {file name}
 
-Vim (和 Vi) 期待標籤檔案以 ASCII 順序排序。然後可以使用二分法搜索，這比線性查
+Vim (和 Vi) 期待標籤檔案以 ASCII 順序排序。然後可以使用二分法搜尋，這比線性查
 找快很多。如果你的標籤檔案沒有適當的排序，復位 |'tagbsearch'| 選項。
-這個訊息只有在 Vim 在搜索標籤時發生問題的時候纔會給出。有的時候即使標籤檔案沒
+這個訊息只有在 Vim 在搜尋標籤時發生問題的時候才會給出。有的時候即使標籤檔案沒
 有適當排序，這個訊息也不會給出。
 
 							*E460*  >
@@ -498,19 +506,19 @@ Vim (和 Vi) 期待標籤檔案以 ASCII 順序排序。然後可以使用二分
 							*E424*  >
   Too many different highlighting attributes in use
 
-Vim 只能處理 223 種不同的高亮。如果遇到了這個限制，你一定用了太多的帶不同參數
+Vim 只能處理 223 種不同的高亮。如果遇到了這個限制，你一定用了太多的帶不同引數
 的 |:highlight| 命令。":highlight link" 不計算在內。
 
 							*E77*  >
   Too many file names
 
-在擴展檔名的時候，找到了多於一個的匹配。而使用的命令只支援單一匹配的參數。
+在擴充套件檔名的時候，找到了多於一個的匹配。而使用的命令只支援單一匹配的引數。
 
 							*E303*  >
   Unable to open swap file for "{filename}", recovery impossible
 
 Vim 不能建立交換檔案。你可以繼續編輯該檔案，但如果 Vim 不正常地退出，你所有的
-改變就丟失了。同時，Vim 可能在編輯大檔案時消耗大量的內存。要避免這個錯誤，你可
+改變就丟失了。同時，Vim 可能在編輯大檔案時消耗大量的記憶體。要避免這個錯誤，你可
 能想改變 'directory' 選項。見 |swap-file|。
 
 							*E140*  >
@@ -532,7 +540,7 @@ http://groups.yahoo.com/group/solarisonintel/message/12179。
 							*W10*  >
   Warning: Changing a readonly file
 
-檔案是只讀的，而你堅持要修改它。你可以用 |FileChangedRO| 自動命令事件來避免這
+檔案是隻讀的，而你堅持要修改它。你可以用 |FileChangedRO| 自動命令事件來避免這
 個訊息 (該自動命令必須復位 'readonly' 選項)。'modifiable' 可以完全禁止修改文
 件。
 只有 'readonly' 置位後第一次作改變時，才顯示這條訊息。
@@ -584,13 +592,19 @@ http://groups.yahoo.com/group/solarisonintel/message/12179。
 你一定用了太多的緩衝區了。可能兩個緩衝區使用相同的號碼，這會引起問題。你可能要
 退出 Vim 並重啟。
 
+							*E931*  >
+  Buffer cannot be registered
+
+記憶體溢位，或者重複的緩衝區號。可能在 W14 之後出現。查詢緩衝區不總是有效，最好
+重啟 Vim。
+
 							*E296* *E297*  >
   Seek error in swap file write
   Write error in swap file
 
 這通常是因為磁碟空間滿引起的。Vim 不能把文字寫入 |swap-file| 。它本身並無害，
 但如果 Vim 意外退出，有些文字可能丟失，而無法恢復。如果這個問題持續存在，Vim
-可能會內存溢位。
+可能會記憶體溢位。
 
 						*connection-refused*  >
   Xlib: connection to "<machine-name:0.0" refused by server
@@ -609,17 +623,17 @@ http://groups.yahoo.com/group/solarisonintel/message/12179。
 							*E471*  >
   Argument required
 
-這是由 Ex 命令執行時需要的參數沒有提供引起的。
+這是由 Ex 命令執行時需要的引數沒有提供引起的。
 
 							*E474* *E475*  >
   Invalid argument: {arg}
 
-執行 Ex 命令時使用了非法的參數。
+執行 Ex 命令時使用了非法的引數。
 
 							*E488*  >
   Trailing characters
 
-在不允許有參數的 Ex 命令後帶了參數。
+在不允許有引數的 Ex 命令後帶了引數。
 
 							*E477* *E478*  >
   No ! allowed
@@ -630,7 +644,7 @@ http://groups.yahoo.com/group/solarisonintel/message/12179。
 							*E481*  >
   No range allowed
 
-在不支援範圍參數的 Ex 命令前加了範圍。見 |cmdline-ranges|。
+在不支援範圍引數的 Ex 命令前加了範圍。見 |cmdline-ranges|。
 
 							*E482* *E483*  >
   Can't create file {filename}
@@ -643,7 +657,7 @@ Vim 不能建立臨時檔案。
   Can't read file {filename}
 
 Vim 不能讀臨時檔案。特別是在 Windows 上，這可能由錯誤轉義 cmd.exe 的中特殊字元
-引起。 7.3.443 補丁對轉義的方法有所改變。對 |system()| 的所有外殼參數應有
+引起。 7.3.443 補丁對轉義的方法有所改變。對 |system()| 的所有外殼引數應有
 |shellescape()| 進行轉義，或直接用 ^ 轉義。另見 'shellxquote' 和
 'shellxescape'。
 
@@ -661,6 +675,13 @@ Vim 不能讀臨時檔案。特別是在 Windows 上，這可能由錯誤轉義 
   Not an editor command
 
 你試圖執行一個既不是 Ex 命令也不是使用者定義的命令。
+
+							*E943*  >
+  Command table needs to be updated, run 'make cmdidxs'
+
+只可能在修改了原始碼，在 src/ex_cmds.h 中增加了新命令時發生。此時需要更新查詢
+表，執行: >
+	make cmdidxs
 
 ==============================================================================
 3. 訊息							*messages*
@@ -680,11 +701,11 @@ Vim 不能讀臨時檔案。特別是在 Windows 上，這可能由錯誤轉義 
 -> 按 <Enter> 或者 <Space> 可以重畫螢幕並繼續，除此以外就像該鍵沒按過一樣。
 -> 按 ":" 或者其它普通模式的命令字元開始執行該命令。
 -> 按 'k'、<Up>、'u'、'b' 或 'g' 可以使訊息回滾。這和 |more-prompt| 中的工作方
-   式一樣。只有關閉 'compatible' 並且開啟 'more' 時纔有效。
+   式一樣。只有關閉 'compatible' 並且開啟 'more' 時才有效。
 -> 訊息的滾動離開螢幕的頂部時，按 'j'、'f'、'd' 或 <Down> 沒有效果，
    'compatible' 關閉且 'more' 開啟。這是為了避免按 'j' 或 'f' 太多而使得訊息完
    全消失。
--> 按 <C-Y> 複製 (抽出) 一個無模式的選擇到剪貼簿寄存器中。
+-> 按 <C-Y> 複製 (抽出) 一個無模式的選擇到剪貼簿暫存器中。
 -> 使用選單。應用命令列模式定義的字元。
 -> 如果 'mouse' 包含 'r' 標誌位，按滑鼠左鍵和按 <Space> 效果相同。不過這使得選
    擇文字成為不可能。
@@ -692,7 +713,7 @@ Vim 不能讀臨時檔案。特別是在 Windows 上，這可能由錯誤轉義 
 {Vi: 只有 ":" 命令得到處理}
 
 如果你不小心按了 <Enter> 或 <Space>，而你還想看顯示的訊息，可以使用 |g<|。這個
-命令只有 'more' 置位時纔有效。
+命令只有 'more' 置位時才有效。
 
 要減少 hit-enter 提示的次數:
 - 把 'cmdheight' 設為 2 或者更高。
@@ -726,7 +747,7 @@ Vim 不能讀臨時檔案。特別是在 Windows 上，這可能由錯誤轉義 
      :					終止列表並進入命令列
     <C-Y>				抽出 (複製) 無模式的選擇
 					|modeless-selection| 到剪貼簿
-					("* 和 "+ 寄存器)
+					("* 和 "+ 暫存器)
     {menu-entry}			命令列模式裡定義的選單項。
     <LeftMouse> (**)			下頁
 

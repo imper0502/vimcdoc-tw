@@ -1,4 +1,4 @@
-*pi_getscript.txt*  For Vim version 7.4.  最近更新: 2013年8月
+*pi_getscript.txt* 	For Vim version 8.0.  最近更新: 2017年8月
 >
 		GETSCRIPT 參考手冊 作者: Charles E. Campbell, Jr.
 <				譯者: Willis
@@ -11,7 +11,7 @@ Copyright: (c) 2004-2012 by Charles E. Campbell	*glvs-copyright*
 	The VIM LICENSE (see |copyright|) applies to the files in this
 	package, including getscriptPlugin.vim, getscript.vim,
 	GetLatestVimScripts.dist, and pi_getscript.txt, except use "getscript"
-	instead of "VIM".  Like anything else that's free, getscript and its
+	instead of "Vim".  Like anything else that's free, getscript and its
 	associated files are provided *as is* and comes with no warranty of
 	any kind, either expressed or implied.  No guarantees of
 	merchantability.  No guarantees of suitability for any purpose.  By
@@ -19,7 +19,7 @@ Copyright: (c) 2004-2012 by Charles E. Campbell	*glvs-copyright*
 	holder be liable for any damages resulting from the use of this
 	software. Use at your own risk!
 
-getscript 是一個插件，它簡化了獲取你自己使用的指令碼的最新版本的步驟！輸入
+getscript 是一個外掛，它簡化了獲取你自己使用的指令碼的最新版本的步驟！輸入
 |:GLVS| 會啟動 getscript；它會接著使用 <GetLatestVimScripts.dat> 檔案 (見
 |GetLatestVimScripts_dat|) 來從 http//vim.sf.net/ 得到該檔案列出的指令碼的最新
 版本。
@@ -32,7 +32,7 @@ getscript 是一個插件，它簡化了獲取你自己使用的指令碼的最�
 	2. GetLatestVimScripts -- 入門....................: |glvs-install|
 	3. GetLatestVimScripts 用法.......................: |glvs-usage|
 	4. GetLatestVimScripts 資料檔案...................: |glvs-data|
-	5. GetLatestVimScripts 友好插件...................: |glvs-plugins|
+	5. GetLatestVimScripts 友好外掛...................: |glvs-plugins|
 	6. GetLatestVimScripts 自動安裝...................: |glvs-autoinstall|
 	7. GetLatestViMScripts 選項.......................: |glvs-options|
 	8. GetLatestVimScripts 演算法.......................: |glvs-alg|
@@ -65,7 +65,7 @@ GetLatestVimScripts.dist 檔案提供了示例和樣板，你可以參照來建�
 		:q
 		cd ~/.vim/GetLatest
 		mv GetLatestVimScripts.dist GetLatestVimScripts.dat
-		(編輯 GetLatestVimScripts.dat，以安裝你自己需要的插件列表 --
+		(編輯 GetLatestVimScripts.dat，以安裝你自己需要的外掛列表 --
 		見 |GetLatestVimScripts_dat|)
 
 	3. Windows:
@@ -74,7 +74,7 @@ GetLatestVimScripts.dist 檔案提供了示例和樣板，你可以參照來建�
 		:q
 		cd **path-to-vimfiles**/GetLatest
 		mv GetLatestVimScripts.dist GetLatestVimScripts.dat
-		(編輯 GetLatestVimScripts.dat，以安裝你自己需要的插件列表 --
+		(編輯 GetLatestVimScripts.dat，以安裝你自己需要的外掛列表 --
 		見 |GetLatestVimScripts_dat|)
 
 
@@ -96,7 +96,7 @@ GetLatestVimScripts.dist 檔案提供了示例和樣板，你可以參照來建�
 <
 或 >
 	..wherever..\vimfiles\GetLatest\GetLatestVimScripts.dat   (windows)
-(見 |glvs-data|) 並檢查 [.vim|vimfiles]/plugin 目錄裡的插件 (見
+(見 |glvs-data|) 並檢查 [.vim|vimfiles]/plugin 目錄裡的外掛 (見
 |glvs-plugins|)。
 
 下載的指令碼會出現在 ~/.vim/GetLatest (unix) 或 ..wherever..\vimfiles\GetLatest
@@ -127,7 +127,7 @@ GetLatest/GetLatestVimScripts.dist 檔案包含了這樣的資料檔案的一個
 	http://vim.sourceforge.net/scripts/script.php?script_id=40
 
 這裡 "40" 就是 ScriptID，GetLatestVimScripts 用它來下載相關頁面。該 id 是
-vim.sf.net 在插件初始上傳的時候分配的。
+vim.sf.net 在外掛初始上傳的時候分配的。
 
 每行第二個數值給出指令碼的 SourceID。SourceID 記錄由 vim.sf.net 決定的指令碼上傳次
 數；這樣，它起到了指示指令碼 "何時" 上傳的作用。設定 SourceID 為 1 就可使
@@ -154,18 +154,18 @@ Getscript 也會使用該行來幫助構造 GetLatestVimScripts.dat 檔案，如
 
 摘要:
 
-  * 可選地，允許 getscript 根據已安裝的插件來構造或附加到
+  * 可選地，允許 getscript 根據已安裝的外掛來構造或附加到
     GetLatestVimScripts.dat 檔案: >
 	let g:GetLatestVimScripts_allowautoinstall=1
 <
-  * 已下載的插件中，如果有形如這樣的行 >
+  * 已下載的外掛中，如果有形如這樣的行 >
 	" GetLatestVimScripts: 884  1 :AutoInstall: AutoAlign.vim
-<   代表著插件作者同意 getscript 可以自動安裝。不是所有插件都可以自動安裝的，
-    插件的作者最能瞭解自己插件的情況。
+<   代表著外掛作者同意 getscript 可以自動安裝。不是所有外掛都可以自動安裝的，
+    外掛的作者最能瞭解自己外掛的情況。
 
   * GetLatestVimScripts.dat 中，形如這樣的行 >
 	884 1 :AutoInstall: AutoAlign.vim
-<   代表你同意 getscript 進行自動安裝。自動安裝需要你本人和插件作者雙方的同
+<   代表你同意 getscript 進行自動安裝。自動安裝需要你本人和外掛作者雙方的同
     意。見 |GetLatestVimScripts_dat|。
 
 
@@ -185,11 +185,11 @@ Getscript 也會使用該行來幫助構造 GetLatestVimScripts.dat 檔案，如
 備註: 必須提供開始的兩行，但它們基本上只起註釋的作用。
 
 ==============================================================================
-5. GetLatestVimScripts 友好插件		*getscript-plugins* *glvs-plugins*
+5. GetLatestVimScripts 友好外掛		*getscript-plugins* *glvs-plugins*
 
-		(這一節適用於插件作者們)~
+		(這一節適用於外掛作者們)~
 
-如果插件作者在插件的任何地方包含了下面形式的註釋，GetLatestVimScripts 會找到它
+如果外掛作者在外掛的任何地方包含了下面形式的註釋，GetLatestVimScripts 會找到它
 並用來構造使用者 GetLatestVimScripts.dat 檔案:
 >
 				 src_id
@@ -210,10 +210,10 @@ Getscript 也會使用該行來幫助構造 GetLatestVimScripts.dat 檔案，如
 	                        ^
 	                    scriptid
 <
-備註: :AutoInstall: 功能需要插件作者和使用者雙方的同意才能進行！~
+備註: :AutoInstall: 功能需要外掛作者和使用者雙方的同意才能進行！~
 
 如果還沒有加入的話，此時就會在使用者 GetLatest/GetLatestVimScripts.dat 檔案里加
-入這些指令碼的 GetLatestVimScript 命令。這是一個相對簡單的自動獲取所有你的插件所
+入這些指令碼的 GetLatestVimScript 命令。這是一個相對簡單的自動獲取所有你的外掛所
 依賴的指令碼的方法。
 
 不過，作為作者，你可能不想讓 GetLatestVimScripts 下載你自己的指令碼，因為這樣會
@@ -261,7 +261,7 @@ GetLatestVimScripts 現在支援了 "AutoInstall" (自動安裝)。並非所有�
 	---.vim      : 移到 .vim/plugin 目錄
 	---.zip      : unzip 解壓到 .vim/ 目錄
 
-如果只要通過 untar/gunzip 或 "移到插件目錄" 過程來放置各個部件就可以使用，那麼
+如果只要通過 untar/gunzip 或 "移到外掛目錄" 過程來放置各個部件就可以使用，那麼
 這個指令碼就稱之為可以自動安裝。當然，Vimball 包總是可以自動安裝的。
 
 什麼時候指令碼不能自動安裝？讓我舉個例子:
@@ -272,7 +272,7 @@ GetLatestVimScripts 現在支援了 "AutoInstall" (自動安裝)。並非所有�
 
 	http://vim.sourceforge.net/scripts/script.php?script_id=104
 
-目前，vim 的 after/syntax 只支援按檔案類型命名的指令碼 (blockhl.vim 的情況應該使
+目前，vim 的 after/syntax 只支援按檔案型別命名的指令碼 (blockhl.vim 的情況應該使
 用 after/syntax/c.vim)。所以，如果使用自動安裝，可能會覆蓋當前使用者自己的
 after/syntax/c.vim 檔案。
 
@@ -300,7 +300,7 @@ after/syntax/c.vim 可能會覆蓋使用者自己的 c.vim。
  	g:GetLatestVimScripts_allowautoinstall
 <	預設= 1
 		該變數指示是否允許 GetLatestVimScripts 嘗試自動安裝指令碼。更進
-		一步地，插件作者必須顯式地指明他/她的插件是否可以自動安裝 (通
+		一步地，外掛作者必須顯式地指明他/她的外掛是否可以自動安裝 (通
 		過 GetLatestVimScripts 註釋行的 :AutoInstall: 關鍵字)。
 >
 	g:GetLatestVimScripts_autoinstalldir
@@ -322,7 +322,7 @@ Vim sourceforge 頁面用所謂的 script-id 鍵動態建立頁面。以下網�
 
 	http://vim.sourceforge.net/scripts/script.php?script_id=40
 
-指定最新的 source-id (src_id)。該源標識符 (source-id) 總是不斷遞增，因此如果
+指定最新的 source-id (src_id)。該源識別符號 (source-id) 總是不斷遞增，因此如果
 src_id 大於 GetLatestVimScripts 指令碼記錄的值，那就是時候下載該指令碼的新版本了。
 
 此時，GetLatestVimScripts 下載指令碼並更新內部資料庫裡的 script id、 source id
@@ -348,6 +348,10 @@ src_id 大於 GetLatestVimScripts 指令碼記錄的值，那就是時候下載�
 ==============================================================================
 9. GetLatestVimScripts 歷史 (英文)	*getscript-history* *glvs-hist* {{{1
 
+v36 Apr 22, 2013 : * (glts) suggested use of plugin/**/*.vim instead of
+		     plugin/*.vim in globpath() call.
+		   * (Andy Wokula) got warning message when setting
+		     g:loaded_getscriptPlugin
 v35 Apr 07, 2012 : * (MengHuan Yu) pointed out that the script url has
 		     changed (somewhat).  However, it doesn't work, and
 		     the original one does (under Linux). I'll make it
