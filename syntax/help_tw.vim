@@ -6,7 +6,7 @@ scriptencoding utf-8
 " Usage: copy this file to $VIMRUNTIME/syntax
 
 syn match helpHeadlineTw	"^\([^\u0000-\u00ff]\s\|[-A-Z .]\)\+[ \t]\+\*"me=e-1
-syn match helpVimTw		"VIM \(參考\|用戶\)手冊.*"
+syn match helpVimTw		"VIM \(參考\|使用者\)手冊.*"
 syn keyword helpNoteTw		注意 備註
 syn match helpNoteTw		/注意\|備註/
 syn match helpYizheTw		/譯者/

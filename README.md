@@ -3,26 +3,6 @@ vimcdoc
 
 Vim 中文文件計劃
 
-
-
-# 補 充
-
-2019-07-30:
-
-參考這些網頁，把最新版本的手冊台灣中文化
-
-https://playubuntu.blogspot.com/2013/10/vim.html	"Vim 中文用戶手冊（繁體字）"
-
-http://jdev.tw/blog/5656/opencc-introduction	"用OpenCC快速、準確的簡繁互轉"
-
-https://www.opencli.com/linux/linux-batch-rename-files	"Linux 批次修改大量檔案名稱"
-
-fork via https://github.com/chusiang/vimcdoc-tw
-
-
-
-
-
 # 關 於
 
 Vim (http://www.vim.org) 是一個功能非常強大，且具有很強擴充套件性的編輯器。而且 Vim
