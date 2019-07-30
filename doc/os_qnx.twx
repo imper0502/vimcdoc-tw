@@ -1,4 +1,4 @@
-*os_qnx.txt*    For Vim version 7.4.  最近更新: 2006年2月
+*os_qnx.txt*    For Vim version 8.0.  最近更新: 2006年2月
 
 
 		  VIM 參考手冊    by Julian Kinraid
@@ -25,7 +25,7 @@ QNX 上的 Vim 和其他的 unix 版本行為大致相同。 |os_unix.txt|
 2. 編譯 Vim						*qnx-compiling*
 
 Vim 可以用通常的 configure/make 方法編譯。如果你要編譯 X11 的版本，在配置
-(configure) 時加入 --with-x 選項。否則，不需要任何參數。或者，加入
+(configure) 時加入 --with-x 選項。否則，不需要任何引數。或者，加入
 --enable-gui=photon 以得到 Photon GUI 的支援。執行 ./configure --help，看看還
 有什麼特性你希望開啟或者關閉。
 
@@ -45,7 +45,7 @@ shift、ctrl、或是 alt，pterm 自己會處理滑鼠事件。它會選擇文�
 
 4. Photon GUI						*photon-gui*
 
-要啟動 Vim 的 GUI 版本，你可以運行 gvim 或者 vim -g。否則運行的是終端版本。更
+要啟動 Vim 的 GUI 版本，你可以執行 gvim 或者 vim -g。否則執行的是終端版本。更
 多的資訊可見 - |gui-x11-start|
 
 支援的特性有:
@@ -70,7 +70,7 @@ shift、ctrl、或是 alt，pterm 自己會處理滑鼠事件。它會選擇文�
 	本幫助檔案
 
 不支援的特性:
-	查找和替換視窗					|:promptfind|
+	查詢和替換視窗					|:promptfind|
 	可卸的選單
 
 	其他我還沒有想及的恕難加入
@@ -124,7 +124,7 @@ shift、ctrl、或是 alt，pterm 自己會處理滑鼠事件。它會選擇文�
 待做:
 	- 改進多語言支援。
 	- 在選單和工具欄中加入設定字型的選項。
-	- 查找和替換對話方塊。
+	- 查詢和替換對話方塊。
 	- 客戶/伺服器方面的功能。
 	- 也許要做可卸下的選單。
 

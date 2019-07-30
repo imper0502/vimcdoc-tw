@@ -1,19 +1,19 @@
-*os_mint.txt*	For Vim version 7.4.  最近更新: 2005年3月
+*os_mint.txt*	For Vim version 8.0.  最近更新: 2005年3月
 
 
-		   Vim 參考手冊    作者: Jens M.Felderhoff
+		  VIM 參考手冊    by Jens M.Felderhoff
 	    譯者: iCrazy<icrazy@ustc.edu>  http://vimcdoc.sf.net
 
 						        *MiNT* *Atari*
 本文包含了 Atari MiNT 的 Vim 版本的特性。
 
-如果您要為運行 MiNT 的 Atari 機器編譯 Vim，您需要首先看一下 src 目錄下的
+如果您要為執行 MiNT 的 Atari 機器編譯 Vim，您需要首先看一下 src 目錄下的
 "INSTALL" 和 "Makefile" 目錄。
 
 Vim MiNT 版本的行為和它的 Unix 版本幾乎是一樣的。
-如果沒有明確聲明，文件描述的 Unix 上 Vim 的行為也適用於 MiNT 上的 Vim 版本。
+如果沒有明確宣告，文件描述的 Unix 上 Vim 的行為也適用於 MiNT 上的 Vim 版本。
 
-為了通配符 <~> (主目錄) 的擴展，你需要一個支援波浪符擴展的 shell。原始的
+為了萬用字元 <~> (主目錄) 的擴充套件，你需要一個支援波浪符擴充套件的 shell。原始的
 Bourne Shell 不能識別，而 "csh" 和 "ksh" 都沒問題。
 
 Vim 的 MINT 版本需要支援你的終端的終端能力的 termcap 檔案 /etc/termcap。內建的
@@ -22,11 +22,11 @@ termcap 支援 vt52 終端。而支援 TOSWIN 視窗管理器和虛擬控制檯�
 
 萬一您遇到了 <BS> 和 <Del> 鍵被互換的問題，請看 |:fixdel|。
 
-MiNT 上的終端重新整理常常比較慢 (比如序列終端)，所以默認情況下的 'showcmd' 選項和
+MiNT 上的終端重新整理常常比較慢 (比如序列終端)，所以預設情況下的 'showcmd' 選項和
 'ruler' 選項都是關閉的。如果你所使用的終端比較快的話，可以把它們開啟。甚至可以
 試試 'ttyfast' 選項。
 
-如果您發現了錯誤，請發送報告至
+如果您發現了錯誤，請傳送報告至
 
 	Jens M. Felderhoff，電郵: <jmf@infko.uni-koblenz.de>
 

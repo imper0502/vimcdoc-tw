@@ -1,0 +1,111 @@
+*pi_logipat.txt*	邏輯模式				Jun 22, 2015
+
+				譯者: Willis
+				http://vimcdoc.sf.net
+
+Author:  Charles E. Campbell  <NdrOchip@ScampbellPfamily.AbizM>
+Copyright: (c) 2004-2015 by Charles E. Campbell	*logiPat-copyright*
+           The VIM LICENSE applies to LogiPat.vim and LogiPat.txt
+           (see |copyright|) except use "LogiPat" instead of "Vim"
+	   No warranty, express or implied.  Use At-Your-Own-Risk.
+
+==============================================================================
+1. 內容						*logiPat* *logiPat-contents*
+
+	1. 內容.....................: |logiPat-contents|
+	2. LogiPat 手冊.............: |logiPat-manual|
+	3. LogiPat 示例.............: |logiPat-examples|
+	4. 警告.....................: |logiPat-caveat|
+	5. LogiPat 歷史.............: |logiPat-history|
+
+
+==============================================================================
+2. LogiPat 手冊				*logiPat-manual* *logiPat-man*
+
+	*logiPat-arg* *logiPat-input* *logiPat-pattern* *logiPat-operators*
+	布林邏輯模式的組成是
+
+			operators  ! = 非
+			           | = 邏輯或
+			           & = 邏輯與
+			grouping   ( ... )
+			patterns   "pattern"
+
+	:LogiPat {布林邏輯模式}				*:LogiPat*
+		:LogiPat 是一個接受布林邏輯引數的命令 (|logiPat-arg|)。
+
+	:LP {布林邏輯模式}				*:LP*
+		:LP 是 :LogiPat 的簡寫命令版本
+
+	:LPE {布林邏輯模式}				*:LPE*
+		不執行搜尋，但進行布林邏輯模式到正規表示式的轉換，並在螢幕上回
+		顯。
+
+	:LogiPatFlags {搜尋標誌位}			*LogiPat-flags*
+		:LogiPatFlags {search flags}
+		LogiPat 使用 |search()| 命令。:LogiPatFlags 命令可用來指定傳遞
+		給 search() 呼叫的標誌位。
+
+	:LPF {搜尋標誌位}				*:LPF*
+		:LPF 是 :LogiPatFlags 的簡寫版本。
+
+	:let pat=LogiPat({布林邏輯模式})		*LogiPat()*
+		如果直接呼叫 LogiPat()，不執行搜尋，但進行布林邏輯模式到正規表
+		達式的轉換並返回之。
+
+	要在模式裡指定 " 而不是用作模式的定界，給雙引號加倍。
+
+
+==============================================================================
+3. LogiPat 示例						*logiPat-examples*
+
+	LogiPat 接受布林邏輯引數，產生正規表示式來實現選擇。下面提供一系列的例
+	子 :
+>
+	:LogiPat "abc"
+<		會搜尋包含字串 :abc: 的行
+>
+	:LogiPat "ab""cd"
+<		會搜尋包含字串 :ab"c: 的行
+>
+	:LogiPat !"abc"
+<		會搜尋不包含字串 :abc: 的行
+>
+	:LogiPat "abc"|"def"
+<		會搜尋包含字串 :abc: 或 :def: 的行
+>
+	:LogiPat !("abc"|"def")
+<		會搜尋既不包含字串 :abc: 也不包含 :def: 的行
+>
+	:LogiPat "abc"&"def"
+<		會搜尋同時包含字串 :abc: 和 :def: 的行
+>
+	:let pat= LogiPat('!"abc"')
+<		會返回正規表示式，可用來匹配所有不包含 :abc: 的行。雙倍的引號
+		是必要的，它可以把正常的匹配傳遞給 LogiPat，並把這種模式和布林
+		邏輯的操作符區別開來。
+
+
+==============================================================================
+4. 警告							*logiPat-caveat*
+
+	 "not" 操作符可能比較脆弱；也就是，它並不總是能和 & (邏輯與) 和 | (邏
+	 輯或) 操作符合作得很好。請先試試你的模式，可能的話用 :set hls，以確保
+	 匹配符合你的期望。
+
+
+==============================================================================
+3. LogiPat 歷史 (英文)					*logiPat-history*
+
+	v4 Jun 22, 2015 * LogiPat has been picked up by Bram M for standard
+			  plugin distribution; hence the name change
+	v3 Sep 25, 2006 * LP_Or() fixed; it now encapsulates its output
+	                  in \%(...\) parentheses
+	   Dec 12, 2011 * |:LPE| added
+			* "" is mapped to a single " and left inside patterns
+	v2 May 31, 2005	* LPF and LogiPatFlags commands weren't working
+	v1 May 23, 2005	* initial release
+
+
+==============================================================================
+vim:tw=78:ts=8:ft=help

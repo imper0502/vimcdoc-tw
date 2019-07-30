@@ -1,10 +1,10 @@
-*ft_sql.txt*	For Vim version 7.4.  最近更新: 2013年8月
+*ft_sql.txt*	For Vim version 8.0.  最近更新: 2013年8月
 
 				作者: David Fishburn
 				譯者: Willis
 				http://vimcdoc.sf.net
 
-這裡介紹用於 SQL 檔案的檔案類型插件。
+這裡介紹用於 SQL 檔案的檔案型別外掛。
 
 結構化查詢語言 (Structured Query Language，SQL) 是規範支援使用者和關係型資料庫進
 行互動的語句的標準。Vim 包含了 SQL 導航、縮排和語法高亮的功能。
@@ -13,7 +13,7 @@
     1.1 matchit					|sql-matchit|
     1.2 文字物件動作				|sql-object-motions|
     1.3 預定義物件動作				|sql-predefined-objects|
-    1.4 宏					|sql-macros|
+    1.4 巨集					|sql-macros|
 2. SQL 方言					|sql-dialects|
     2.1 SQLSetType				|SQLSetType|
     2.2 SQLGetType				|SQLGetType|
@@ -29,18 +29,18 @@
 	4.3.4 補全檢視				|sql-completion-views|
     4.4 定製補全				|sql-completion-customization|
     4.5 SQL 對映				|sql-completion-maps|
-    4.6 使用其它檔案類型			|sql-completion-filetypes|
+    4.6 使用其它檔案型別			|sql-completion-filetypes|
 
 ==============================================================================
 1. 導航						*sql-navigation*
 
-SQL 檔案類型為檔案導航提供了一些選項。
+SQL 檔案型別為檔案導航提供了一些選項。
 
 
 1.1 matchit					*sql-matchit*
 -----------
-matchit 插件 (http://www.vim.org/scripts/script.php?script_id=39) 提供許多附加
-功能，並且可以為不同語言定製。matchit 插件通過定義緩衝區局部變數 b:match_words
+matchit 外掛 (http://www.vim.org/scripts/script.php?script_id=39) 提供許多附加
+功能，並且可以為不同語言定製。matchit 外掛通過定義緩衝區區域性變數 b:match_words
 來進行配置。在若干關鍵字上按 % 鍵會把游標移動到匹配文字處。例如，如果游標在
 "if" 上，按 % 會在 "else"、"elseif" 和 "end if" 關鍵字之間迴圈。
 
@@ -84,7 +84,7 @@ matchit 插件 (http://www.vim.org/scripts/script.php?script_id=39) 提供許多
 
 1.2 文字物件動作				*sql-object-motions*
 -----------------------
-Vim 預定義了若干處理文字物件動作 |object-motions| 的鍵。本檔案插件試圖把這些鍵
+Vim 預定義了若干處理文字物件動作 |object-motions| 的鍵。本檔案外掛試圖把這些鍵
 翻譯成對 SQL 語言有意義的對映。
 
 存在以下的普通模式 |Normal| 和可視模式 |Visual| 對映 (編輯 SQL 檔案時): >
@@ -96,9 +96,9 @@ Vim 預定義了若干處理文字物件動作 |object-motions| 的鍵。本檔�
 
 1.3 預定義物件動作				*sql-predefined-objects*
 -----------------------------
-多數關係型資料庫支援若干標準特性、表、索引、觸發器和存儲過程。每個供應商也有一
+多數關係型資料庫支援若干標準特性、表、索引、觸發器和儲存過程。每個供應商也有一
 些私有的物件。以下一組對映的建立是為了方便在這些物件間移動。取決你使用的資料庫
-供應商，應該可以調整可用的物件。本檔案插件試圖定義許多標準和附加的物件。為了盡
+供應商，應該可以調整可用的物件。本檔案外掛試圖定義許多標準和附加的物件。為了盡
 可能靈活，|vimrc| 裡可以這樣改寫可用的物件列表: >
     let g:ftplugin_sql_objects = 'function,procedure,event,table,trigger' .
 		\ ',schema,service,publication,database,datatype,domain' .
@@ -108,7 +108,7 @@ Vim 預定義了若干處理文字物件動作 |object-motions| 的鍵。本檔�
     ]}		    正向移動到下一個 'create <物件名>'
     [{		    反向移動到前一個 'create <物件名>'
 
-重覆按 ]} 會在每個 create 語句之間迴圈: >
+重複按 ]} 會在每個 create 語句之間迴圈: >
     create table t1 (
 	...
     );
@@ -138,10 +138,10 @@ Vim 預定義了若干處理文字物件動作 |object-motions| 的鍵。本檔�
 	...
     );
 
-預設，檔案類型插件只尋找 CREATE 語句。在 |vimrc| 裡你可以改寫下行為: >
+預設，檔案型別外掛只尋找 CREATE 語句。在 |vimrc| 裡你可以改寫下行為: >
     let g:ftplugin_sql_statements = 'create,alter'
 
-檔案類型插件定義了三種註釋類型: >
+檔案型別外掛定義了三種註釋型別: >
     1.	--
     2.	//
     3.	/*
@@ -154,9 +154,9 @@ Vim 預定義了若干處理文字物件動作 |object-motions| 的鍵。本檔�
 
 
 
-1.4 宏						*sql-macros*
+1.4 巨集						*sql-macros*
 ----------
-支援 Vim 尋找宏定義的特性 |'define'|。使用以下正規表示式: >
+支援 Vim 尋找巨集定義的特性 |'define'|。使用以下正規表示式: >
     \c\<\(VARIABLE\|DECLARE\|IN\|OUT\|INOUT\)\>
 
 該設定可以處理下面的程式碼: >
@@ -196,17 +196,17 @@ Vim 預定義了若干處理文字物件動作 |object-motions| 的鍵。本檔�
 						*informix*
 
 所有關係型資料庫都支援 SQL。各供應商之間通用 SQL 的一個語言子集 (例如，CREATE
-TABLE、CREATE INDEX)，但供應商自己對 SQL 有相當多的擴展。Oracle 支援 "CREATE
-OR REPLACE" 語法，CREATE TABLE 語句也可以指定列預設值，還有過程語言 (用於存儲
+TABLE、CREATE INDEX)，但供應商自己對 SQL 有相當多的擴充套件。Oracle 支援 "CREATE
+OR REPLACE" 語法，CREATE TABLE 語句也可以指定列預設值，還有過程語言 (用於儲存
 過程和激發器)。
 
 Vim 釋出提供的語法高亮預設基於 Oracle 的 PL/SQL。SQL 縮排指令碼預設支援 Oracle
-和 SQL Anywhere。檔案類型插件預設支援所有供應商並保持供應商中立，但可以進行擴
+和 SQL Anywhere。檔案型別外掛預設支援所有供應商並保持供應商中立，但可以進行擴
 展。
 
 Vim 支援許多不同的供應商，目前這是通過語法指令碼完成的。不幸的是，如果你要切換語
 法規則，必須建立以下之一:
-    1.	新檔案類型
+    1.	新檔案型別
     2.	定製的自動命令
     3.	手動步驟 / 命令
 
@@ -216,14 +216,14 @@ Vim 支援許多不同的供應商，目前這是通過語法指令碼完成的�
 2.1 SQLSetType					*sqlsettype* *SQLSetType*
 --------------
 對於使用多個不同的資料庫的使用者，最好隨時為每個緩衝區都可以切換不同的供應商規則
-(縮排、語法)。ftplugin/sql.vim 檔案定義以下函數: >
+(縮排、語法)。ftplugin/sql.vim 檔案定義以下函式: >
     SQLSetType
 <
-如果不帶任何參數，此函數設定縮排和語法指令碼回預設值，見 |sql-type-default|。
-如果關閉 Vi 相容模式 |'compatible'|，<Tab> 鍵可以補全可選參數。
+如果不帶任何引數，此函式設定縮排和語法腳本回預設值，見 |sql-type-default|。
+如果關閉 Vi 相容模式 |'compatible'|，<Tab> 鍵可以補全可選引數。
 
-輸入函數名和空格，然後用補全就可以提供參數。該函數接受的參數是待執行的 Vim 腳
-本名。因此，利用 |cmdline-completion| 特性，它在 |'runtimepath'| 裡查找所有名
+輸入函式名和空格，然後用補全就可以提供引數。該函式接受的引數是待執行的 Vim 腳
+本名。因此，利用 |cmdline-completion| 特性，它在 |'runtimepath'| 裡查詢所有名
 字包含 'sql' 的指令碼。
 此過程需要對名字的拼寫進行猜測。下面是一些例子: >
     :SQLSetType
@@ -283,7 +283,7 @@ Vim 支援許多不同的供應商，目前這是通過語法指令碼完成的�
 	$VIM/vimfiles/syntax/sqlite.vim
 	$VIM/vimfiles/indent/sqlite.vim
 
-不需要修改 SQLSetType 函數。在你使用 SQLSetType 命令時，它會自動挑選新的 SQL
+不需要修改 SQLSetType 函式。在你使用 SQLSetType 命令時，它會自動挑選新的 SQL
 檔案並載入它們。
 
 
@@ -291,17 +291,17 @@ Vim 支援許多不同的供應商，目前這是通過語法指令碼完成的�
 4. 全能 SQL 補全				*sql-completion*
 						*omni-sql-completion*
 
-Vim 7 包含了程式碼補全的介面和函數以允許插件開發者為任何語言提供程式碼補全。Vim 7
+Vim 7 包含了程式碼補全的介面和函式以允許外掛開發者為任何語言提供程式碼補全。Vim 7
 已經包含了 SQL 語言程式碼補全。
 
-SQL 補全插件有兩種方式，靜態和動態。靜態模式從當前語法高亮規則裡提取資料來構造
+SQL 補全外掛有兩種方式，靜態和動態。靜態模式從當前語法高亮規則裡提取資料來構造
 彈出選單，而動態模式直接從資料庫提取資料來構造彈出選單。這包括所有的表和列、過
 程名和更多物件。
 
 4.1 靜態模式					*sql-completion-static*
 ---------------
-編輯檔案類型為 SQL 的檔案時，靜態彈出選單包含啟用的語法規則裡定義的項目。插件
-預設定義了一些對映以幫助使用者重新定義要顯示的項目清單。
+編輯檔案型別為 SQL 的檔案時，靜態彈出選單包含啟用的語法規則裡定義的專案。外掛
+預設定義了一些對映以幫助使用者重新定義要顯示的專案清單。
 預設的靜態對映是: >
     imap <buffer> <C-C>a <C-\><C-O>:call sqlcomplete#Map('syntax')<CR><C-X><C-O>
     imap <buffer> <C-C>k <C-\><C-O>:call sqlcomplete#Map('sqlKeyword\w*')<CR><C-X><C-O>
@@ -321,28 +321,28 @@ SQL 補全插件有兩種方式，靜態和動態。靜態模式從當前語法�
     <buffer>		   - 只用於此緩衝區
     <C-C>k		   - 你選擇的要對映的鍵
     <C-\><C-O>		   - 執行單個命令，然後回到插入模式
-    :call sqlcomplete#Map( - 允許 SQL 補全插件執行一些例行函數，使之可以和其他
-			     補全插件一起使用。
-			     指示你想要 SQL 補全插件補全哪個項目。
-			     該例中我們要求插件顯示語法高亮組 'sqlKeyword' 的
-			     項目。
+    :call sqlcomplete#Map( - 允許 SQL 補全外掛執行一些例行函式，使之可以和其他
+			     補全外掛一起使用。
+			     指示你想要 SQL 補全外掛補全哪個專案。
+			     該例中我們要求外掛顯示語法高亮組 'sqlKeyword' 的
+			     專案。
 			     編輯 SQL 檔案時，執行下面命令可以檢視高亮組名清單
 			     以供選擇
 				 :syntax list
-    'sqlKeyword'	   - 我們要求顯示 sqlKeyword 高亮組的項目
+    'sqlKeyword'	   - 我們要求顯示 sqlKeyword 高亮組的專案
     'sqlKeyword\w*'	   - Vim 7.4 開始可用的另一個選項，使用正規表示式來決
 			     定使用的語法高亮組
     )<CR>		   - 執行 :let 命令
-    <C-X><C-O>		   - 啟用全能補全的標準鍵擊。傳遞 'sqlKeyword' 參數指
-			     定 SQL 補全插件用 sqlKeyword 高亮組的項目來構造彈
-			     出選單。該插件同時快取結果直到 Vim 重啟為止。它用
-			     syntaxcomplete 插件來提取 syntax 列表。
+    <C-X><C-O>		   - 啟用全能補全的標準鍵擊。傳遞 'sqlKeyword' 引數指
+			     定 SQL 補全外掛用 sqlKeyword 高亮組的專案來構造彈
+			     出選單。該外掛同時快取結果直到 Vim 重啟為止。它用
+			     syntaxcomplete 外掛來提取 syntax 列表。
 
-使用 'syntax' 關鍵字是個特例。它使用 syntaxcomplete 插件來提取所有的語法項目。
+使用 'syntax' 關鍵字是個特例。它使用 syntaxcomplete 外掛來提取所有的語法專案。
 這樣可以有效使用所有 Vim SQL 語法檔案。此文件編寫時，這裡包含了不同 SQL 方言的
 10 種語法檔案 (見上第 3 節，|sql-dialects|)。
 
-這裡是從語法檔案提取的可用項目的例子: >
+這裡是從語法檔案提取的可用專案的例子: >
      All
 	 - 包含所有語法高亮組的內容
      Statement
@@ -360,15 +360,15 @@ SQL 補全插件有兩種方式，靜態和動態。靜態模式從當前語法�
 4.2 動態模式					*sql-completion-dynamic*
 ----------------
 動態模式直接從資料庫提取資料來構造彈出選單。為了開啟動態功能，你需要安裝
-dbext.vim 插件。(http://vim.sourceforge.net/script.php?script_id=356)。
+dbext.vim 外掛。(http://vim.sourceforge.net/script.php?script_id=356)。
 
-SQL 補全插件的若干特性使用動態模式。安裝完 dbext 插件後，參閱 dbext-tutorial
-教程來瞭解附加的配置和使用說明。dbext 插件允許 SQL 補全插件顯示錶、過程、檢視
+SQL 補全外掛的若干特性使用動態模式。安裝完 dbext 外掛後，參閱 dbext-tutorial
+教程來了解附加的配置和使用說明。dbext 外掛允許 SQL 補全外掛顯示錶、過程、檢視
 和列的清單。 >
      表清單
 	 - 所有模式 (schema) 擁有者的所有表
      過程清單
-	 - 所有模式擁有者的所有存儲過程
+	 - 所有模式擁有者的所有儲存過程
      檢視清單
 	 - 所有模式擁有者的所有檢視
      列清單
@@ -378,7 +378,7 @@ SQL 補全插件的若干特性使用動態模式。安裝完 dbext 插件後，
 按住 CTRL 鍵的同時按住 C):
      表清單		   - <C-C>t
 			   - <C-X><C-O> (預設對映假定使用表)
-     存儲過程清單	   - <C-C>p
+     儲存過程清單	   - <C-C>p
      檢視清單		   - <C-C>v
      列清單		   - <C-C>c
 
@@ -391,19 +391,19 @@ SQL 補全插件的若干特性使用動態模式。安裝完 dbext 插件後，
                                 let g:ftplugin_sql_omni_key_right = '<Right>'
                                 let g:ftplugin_sql_omni_key_left  = '<Left>'
 
-SQL 補全插件快取若干彈出視窗的顯示清單。這樣，重新顯示這些清單的速度就會大大加
-快。如果資料庫加入了新表或新列，插件快取需要清空。此功能的預設對映是: >
+SQL 補全外掛快取若干彈出視窗的顯示清單。這樣，重新顯示這些清單的速度就會大大加
+快。如果資料庫加入了新表或新列，外掛快取需要清空。此功能的預設對映是: >
     imap <buffer> <C-C>R <C-\><C-O>:call sqlcomplete#Map('ResetCache')<CR><C-X><C-O>
 
 
 4.3 SQL 教程					*sql-completion-tutorial*
 ----------------
 
-本教程的目的是為了帶你瞭解 SQL 補全插件的常用功能，以便: >
-     a) 你能熟悉插件的使用
+本教程的目的是為了帶你瞭解 SQL 補全外掛的常用功能，以便: >
+     a) 你能熟悉外掛的使用
      b) 你能得到一些常用功能的介紹
      c) 說明如何定製你的特定偏好
-     d) 展示插件 "最好用" 的方法 (最容易的配置方法)。
+     d) 展示外掛 "最好用" 的方法 (最容易的配置方法)。
 
 首先，建立新緩衝區: >
      :e tutorial.sql
@@ -413,28 +413,28 @@ SQL 補全插件快取若干彈出視窗的顯示清單。這樣，重新顯示�
 ---------------
 要得到各種清單，只要進入插入模式，輸入:
     <C-C>s   (顯示 SQL 語句)
-這時你可以往下翻頁檢視清單，直到看到 "select" 為止。如果你知道要找什麼項目，比
+這時你可以往下翻頁檢視清單，直到看到 "select" 為止。如果你知道要找什麼專案，比
 如你知道該語句以字母 "s" 開頭，可以先預輸入 (不輸入引號) "se" 然後按:
     <C-Space>t
-假定彈出清單裡高亮了 "select"，按 <Enter> 選擇該項目。現在輸入:
-    * fr<C-C>a (顯示所有語法項目)
+假定彈出清單裡高亮了 "select"，按 <Enter> 選擇該專案。現在輸入:
+    * fr<C-C>a (顯示所有語法專案)
 然後選擇彈出清單裡的 "from"。
 
-編寫存儲過程時可用 "type" 清單。它包含資料庫支援類型的清單。這取決於你使用的語
+編寫儲存過程時可用 "type" 清單。它包含資料庫支援型別的清單。這取決於你使用的語
 法檔案，因此可能是也可能不是完全準確。SQL Anywhere 語法檔案 (sqlanywhere.vim)
 包含此支援: >
      BEGIN
-	DECLARE customer_id <C-C>T <-- 從清單裡選擇一個類型
+	DECLARE customer_id <C-C>T <-- 從清單裡選擇一個型別
 
 
 動態特性
 ----------------
 要利用動態特性，先安裝 (http://vim.sourceforge.net/script.php?script_id=356)
-dbext.vim 插件。它也帶有自己的教程。從 SQL 補全插件的角度而言，dbext 提供的主
+dbext.vim 外掛。它也帶有自己的教程。從 SQL 補全外掛的角度而言，dbext 提供的主
 要特性是連線到資料庫。dbext 的連線設定檔案是定義連線資訊的最有效的方法。一旦建
-立好連線，SQL 補全插件在後臺使用 dbext 的功能來為彈出選單填充資料。
+立好連線，SQL 補全外掛在後臺使用 dbext 的功能來為彈出選單填充資料。
 
-下面假設 dbext.vim 已經經過正確配置。簡單的測試方法是運行命令 :DBListTable。如
+下面假設 dbext.vim 已經經過正確配置。簡單的測試方法是執行命令 :DBListTable。如
 果顯示了表清單，那麼 dbext.vim 工作正常。如果不行，查詢 dbext.txt 文件。
 
 假定你照著 dbext-tutorial 教程來做，可以按 <C-C>t 來顯示錶清單。這時會有一些延
@@ -443,13 +443,13 @@ dbext.vim 插件。它也帶有自己的教程。從 SQL 補全插件的角度�
 
  4.3.1 補全表:					*sql-completion-tables*
 
-按 <C-C>t 顯示通過 dbext 插件連線的資料庫裡的表清單。
-注意: 所有 SQL 補全彈出選單都支援在按鍵對映之前輸入字首。這時，彈出選單只包含
-該字首開始的項目。
+按 <C-C>t 顯示通過 dbext 外掛連線的資料庫裡的表清單。
+注意: 所有 SQL 補全彈出選單都支援在按鍵對映之前輸入字首。這時，彈出菜單隻包含
+該字首開始的專案。
 
  4.3.2 補全列:					*sql-completion-columns*
 
-SQL 補全插件也能顯示特定表的列清單。<C-C>c 啟用列補全。
+SQL 補全外掛也能顯示特定表的列清單。<C-C>c 啟用列補全。
 
 注意: 下面的例子在彈出選單啟用時用 <Right> 來啟用列清單。
 
@@ -465,14 +465,14 @@ SQL 補全插件也能顯示特定表的列清單。<C-C>c 啟用列補全。
      - 注意: <Right> 和 <Left> 設計在補全視窗啟用時工作。如果沒有啟用補全窗
        口，執行普通的 <Right> 或 <Left>。
 
-讓我們看看如何動態構造 SQL 語句。select 語句需要一個列清單。SQL 補全插件有兩個
+讓我們看看如何動態構造 SQL 語句。select 語句需要一個列清單。SQL 補全外掛有兩個
 方法構造列清單。 >
     一次一列:
 <	1. 輸入 SELECT 後，按 <C-C>t 顯示錶清單。
 	2. 從清單裡選擇一個表。
 	3. 按 <Right> 顯示列清單。
 	4. 從清單裡選擇列並按回車。
-	5. 輸入 "," 並按 <C-C>c。一般，生成列清單需要游標在表名上。插件使用該
+	5. 輸入 "," 並按 <C-C>c。一般，生成列清單需要游標在表名上。外掛使用該
 	   名字來決定從哪個表提取列清單。在這一步，因為我們按 <C-C>c 時游標不
 	   在表名上，顯示前一次使用的表的列清單。選擇另一列，然後繼續。
 	6. 根據需要，反覆進行第 5 步。 >
@@ -481,7 +481,7 @@ SQL 補全插件也能顯示特定表的列清單。<C-C>c 啟用列補全。
 	2. 高亮你需要所有列清單的表。
 	3. 按 <Enter> 從清單裡選擇該表。
 	4. 按 <C-C>l 來請求該表以逗號分隔的所有列的清單。
-	5. 基於第三步選擇的表名，插件試圖決定合適的表別名。你會得到提示，接受
+	5. 基於第三步選擇的表名，外掛試圖決定合適的表別名。你會得到提示，接受
 	   或者修改該別名。然後按 OK。
 	6. 表名被該表用逗號分隔的列清單替換，每列前面都會加上表的別名。
 	7. 步驟 3 和 4 可以被 <C-C>L 替換，它在對映裡內嵌了 <C-Y> 以選擇清單裡
@@ -497,15 +497,15 @@ SQL 補全插件也能顯示特定表的列清單。<C-C>c 啟用列補全。
       where c.
 
 "c" 是 "customer" 表的別名。在插入模式下輸入最後一個 "c." 之後，按 <C-C>c 或
-<C-X><C-O> 會因此彈出 customer 表的列清單。因為插件會往回查找到 select 語句開
-始處並從那裡開始尋找 FROM 字句定義的表清單。該例中它發現了字元串 "customer c"
+<C-X><C-O> 會因此彈出 customer 表的列清單。因為外掛會往回查詢到 select 語句開
+始處並從那裡開始尋找 FROM 字句定義的表清單。該例中它發現了字串 "customer c"
 並因此知道 "c" 是 customer 表的別名。這裡也支援可選的 "AS" 關鍵字， "customer
 AS c"。
 
 
  4.3.3 補全過程:				*sql-completion-procedures*
 
-和表清單類似，<C-C>p 顯示資料庫裡儲存的存儲過程的清單。
+和表清單類似，<C-C>p 顯示資料庫裡儲存的儲存過程的清單。
 
  4.3.4 補全檢視:				*sql-completion-views*
 
@@ -515,7 +515,7 @@ AS c"。
 4.4 定製補全					*sql-completion-customization*
 ----------------------------
 
-在 |vimrc| 裡，可以用若干選項定製 SQL 補全插件: >
+在 |vimrc| 裡，可以用若干選項定製 SQL 補全外掛: >
     omni_sql_no_default_maps (無預設對映)
 <	- 預設: 沒有定義
 	- 如果定義此變數，不建立全能補全的對映。詳見 |sql-completion-maps|。
@@ -546,20 +546,20 @@ AS c"。
 <	- 預設: 'ignorecase' 的當前設定
 	- 合法的設定是 0 或 1。
 	- 啟動補全之前如果輸入一些字元，產生的列表會被過濾，只顯示這些字元開始
-	  的項目。如果此選項為 0，列表過濾時考慮大小寫的敏感性。 >
+	  的專案。如果此選項為 0，列表過濾時考慮大小寫的敏感性。 >
 
     omni_sql_include_owner (包含擁有者)
 <	- 預設: 0，除非安裝了 dbext.vim 3.00
 	- 合法的設定是 0 或 1。
 	- 如果用 dbext.vim 3.00 或更高版本補全表、過程或檢視，物件清單裡同時包
-	  含擁有者的名字。補全這些物件時如果開啟了 omni_sql_include_owner，擁
+	  含擁有者的名字。補全這些物件時如果打開了 omni_sql_include_owner，擁
 	  有者的名字會被替代。 >
 
     omni_sql_precache_syntax_groups (預快取語法組)
 <	- 預設:
 	  ['syntax','sqlKeyword','sqlFunction','sqlOption','sqlType','sqlStatement']
-	- sqlcomplete 可以和其它補全插件一起使用。|sql-completion-filetypes|
-	  提供簡要說明。當檔案類型暫時改為 SQL 時， sqlcompletion 插件快取此選
+	- sqlcomplete 可以和其它補全外掛一起使用。|sql-completion-filetypes|
+	  提供簡要說明。當檔案型別暫時改為 SQL 時， sqlcompletion 外掛快取此選
 	  項列表列出的語法組。
 >
 
@@ -573,21 +573,21 @@ AS c"。
 -----------
 這些對映使用 Vim 的語法高亮規則來給補全清單填充資料。 >
     <C-C>a
-<	- 顯示所有的 SQL 語法項目。 >
+<	- 顯示所有的 SQL 語法專案。 >
     <C-C>k
-<	- 顯示所有 'sqlKeyword' 定義的 SQL 語法項目。 >
+<	- 顯示所有 'sqlKeyword' 定義的 SQL 語法專案。 >
     <C-C>f
-<	- 顯示所有 'sqlFunction' 定義的 SQL 語法項目。 >
+<	- 顯示所有 'sqlFunction' 定義的 SQL 語法專案。 >
     <C-C>o
-<	- 顯示所有 'sqlOption' 定義的 SQL 語法項目。 >
+<	- 顯示所有 'sqlOption' 定義的 SQL 語法專案。 >
     <C-C>T
-<	- 顯示所有 'sqlType' 定義的 SQL 語法項目。 >
+<	- 顯示所有 'sqlType' 定義的 SQL 語法專案。 >
     <C-C>s
-<	- 顯示所有 'sqlStatement' 定義的 SQL 語法項目。
+<	- 顯示所有 'sqlStatement' 定義的 SQL 語法專案。
 
 動態對映
 ------------
-這些對映使用 dbext.vim 插件來給補全清單填充資料。 >
+這些對映使用 dbext.vim 外掛來給補全清單填充資料。 >
     <C-C>t
 <	- 顯示錶清單。 >
     <C-C>p
@@ -606,7 +606,7 @@ AS c"。
     <Left>
 <	- 顯示錶清單。 >
     <C-C>R
-<	- 本對映刪除所有快取項目並強制 SQL 補全重新生成所有的項目清單。
+<	- 本對映刪除所有快取專案並強制 SQL 補全重新生成所有的專案清單。
 
 定製對映
 ----------------
@@ -617,16 +617,16 @@ AS c"。
     let g:omni_sql_no_default_maps = 1
 
 不要直接編輯 ftplugin/sql.vim！如果修改了此檔案，將來的更新會覆蓋你的改動。Vim
-有一個特殊的目錄結構，你可以進行定製而無須修改 Vim 發布里包含的檔案。如果你希
+有一個特殊的目錄結構，你可以進行定製而無須修改 Vim 釋出裡包含的檔案。如果你希
 望定製對映，建立 after/ftplugin/sql.vim (見 |after-directory|)，並在那裡放上和
 ftplugin/sql.vim 相同的對映並使用你自己的鍵擊。之所以選擇 <C-C>，是因為它在
 Windows 和 *nix 平臺上都能工作。Windows 平臺上也可用 <C-Space> 或 ALT 鍵。
 
 
-4.6 使用其它檔案類型				*sql-completion-filetypes*
+4.6 使用其它檔案型別				*sql-completion-filetypes*
 ------------------------------
 
-很多時候，SQL 可以用於不同的檔案類型。例如，Perl、Java、PHP 和 Javascript 都可
+很多時候，SQL 可以用於不同的檔案型別。例如，Perl、Java、PHP 和 Javascript 都可
 以和資料庫進行互動。通常你既需要 SQL 補全，也需要當前編輯的語言的補全功能。
 
 使用下面的步驟，這很容易做到 (假設 Perl 檔案): >
@@ -636,22 +636,22 @@ Windows 和 *nix 平臺上都能工作。Windows 平臺上也可用 <C-Space> �
 
 步驟 1
 ------
-開始編輯 Perl 檔案。Vim 自動設定檔案類型為 "perl"。預設，Vim 執行合適的檔案類
-型檔案 ftplugin/perl.vim。如果你依照 |ft-syntax-omni| 的指示使用語法補全插件，
+開始編輯 Perl 檔案。Vim 自動設定檔案型別為 "perl"。預設，Vim 執行合適的檔案類
+型檔案 ftplugin/perl.vim。如果你依照 |ft-syntax-omni| 的指示使用語法補全外掛，
 那麼 |'omnifunc'| 選項已經被設定為 "syntax#Complete"。按 <C-X><C-O> 會顯示全能
-補全的彈出選單，裡麵包含 Perl 的語法項目。
+補全的彈出選單，裡面包含 Perl 的語法專案。
 
 步驟 2
 ------
-手動設定檔案類型為 'sql' 會啟用相應的檔案類型檔案 ftplugin/sql.vim。該檔案定義
+手動設定檔案型別為 'sql' 會啟用相應的檔案型別檔案 ftplugin/sql.vim。該檔案定義
 很多特定於緩衝區的 SQL 補全的對映，見 |sql-completion-maps|。現在這些對映已經
-建立，而 SQL 補全插件也已經初始化。所有 SQL 語法項目也在快取裡準備完畢。SQL 文
-件類型指令碼會檢測到我們在試圖使用兩個不同的補全插件。因為 SQL 對映都以 <C-C> 開
-始，而這些對映只在使用時纔會啟用 |'omnifunc'|。所以用 <C-X><C-O> 仍然可以繼續
-使用 Perl 補全 (使用語法補全插件)，而 <C-C> 則使用 SQL 補全的功能。
+建立，而 SQL 補全外掛也已經初始化。所有 SQL 語法專案也在快取裡準備完畢。SQL 文
+件型別指令碼會檢測到我們在試圖使用兩個不同的補全外掛。因為 SQL 對映都以 <C-C> 開
+始，而這些對映只在使用時才會啟用 |'omnifunc'|。所以用 <C-X><C-O> 仍然可以繼續
+使用 Perl 補全 (使用語法補全外掛)，而 <C-C> 則使用 SQL 補全的功能。
 
 步驟 3
 ------
-把檔案類型設回 Perl，那麼所有與 "perl" 有關的項目都回到原來的設定。
+把檔案型別設回 Perl，那麼所有與 "perl" 有關的專案都回到原來的設定。
 
 vim:tw=78:ts=8:ft=help:norl:

@@ -1,7 +1,7 @@
-*if_lua.txt*    For Vim version 7.4.  最近更新: 2013年8月
+*if_lua.txt*    For Vim version 8.0.  最近更新: 2017年7月
 
 
-		  VIM 參 考 手 冊         by Luis Carvalho
+		  VIM 參考手冊    by Luis Carvalho
 				譯者: Willis
 				http://vimcdoc.sf.net
 
@@ -12,14 +12,15 @@ Vim 的 Lua 介面         				*lua* *Lua*
 2. vim 模組             	|lua-vim|
 3. 列表使用者資料			|lua-list|
 4. 字典使用者資料			|lua-dict|
-5. 函數引用使用者資料		|lua-funcref|
+5. 函式引用使用者資料		|lua-funcref|
 6. 緩衝區使用者資料		|lua-buffer|
 7. 視窗使用者資料			|lua-window|
-8. luaeval 函數	 		|lua-luaeval|
+8. luaeval 函式	 		|lua-luaeval|
+9. 動態調入			|lua-dynamic|
 
 {Vi 沒有任何以上的命令}
 
-僅當 Vim 編譯時加入 |+lua| 特性時 Lua 介面纔可用。
+僅當 Vim 編譯時加入 |+lua| 特性時 Lua 接口才可用。
 
 ==============================================================================
 1. 命令         					*lua-commands*
@@ -56,12 +57,18 @@ Vim 的 Lua 介面         				*lua* *Lua*
 	EOF
 	endfunction
 <
+要看執行的 Lua 版本: >
+	:lua print(_VERSION)
+
+如果用 LuaJIT，也可以用: >
+	:lua print(jit.version)
+<
 
 							*:luado*
-:[range]luado {body}	在 [range] 行範圍的每行執行 Lua 函數
-			"function (line,linenr) {body} end"，其中，函數參數是
-			每行的文字，結尾的 <EOL> 不計，和當前的行號。函數返回
-			值為字元串時用來替代當前行的文字。預設的 [range] 是整
+:[range]luado {body}	在 [range] 行範圍的每行執行 Lua 函式
+			"function (line,linenr) {body} end"，其中，函式引數是
+			每行的文字，結尾的 <EOL> 不計，和當前的行號。函式返回
+			值為字串時用來替代當前行的文字。預設的 [range] 是整
 			個檔案: "1,$"。
 			{Vi 無此功能}
 
@@ -78,7 +85,7 @@ Vim 的 Lua 介面         				*lua* *Lua*
 							*:luafile*
 :[range]luafile {file}
 			執行 Lua {file} 檔案中的指令碼。{Vi 無此功能}
-			整個參數用作單個檔名。
+			整個引數用作單個檔名。
 
 示例:
 >
@@ -88,8 +95,8 @@ Vim 的 Lua 介面         				*lua* *Lua*
 
 以上的命令都可執行一段 Lua 程式碼塊 (chunk)，或從命令列 (:lua 和 :luado)，或從文
 件 (:luafile)，並可給出行範圍 [range]。和 Lua 直譯器類似，每個程式碼塊都有自己的
-作用域，所以命令之間只有全局變數可以共享。所有的 Lua 預設庫都可用。此外，Lua
-的 "print" 函數的輸出重定向到 Vim 訊息區，參數以空格而不是製表符分隔。
+作用域，所以命令之間只有全域性變數可以共享。所有的 Lua 預設庫都可用。此外，Lua
+的 "print" 函式的輸出重定向到 Vim 訊息區，引數以空格而不是製表符分隔。
 
 Lua 使用 "vim" 模組 (見 |lua-vim|) 來對 Vim 發出指令以及對緩衝區
 (|lua-buffer|) 和視窗 (|lua-window|) 進行管理。不過在 |sandbox| 中執行命令時，
@@ -114,19 +121,20 @@ Lua 通過 "vim" 模組和 Vim 進行介面。輸入行範圍的首末行分別�
 <
 
 	vim.dict([arg])		返回空字典或者，如果給出 "arg" 為 Lua 表，返回
-				字典 d，d[k] = arg[k] 對所有 "arg" 中的字元串
+				字典 d，d[k] = arg[k] 對所有 "arg" 中的字串
 				鍵值 k (見 |Dictionary|)。數值鍵值轉化為字元
-				串。非字元串的鍵值不用於列表的初始化。轉換規則
+				串。非字串的鍵值不用於列表的初始化。轉換規則
 				參見 |lua-eval|。示例: >
 					:lua t = {math.pi, false, say = 'hi'}
 					:echo luaeval('vim.dict(t)')
 					:" {'say': 'hi'}, 數值鍵被忽略
 <
-	vim.funcref({name})	返回對應函數名 {name} 的函數引用 (參見
+	vim.funcref({name})	返回對應函式名 {name} 的函式引用 (參見
 				|Funcref|)。等價於 Vim 的 "function"。
+				_還未實現_
 
 	vim.buffer([arg])	如果 "arg" 是數值，返回緩衝區列表中編號為
-				"arg" 的緩衝區。如果 "arg" 為字元串，返回完整
+				"arg" 的緩衝區。如果 "arg" 為字串，返回完整
 				明或簡短名為 "arg" 的緩衝區。這兩種情況下，如
 				果找不到緩衝區，返回 'nil'。此外，如果
 				"toboolean(arg)" 為 'true'，返回緩衝區列表的首
@@ -137,7 +145,7 @@ Lua 通過 "vim" 模組和 Vim 進行介面。輸入行範圍的首末行分別�
 				"toboolean(arg)" 為 'true'，返回首個視窗，否則
 				返回當前視窗。
 
-	vim.type({arg})		返回 {arg} 的類型。等價於 Lua 的 "type" 函數，
+	vim.type({arg})		返回 {arg} 的型別。等價於 Lua 的 "type" 函式，
 				但若 {arg} 是列表、字典、緩衝區、視窗則分別返
 				回 "list"、"dict"、"funcref"、"buffer" 或
 				"window"。示例: >
@@ -151,15 +159,15 @@ Lua 通過 "vim" 模組和 Vim 進行介面。輸入行範圍的首末行分別�
 					:lua vim.command"normal ddp"
 <
 	vim.eval({expr})	計算表示式 {expr} (見 |expression|)，把結果轉
-				化為 Lua 格式並返回。Vim 字元串和數值被直接轉
-				為響應的 Lua 字元串和數值類型。Vim 列表和字典
+				化為 Lua 格式並返回。Vim 字串和數值被直接轉
+				為響應的 Lua 字串和數值型別。Vim 列表和字典
 				被轉化為 Lua 的使用者資料 (userdata) (見
 				|lua-list| 和 |lua-dict|)。
 				示例: >
 					:lua tw = vim.eval"&tw"
 					:lua print(vim.eval"{'a': 'one'}".a)
 <
-	vim.line()		返回當前行 (沒有結尾的 <EOL>)，Lua 字元串。
+	vim.line()		返回當前行 (沒有結尾的 <EOL>)，Lua 字串。
 
 	vim.beep()		鳴笛。
 
@@ -175,14 +183,15 @@ Lua 中列表引用的改變會反映在 Vim 中，反之亦然。列表 "l" 有
 
 屬性
 ----------
-	o "#l" 是列表 "l" 的項目數，相當於 Vim 中的 "len(l)"。
+	o "#l" 是列表 "l" 的專案數，相當於 Vim 中的 "len(l)"。
 	o "l[k]" 返回 "l" 的第 k 項；"l" 索引從零開始，和 Vim 一樣。要修改第 k
-	    項，可用 "l[k] = newitem"；特別地，"l[k] = nil" 刪除 "l" 的第 k 項。
+	    項，可用 "l[k] = newitem"；特別地，"l[k] = nil" 刪除 "l" 的第 k
+	    項。
 	o "l()" 返回遍歷 "l" 的 iterator。
 
 方法
 -------
-	o "l:add(item)" 在 "l" 尾部附加 "item" 項目。
+	o "l:add(item)" 在 "l" 尾部附加 "item" 專案。
 	o "l:insert(item[, pos])" 在可選的 "pos" 指定的位置上插入 "item" 項
 	    目。"pos" 預設值為 "0"。
 
@@ -207,9 +216,9 @@ Lua 中列表引用的改變會反映在 Vim 中，反之亦然。列表 "l" 有
 
 屬性
 ----------
-	o "#d" 是字典 "d" 的項目數，相當於 Vim 中的 "len(d)"。
-	o "d.key" 或 "d['key']" 返回 "d" "key" 對應項目的值。要修改其值，可用
-	  "d.key = newvalue"; 特別地，"d[k] = nil" 刪除 "d" 中的對應項目。
+	o "#d" 是字典 "d" 的專案數，相當於 Vim 中的 "len(d)"。
+	o "d.key" 或 "d['key']" 返回 "d" "key" 對應專案的值。要修改其值，可用
+	  "d.key = newvalue"; 特別地，"d[k] = nil" 刪除 "d" 中的對應專案。
 	o "d()" 返回遍歷 "d" 的 iterator，等價於 Vim 的 "items(d)"。
 
 示例:
@@ -220,21 +229,21 @@ Lua 中列表引用的改變會反映在 Vim 中，反之亦然。列表 "l" 有
 	:let d.self = d
 	:lua for k, v in d() do print(d, k, v) end
 	:lua d.x = math.pi
-	:lua d.self = nil -- 刪除項目
+	:lua d.self = nil -- 刪除專案
 	:echo d
 <
 
 ==============================================================================
-5. 函數引用使用者資料					*lua-funcref*
+5. 函式引用使用者資料					*lua-funcref*
 
-函數引用使用者資料代表 Vim 的函數引用變數。定義時帶有 "dict" 屬性的函數引用需通
-過賦給某字典的一個鍵值來使其 "self" 對應該字典 (見下例)。函數引用 "f" 有以下屬
+函式引用使用者資料代表 Vim 的函式引用變數。定義時帶有 "dict" 屬性的函式引用需通
+過賦給某字典的一個鍵值來使其 "self" 對應該字典 (見下例)。函式引用 "f" 有以下屬
 性:
 
 屬性
 ----------
-	o "#f" 是 "f" 引用的函數名
-	o "f(...)" 呼叫 "f" 引用的函數 (帶參數)
+	o "#f" 是 "f" 引用的函式名
+	o "f(...)" 呼叫 "f" 引用的函式 (帶引數)
 
 示例:
 >
@@ -265,7 +274,7 @@ Lua 中列表引用的改變會反映在 Vim 中，反之亦然。列表 "l" 有
 ----------
 	o "b()" 設定 "b" 為當前緩衝區。
 	o "#b" 是緩衝區 "b" 的行數。
-	o "b[k]" 代錶行號 k: "b[k] = newline" 把第 "k" 行替換為字元串
+	o "b[k]" 代表行號 k: "b[k] = newline" 把第 "k" 行替換為字串
 	    "newline"，還有 "b[k] = nil" 刪除第 "k" 行。
 	o "b.name" 包含緩衝區 "b" 的簡短名 (只讀)。
 	o "b.fname" 包含緩衝區 "b" 的完整名 (只讀)。
@@ -274,12 +283,12 @@ Lua 中列表引用的改變會反映在 Vim 中，反之亦然。列表 "l" 有
 方法
 -------
 	o "b:insert(newline"[, pos]")" 在緩衝區 "pos" (可選) 位置插入
-	    "newline" 字元串。"pos" 預設值為 "#b + 1"。如果 "pos == 0"，
+	    "newline" 字串。"pos" 預設值為 "#b + 1"。如果 "pos == 0"，
 	    "newline" 將成為緩衝區的首行。
 	o "b:next()" 返回緩衝區列表中 "b" 的下一個緩衝區。
 	o "b:previous()" 返回緩衝區列表 "b" 的前一個緩衝區。
-	o "b:isvalid()" 如果緩衝區 "b" 對應 "真正的" (內存沒有釋放的) Vim 緩
-	    衝區時，返回 'true' (布爾值)。
+	o "b:isvalid()" 如果緩衝區 "b" 對應 "真正的" (記憶體沒有釋放的) Vim 緩
+	    衝區時，返回 'true' (布林值)。
 
 示例:
 >
@@ -322,8 +331,8 @@ Lua 中列表引用的改變會反映在 Vim 中，反之亦然。列表 "l" 有
 -------
 	o "w:next()" 返回 "w" 的下一個視窗。
 	o "w:previous()" 返回 "w" 的前一個視窗。
-	o "w:isvalid()"  如果視窗 "w" 對應 "真正的" (內存沒有釋放的) Vim 窗
-	    口，返回 'true' (布爾值)。
+	o "w:isvalid()"  如果視窗 "w" 對應 "真正的" (記憶體沒有釋放的) Vim 窗
+	    口，返回 'true' (布林值)。
 
 示例:
 >
@@ -336,10 +345,10 @@ Lua 中列表引用的改變會反映在 Vim 中，反之亦然。列表 "l" 有
 <
 
 ==============================================================================
-8. luaeval 函數						*lua-luaeval* *lua-eval*
+8. luaeval 函式						*lua-luaeval* *lua-eval*
 
 和 "vim.eval" 對應，"luaeval" 在 Vim 中接受 Lua 值的傳入。"luaeval" 接受一個
-表示式字元串以及一個可選的參數，並返回表示式計算的結果。語義上，等價於在 Lua
+表示式字串以及一個可選的引數，並返回表示式計算的結果。語義上，等價於在 Lua
 裡進行如下的操作:
 >
 	local chunkheader = "local _A = select(1, ...) return "
@@ -348,9 +357,9 @@ Lua 中列表引用的改變會反映在 Vim 中，反之亦然。列表 "l" 有
 	    return chunk(arg) -- return typval
 	end
 <
-注意 "_A" 接收給 "luaeval" 的參數。Lua 數值，字元串，列表，字典和函數引用使用者
-資料轉化為 Vim 對應的類型，Lua 布爾型轉化為數值。試圖轉換其他 Lua 類型的企圖，
-包括非列表、字典、函數引用的使用者資料，會拋出錯誤。
+注意 "_A" 接收給 "luaeval" 的引數。Lua 數值，字串，列表，字典和函式引用使用者
+資料轉化為 Vim 對應的型別，Lua 布林型轉化為數值。試圖轉換其他 Lua 型別的企圖，
+包括非列表、字典、函式引用的使用者資料，會丟擲錯誤。
 
 示例: >
 
@@ -362,6 +371,29 @@ Lua 中列表引用的改變會反映在 Vim 中，反之亦然。列表 "l" 有
 	:  return luaeval('(_A.y-_A.x)*math.random()+_A.x', {'x':a:x,'y':a:y})
 	:  endfunction
 	:echo Rand(1,10)
+
+
+==============================================================================
+9. 動態調入					    *lua-dynamic*
+
+MS-Windows 和 Unix 上，可以動態調入 Lua 庫。此時 |:version| 輸出包含
+|+lua/dyn|。
+
+這意味著 Vim 只有在必要時才尋找 Lua DLL 或共享檔案。如果不使用 Lua 介面，
+你就不需要它們。這樣，即使沒有這些 DLL 檔案，你也可使用 Vim。
+
+
+MS-Windows ~
+
+要使用 Lua 介面，Lua DLL 必須在搜尋路徑上。控制檯窗口裡輸入 "path" 可以看到
+(搜尋路徑) 當前使用的目錄。也可用 'luadll' 選項指定 Lua DLL。DLL 的版本必須和
+Vim 編譯使用的 Lua 版本保持一致。
+
+
+Unix ~
+
+'luadll' 選項可用來指定 Lua 共享庫檔案，而不用編譯時指定的 DYNAMIC_LUA_DLL 文
+件。共享庫的版本必須和 Vim 編譯使用的 Lua 版本保持一致。
 
 
 ==============================================================================

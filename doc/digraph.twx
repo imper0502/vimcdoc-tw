@@ -1,4 +1,4 @@
-*digraph.txt*   For Vim version 7.4.  最近更新: 2008年8月
+*digraph.txt*   For Vim version 8.0.  最近更新: 2017年7月
 
 
 		  VIM 參考手冊    by Bram Moolenaar
@@ -45,7 +45,7 @@ Vim 通常編譯時帶有 |+digraphs| 特性。如果沒有，":digraph" 命令�
 							*digraph-encoding*
 通常，十進位制表示形式是字元的 Unicode 數值。注意 'encoding' 改變的時候該數值並
 不改變。如果需要，字元從 Unicode 轉換為 'encoding'。這需要該轉換確實能實現，有
-時並非如此。NUL 字元會顯示為 "10"，這是因為 NUL 字元內部用 NL 字元表示。寫迴文
+時並非如此。NUL 字元會顯示為 "10"，這是因為 NUL 字元內部用 NL 字元表示。寫回文
 件時它會還原為 NUL 字元的。
 
 如果 Vim 編譯時沒有 |+multi_byte| 特性，你需要指定該字元在 'encoding' 裡的編
@@ -66,9 +66,9 @@ Vim 通常編譯時帶有 |+digraphs| 特性。如果沒有，":digraph" 命令�
 有兩個方法輸入二合字母:					*i_digraph*
 	CTRL-K {char1} {char2}		或
 	{char1} <BS> {char2}
-第一個方法總是可以用的；第二個方法只有在 'digraph' 選項置位的時候纔可用。
+第一個方法總是可以用的；第二個方法只有在 'digraph' 選項置位的時候才可用。
 
-如果二合字母 {char1}{char2} 不存在，Vim 會搜索二合字母 {char2}{char1}。這樣，
+如果二合字母 {char1}{char2} 不存在，Vim 會搜尋二合字母 {char2}{char1}。這樣，
 即使你不記得何者在前，也能輸入。
 
 注意 如果輸入 CTRL-K {char1} 時，{char1} 是特殊鍵，Vim 只會輸入該鍵的編碼。這
@@ -94,7 +94,7 @@ meta-ESC (CSI)。
 避免這一點，不要置位 'digraph' 選項，只用 CTRL-K 輸入二合字母。
 
 Vim 裡使用值高於 128 的字元可能會有問題。例如: 你輸入 ue (u-umlaut) 而編輯器在
-插入模式回顯 \334。離開插入模式一切就正常了。注意 fmt 刪除待排版的文字里所有值
+插入模式回顯 \334。離開插入模式一切就正常了。注意 fmt 刪除待排版的文本里所有值
 高於 128 的字元。有的 Unix 系統上，解決方法是定義 LC_CTYPE。如果你使用 csh，把
 這行放入 .cshrc: >
 	setenv LC_CTYPE iso_8859_1
@@ -127,7 +127,7 @@ Vim 在大多數系統中使用相同二合字母。它們適用於 Unicode 和 
 	Two			2	上帶鉤 (Hook)
 	Nine			9	帶角 (Horn)
 
-	Equals			=	西裡爾字母 (Cyrillic)
+	Equals			=	西裡爾字母 (Cyrillic) (= 用作第二字元)
 	Asterisk		*	希臘語
 	Percent sign		%	特殊的希臘/西裡爾字母
 	Plus			+	小寫: 阿拉伯語，大寫: 希伯來語
@@ -147,6 +147,11 @@ EURO
 以下區別: latin1 裡，二合字母 Cu 用於貨幣符號，而 latin9 (iso-8859-15) 裡二合
 字母 =e 用於歐元符號，儘管兩者都代表字元 164，0xa4。為了和 zsh 相容，Eu 也用於
 歐元符號。
+
+ROUBLE
+
+盧布 (rouble) 符號在 2014 年加入，其程式碼為 0x20bd。Vim 裡為此支援二合字母 =R
+和 =P。注意 R= 和 P= 是其它字元。
 
 							*digraph-table*
 字元  二合字母	十六進	十進位制	正式名字 ~
@@ -899,6 +904,7 @@ $	DO	0x24	 36	DOLLAR SIGN
 †	/-	2020	8224	DAGGER
 ‡	/=	2021	8225	DOUBLE DAGGER
 ‥	..	2025	8229	TWO DOT LEADER
+…	,.	2026	8230	HORIZONTAL ELLIPSIS
 ‰	%0	2030	8240	PER MILLE SIGN
 ′	1'	2032	8242	PRIME
 ″	2'	2033	8243	DOUBLE PRIME
@@ -944,6 +950,8 @@ $	DO	0x24	 36	DOLLAR SIGN
 ₧	Pt	20A7	8359	PESETA SIGN
 ₩	W=	20A9	8361	WON SIGN
 €	Eu	20AC	8364	EURO SIGN
+₽	=R	20BD	8381	ROUBLE SIGN
+₽	=P	20BD	8381	ROUBLE SIGN
 ℃	oC	2103	8451	DEGREE CELSIUS
 ℅	co	2105	8453	CARE OF
 ℉	oF	2109	8457	DEGREE FAHRENHEIT
@@ -1055,7 +1063,7 @@ $	DO	0x24	 36	DOLLAR SIGN
 ⊥	-T	22A5	8869	UP TACK
 ⋅	.P	22C5	8901	DOT OPERATOR
 ⋮	:3	22EE	8942	VERTICAL ELLIPSIS
-⋯       .3      22EF    8943    MIDLINE HORIZONTAL ELLIPSIS
+⋯	.3	22EF	8943	MIDLINE HORIZONTAL ELLIPSIS
 ⌂	Eh	2302	8962	HOUSE
 ⌈	<7	2308	8968	LEFT CEILING
 ⌉	>7	2309	8969	RIGHT CEILING

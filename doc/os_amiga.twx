@@ -1,4 +1,4 @@
-*os_amiga.txt*  For Vim version 7.4.  最近更新: 2010年8月
+*os_amiga.txt*  For Vim version 8.0.  最近更新: 2010年8月
 
 
 		  VIM 參考手冊    by Bram Moolenaar
@@ -12,24 +12,24 @@
 備註: Amiga 的程式碼還在，但沒有人維護也沒有經過測試。
 
 Amiga 上的安裝:
-- Vim "doc" 目錄賦予 "VIM:"。Vim 會查找 "VIM:doc/help.txt" 檔案 (為了 help 命
+- Vim "doc" 目錄賦予 "VIM:"。Vim 會查詢 "VIM:doc/help.txt" 檔案 (為了 help 命
   令)。設定環境變數 $VIM 也可以。反過來，如果用到 $VIM 但它沒有定義，就用
   "VIM:"。
 - DOS 1.3 或更早的版本: 把 "arp.library" 放在 "libs:" 裡。Vim 必須在編譯時加入
   |+ARP| 特性。確保 newcli 和 run 在 "C:" 裡 (為了執行外部命令)。
-- 在 "c:" 或者任何在搜索路徑的目錄裡提供一個能接受帶 "-c" 的命令的外殼程式 (例
+- 在 "c:" 或者任何在搜尋路徑的目錄裡提供一個能接受帶 "-c" 的命令的外殼程式 (例
   如，Fish disk 624 的 "Csh") (為了執行外部命令)。
 
-如果你有足夠內存，你可以使 Vim 和 csh 駐留來避免啟動延遲。方法是執行命令
+如果你有足夠記憶體，你可以使 Vim 和 csh 駐留來避免啟動延遲。方法是執行命令
 "rez csh vim"。你要把 "rezlib.library" 放在你的 "libs:" 目錄。在 2.0 下你需要
 rez 0.5 版本。
 
-如果你不用二合字母 (digraphs)，去掉 |+digraphs| 特性並重新編譯可以減少一些內存
+如果你不用二合字母 (digraphs)，去掉 |+digraphs| 特性並重新編譯可以減少一些記憶體
 佔用。如果你要在其它終端下使用 Vim，可以在重新編譯時加上 TERMCAP 選項。Vim 在
 Manx 5.x 和 SAS 6.x 下能編譯通過。見 makefiles 和 feature.h。
 
-如果你發現當開啟語法高亮或者使用巢狀的通配符搜索時，Vim 在某些檔案上崩潰，那可
-能是由於堆棧太小。試著增加堆棧大小。在命令列上，啟動 Vim 之前，使用 Stack 命
+如果你發現當開啟語法高亮或者使用巢狀的萬用字元搜尋時，Vim 在某些檔案上崩潰，那可
+能是由於堆疊太小。試著增加堆疊大小。在命令列上，啟動 Vim 之前，使用 Stack 命
 令。而在 Workbench 上，選擇 Vim 圖示，開啟 workbench 的 "Info" 選單，然後改變
 表單裡的 Stack 欄位。
 
@@ -87,15 +87,15 @@ MorphOS 下的 Vim 					*MorphOS*
 
 問題 ~
 
-有些問題不是 MorphOS 的，而更多是和 Vim 和 UN*X 有關。在隨機存儲器裡啟動 Vim
-時，它抱怨 MorphOS 給出的一個 nag requestor，只要忽略它就行。另一個問題是運行
-Vim 時，有些插件會導致一些問題，這些都可以忽略。希望將來有人能夠修正這些問題。
+有些問題不是 MorphOS 的，而更多是和 Vim 和 UN*X 有關。在隨機儲存器裡啟動 Vim
+時，它抱怨 MorphOS 給出的一個 nag requestor，只要忽略它就行。另一個問題是執行
+Vim 時，有些外掛會導致一些問題，這些都可以忽略。希望將來有人能夠修正這些問題。
 
-目前，要不理這些問題，你或者可以運行: >
+目前，要不理這些問題，你或者可以執行: >
 
 	vim <要編輯的檔名>
 
-或者，如果你想簡單運行 Vim 而且還能享受到幫助檔案等的助力，最好這麼用: >
+或者，如果你想簡單執行 Vim 而且還能享受到幫助檔案等的助力，最好這麼用: >
 
 	vim --noplugins <當然你也可以加檔名>
 
@@ -103,7 +103,7 @@ Vim 時，有些插件會導致一些問題，這些都可以忽略。希望將�
 安裝 ~
 
 1) 請將 'VIM' 二進位制碼複製到 c:
-2) 從以下位置得到 Vim 運行時程式碼包:
+2) 從以下位置得到 Vim 執行時程式碼包:
 
 	ftp://ftp.vim.org/pub/vim/amiga/vim62rt.tgz
 

@@ -1,4 +1,4 @@
-*pi_tar.txt*	For Vim version 7.4. 最近更新: 2013年1月
+*pi_tar.txt*	For Vim version 8.0. 最近更新: 2013年1月
 
        	       	       +====================+
        	       	       |    Tar 檔案介面    |
@@ -29,9 +29,9 @@ Copyright 2005-2012:					*tar-copyright*
 ==============================================================================
 2. 用法						*tar-usage* *tar-manual*
 
-   編輯 *.tar 檔案時，此插件進行處理，顯示內容頁面。移動游標到檔案上，然後按
+   編輯 *.tar 檔案時，此外掛進行處理，顯示內容頁面。移動游標到檔案上，然後按
    <return> 鍵，就可以選擇該檔案進行編輯。編輯後，可以寫回該檔案。目前，不能用
-   該插件建立新的 tar 歸檔檔案。
+   該外掛建立新的 tar 歸檔檔案。
 
 						*:Vimuntar*
    VIMUNTAR~
@@ -40,9 +40,9 @@ Copyright 2005-2012:					*tar-copyright*
 
 	本命令，如有需要，把 tar 包檔案複製到以下目錄中的 .vim 或 vimfiles 目
 	錄: 若 [vimhome] 未指定， 'runtimepath' 的第一個可寫目錄。不然，
-	[vimhome] 參數允許使用者自定義該目錄。
+	[vimhome] 引數允許使用者自定義該目錄。
 
-	復制動作使用 *g:tar_copycmd*  定義的命令，即 >
+	複製動作使用 *g:tar_copycmd*  定義的命令，即 >
 		cp   用於 cygwin、unix、macunix
 		copy 用於 windows (32、95、64、16)
 <	提取動作使用 *g:tar_extractcmd* 定義的命令，預設是 >
@@ -63,7 +63,7 @@ Copyright 2005-2012:					*tar-copyright*
    禁 止 載 入~
 
    如果由於某種原因你不想 vim 檢查 tar 檔案，在 <.vimrc> 中定義兩個變數就可以
-   不載入 tar 插件: >
+   不載入 tar 外掛: >
 
 	let g:loaded_tarPlugin= 1
 	let g:loaded_tar      = 1
@@ -80,11 +80,11 @@ Copyright 2005-2012:					*tar-copyright*
    *g:tar_nomax*            0     如果為真，不最大化檔案視窗
    *g:tar_secure*         未定義  如果存在:
 					使用 "--" 來避免 tar 命令列上不想要的
-					選項擴展。
+					選項擴充套件。
 					請確定你用的 tar 命令接受 "--"；Posix
 					相容的 tar 工具都接受。
 				  如果不存在:
-					tar 插件拒絕接受任何 "-" 開頭的 tar 文
+					tar 外掛拒絕接受任何 "-" 開頭的 tar 文
 					件或成員檔案。
 				  不是所有的 tar 都支援 "--"，所以這不是預設行
 				  為。

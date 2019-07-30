@@ -1,8 +1,8 @@
-*sign.txt*      For Vim version 7.4.  最近更新: 2013年8月
+*sign.txt*      For Vim version 8.0.  最近更新: 2017年8月
 
 
-		  VIM 參考手冊	作者: Gordon Prieur
-				      Bram Moolenaar
+		  VIM 參考手冊    by Gordon Prieur
+				  and Bram Moolenaar
 				譯者: Willis
 				http://vimcdoc.sf.net
 
@@ -13,7 +13,7 @@
 2. 命令					|sign-commands|
 
 {Vi 沒有這些功能}
-{僅當編譯時加入 |+signs| 特性纔可用}
+{僅當編譯時加入 |+signs| 特性才可用}
 
 ==============================================================================
 1. 簡介					*sign-intro* *signs*
@@ -38,8 +38,9 @@
    行號上多次放置。
 
 如果檔案裡定義了標號，Vim 自動增加兩個字元的縱列來顯示標號。撤銷最後一個標號之
-後，該列又會自動消失。該列的顏色由 SignColumn 高亮組定義 |hl-SignColumn|。一個
-設定該顏色的示例: >
+後，該列又會自動消失。'signcolumn' 選項可改變此行為。
+
+該列的顏色由 SignColumn 高亮組定義 |hl-SignColumn|。一個設定該顏色的示例: >
 
 	:highlight SignColumn guibg=darkgrey
 
@@ -64,7 +65,7 @@
 		零？)，所以 "0012"、"012" 和 "12" 認為是相同的名字。
 		可以定義大約 120 個不同的標號。
 
-		允許的參數是:
+		允許的引數是:
 
 	icon={bitmap}
 		點陣圖檔名。必須是完整的路徑名。點陣圖應該能夠在兩個字元的寬度內
@@ -85,7 +86,7 @@
 		佔據一到兩個顯示單元。
 
 	texthl={group}
-		顯示文字項目的高亮組。
+		顯示文字專案的高亮組。
 
 
 刪 除 標 號						*:sign-undefine* *E155*
@@ -108,7 +109,7 @@
 		把 {name} 指定的標號放在檔案 {fname} 的第 {lnum} 行。
 							*:sign-fname*
 		檔案 {fname} 必須已經在某個緩衝區調入，而且必須使用準確的檔案
-		名。通配符，$ENV 和 ~ 不會被擴展，空白不會被轉義。結尾的空白則
+		名。萬用字元，$ENV 和 ~ 不會被擴充套件，空白不會被轉義。結尾的空白則
 		會忽略。
 
 		用 {id} 記住這個標號，將來可作進一步應用。{id} 必須是數值。用
@@ -118,6 +119,7 @@
 :sign place {id} line={lnum} name={name} buffer={nr}
 		同上，但指定緩衝區 {nr}。
 
+							*E885*
 :sign place {id} name={name} file={fname}
 		把檔案 {fname} 裡用 {id} 記住的標號換成 {name} 指定的新標號。
 		參看關於 {fname} 的說明 |:sign-fname|。可用於不移動某個標號的
@@ -152,7 +154,7 @@
 		撤銷游標所在標號的放置。
 
 
-列 出 放 置 標 號
+列 出 放 置 標 號					*:sign-place-list*
 
 :sign place file={fname}
 		列出檔案 {fname} 裡所有放置的標號。
@@ -173,7 +175,8 @@
 		如果此檔案不在視窗顯示但當前檔案又不能被放棄 |abandon|，此動作
 		失敗。
 
-:sign jump {id} buffer={nr}
-		同上，但指定緩衝區 {nr}。
+:sign jump {id} buffer={nr}					*E934*
+		同上，但指定緩衝區 {nr}。如果緩衝區 {nr} 沒有名字，報錯。
+
 
  vim:tw=78:ts=8:ft=help:norl:

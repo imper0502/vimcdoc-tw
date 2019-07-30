@@ -1,7 +1,7 @@
-*if_tcl.txt*    For Vim version 7.4.  最近更新: 2013年8月
+*if_tcl.txt*    For Vim version 8.0.  最近更新: 2017年7月
 
 
-		  VIM 參考手冊	    by Ingo Wilken
+		  VIM 參考手冊	  by Ingo Wilken
 				譯者: Willis
 				http://vimcdoc.sf.net
 
@@ -18,11 +18,11 @@ Vim 的 Tcl 介面				*tcl* *Tcl* *TCL*
 8. 示例					|tcl-examples|
 9. 動態調入				|tcl-dynamic|
 
-{Vi 沒有這些命令} *E280* *E281*
+{Vi 沒有這些命令} *E280*
 
-只有在 Vim 編譯時加入 |+tcl| 特性時，纔有 Tcl 介面。
+只有在 Vim 編譯時加入 |+tcl| 特性時，才有 Tcl 介面。
 
-警告: 可能還有沒發現的漏洞。請把漏洞報告、意見、建議等等發送到
+警告: 可能還有沒發現的漏洞。請把漏洞報告、意見、建議等等傳送到
 <Ingo.Wilken@informatik.uni-oldenburg.de>
 
 ==============================================================================
@@ -41,7 +41,7 @@ Vim 的 Tcl 介面				*tcl* *Tcl* *TCL*
 
 {endmarker} _不能_有前導空白。若 "<<" 之後省略 {endmarker}，{script} 之後必須
 由句號 '.' 結束，類似於 |:append| 和 |:insert| 命令。
-這種形式的 |:tcl| 命令主要用於在 Vim 指令碼里包含 tcl 程式碼。
+這種形式的 |:tcl| 命令主要用於在 Vim 腳本里包含 tcl 程式碼。
 
 示例: >
 	function! DefineDate()
@@ -51,6 +51,9 @@ Vim 的 Tcl 介面				*tcl* *Tcl* *TCL*
 	    }
 	EOF
 	endfunction
+<
+要看執行的 Tcl 版本: >
+	:tcl puts [info patchlevel]
 <
 
 							*:tcldo* *:tcld*
@@ -91,9 +94,9 @@ Tcl 完全通過 "::vim" 名稱空間的命令訪問 vim 的功能。已實現�
 	::vim::buffer {n}				*tcl-buffer*
 	::vim::buffer exists {n}
 	::vim::buffer list
-	提供對 vim 緩衝區的訪問。如果給出整數參數，為相應的緩衝區建立緩衝區命
+	提供對 vim 緩衝區的訪問。如果給出整數引數，為相應的緩衝區建立緩衝區命
 	令 (參見 |tcl-buffer-cmds|)，並返回其名稱作為結果。非法的緩衝區號會產
-	生標準 Tcl 錯誤。要測試哪些緩衝區號合法，可用 Vim 的內部函數: >
+	生標準 Tcl 錯誤。要測試哪些緩衝區號合法，可用 Vim 的內部函式: >
 		set nbufs [::vim::expr bufnr("$")]
 		set isvalid [::vim::expr "bufexists($n)"]
 <	"list" 選項則為每個合法的緩衝區建立緩衝區命令，並返回所有命令名稱的列
@@ -121,18 +124,18 @@ Tcl 完全通過 "::vim" 名稱空間的命令訪問 vim 的功能。已實現�
 
 	::vim::expr {expr}				*tcl-expr*
 	使用 vim 的內部表示式計算器計算表示式 {expr} (參見 |expression|)。任何
-	查詢緩衝區或視窗屬性的表示式均使用當前緩衝區/視窗。結果以字元串形式返
-	回。列表 |List| 通過連線項目並在項目間插入換行符來轉化為字元串。
+	查詢緩衝區或視窗屬性的表示式均使用當前緩衝區/視窗。結果以字串形式返
+	回。列表 |List| 通過連線專案並在專案間插入換行符來轉化為字串。
 	例如: >
 		set perl_available [::vim::expr has("perl")]
 <	另見 |tcl-window-expr| 和 |tcl-buffer-expr|。
 
 	::vim::option {opt}				*tcl-option*
 	::vim::option {opt} {value}
-	如果沒有第二個參數，查詢 vim 選項之值。不然，設定 vim 選項值為
-	{value}，並返回原先的值作為結果。任何標為 "局部於緩衝區" 或 "局部於窗
-	口" 的選項隻影響當前的緩衝區/視窗。該命令不會改變全局值，而應該用
-	":set" 命令。對於布爾值，{value} 必須是 "0" 或者 "1"，或者以下的關鍵字
+	如果沒有第二個引數，查詢 vim 選項之值。不然，設定 vim 選項值為
+	{value}，並返回原先的值作為結果。任何標為 "區域性於緩衝區" 或 "區域性於窗
+	口" 的選項隻影響當前的緩衝區/視窗。該命令不會改變全域性值，而應該用
+	":set" 命令。對於布林值，{value} 必須是 "0" 或者 "1"，或者以下的關鍵字
 	"on"、"off" 或者 "toggle"。選項列表請參見 |option-summary|。
 	示例: >
 		::vim::option ts 8
@@ -155,7 +158,7 @@ Tcl 完全通過 "::vim" 名稱空間的命令訪問 vim 的功能。已實現�
 	::vim::current		# "當前" 物件的陣列
 	::vim::lbase		# 第一行的行號
 	::vim::range		# 當前範圍行號的陣列
-	line			# 當前行號的字元串表示 (只限於 :tcldo)
+	line			# 當前行號的字串表示 (只限於 :tcldo)
 	lnum			# 當前行號 (只限於 :tcldo)
 
 命令:
@@ -175,7 +178,7 @@ Tcl 完全通過 "::vim" 名稱空間的命令訪問 vim 的功能。已實現�
 	::vim::lbase					*tcl-var-lbase*
 	該變數控制 Tcl 如何看待行號。如果設為 '1'，行號與列號從 1 開始。這樣，
 	Tcl 命令和 vim 表示式行號的使用方式一致。如果設為 '0'，則行號與列號從
-	0 開始。如果你傾向於把緩衝區看成 Tcl 的列表或者把行看成 Tcl 字元串，
+	0 開始。如果你傾向於把緩衝區看成 Tcl 的列表或者把行看成 Tcl 字串，
 	那麼 Tcl 中標準的返回索引的命令 (例如 "lsort" 或 "string first") 就適
 	用於這種設定。預設值為 '1'。目前，任何非零的值都被看成 '1'，但你的指令碼
 	不應依賴於此假定。另見 |tcl-linenumbers|。
@@ -187,16 +190,16 @@ Tcl 完全通過 "::vim" 名稱空間的命令訪問 vim 的功能。已實現�
 
 	line						*tcl-var-line*
 	lnum						*tcl-var-lnum*
-	這些全局變數只在 ":tcldo" 這個 Ex 命令執行時可用。 它們分別包含文字和
+	這些全域性變數只在 ":tcldo" 這個 Ex 命令執行時可用。 它們分別包含文字和
 	數字形式的當前行號。當 ":tcldo" 啟用的 Tcl 命令執行完畢時，當前行被設
 	為 "line" 變數的內容，除非該變數被 Tcl 命令刪除 (unset)。 "lnum" 變數
-	是只讀的。這些變數不在 "::vim" 名稱空間裡，這是為了 ":tcldo" 裡使用時
+	是隻讀的。這些變數不在 "::vim" 名稱空間裡，這是為了 ":tcldo" 裡使用時
 	能減少點輸入 (將來的版本里可能會改變)。 另見 |tcl-linenumbers|。
 
 ==============================================================================
 4. Tcl 視窗命令						*tcl-window-cmds*
 
-視窗命令代表 vim 的視窗。以下若干命令可以創建之:
+視窗命令代表 vim 的視窗。以下若干命令可以建立之:
 	::vim::window list			|tcl-window|
 	緩衝區命令的 "windows" 選項		|tcl-buffer-windows|
 ::vim::current(window) 變數包含當前視窗的視窗命令名。當 vim 視窗關閉時， 對應
@@ -205,7 +208,7 @@ Tcl 完全通過 "::vim" 名稱空間的命令訪問 vim 的功能。已實現�
 讓我們假設視窗命令名儲存在 Tcl 變數 "win" 中，亦即，$win 呼叫該命令。那麼可以
 使用以下的選項: >
 
-	$win buffer		# 創建視窗對應緩衝區的 Tcl 命令。
+	$win buffer		# 建立視窗對應緩衝區的 Tcl 命令。
 	$win command {cmd}	# 使用視窗的上下文，執行 Ex 命令。
 	$win cursor		# 得到當前的游標位置。
 	$win cursor {var}	# 把游標位置儲存在陣列變數裡。
@@ -218,7 +221,7 @@ Tcl 完全通過 "::vim" 名稱空間的命令訪問 vim 的功能。已實現�
 
 選項:
 	$win buffer					*tcl-window-buffer*
-	創建視窗對應緩衝區的 Tcl 命令，並返回其名字作為結果。該名字應該被存在
+	建立視窗對應緩衝區的 Tcl 命令，並返回其名字作為結果。該名字應該被存在
 	變數裡: >
 		set buf [$win buffer]
 <	$buf 現在成為合法的 Tcl 命令。參見 |tcl-buffer-cmds| 瞭解其可用選項。
@@ -226,34 +229,34 @@ Tcl 完全通過 "::vim" 名稱空間的命令訪問 vim 的功能。已實現�
 	$win cursor					*tcl-window-cursor*
 	$win cursor {var}
 	$win cursor {row} {col}
-	在沒有參數的情況下，報告 (字元串形式的) 當前的游標位置。該形式可以被轉
+	在沒有引數的情況下，報告 (字串形式的) 當前的游標位置。該形式可以被轉
 	換成 Tcl 的陣列變數: >
 		array set here [$win cursor]
 <	"here(row)" 和 "here(column)" 現在包含了游標位置。
-	在有一個參數的情況下，該參數被解釋為 Tcl 陣列變數名，該陣列變數應該有
+	在有一個引數的情況下，該引數被解釋為 Tcl 陣列變數名，該陣列變數應該有
 	兩個元素: "row" 和 "column"。它們用來設定游標的新位置: >
 		$win cursor here	;# 不是 $here !
-<	在有兩個參數的情況下，設定游標到對應的行和列: >
+<	在有兩個引數的情況下，設定游標到對應的行和列: >
 		$win cursor $here(row) $here(column)
 <	非法的位置產生標準 Tcl 錯誤，但可用 "catch" 捕獲。行號和列號的值和
 	"::vim::lbase" 有關。參見 |tcl-var-lbase|。
 
 	$win delcmd {cmd}				*tcl-window-delcmd*
-	註冊視窗的關閉回撥函數 {cmd}。該命令 (在全局範圍下) 在視窗被關閉前調
+	註冊視窗的關閉回撥函式 {cmd}。該命令 (在全域性範圍下) 在視窗被關閉前調
 	用。複雜的命令應該用 "list" 構造: >
 		$win delcmd [list puts vimerr "window deleted"]
 <	另見 |tcl-buffer-delcmd|。
 
 	$win height					*tcl-window-height*
 	$win height {n}
-	在沒有參數的情況下，報告當前的視窗高度。在有參數的情況下，設定視窗高度
+	在沒有引數的情況下，報告當前的視窗高度。在有引數的情況下，設定視窗高度
 為 {n}，並報告新的高度 (有可能和 {n} 不同)。
 
 	$win command [-quiet] {cmd}			*tcl-window-command*
 	$win expr {expr}				*tcl-window-expr*
 	$win option {opt} [val]				*tcl-window-option*
 	它們和 "::vim::command" 類似，只不過執行在 $win 代表的視窗的上下文下，
-	而不是當前視窗。例如，設定 "局部於視窗" 的選項涉及的是 $win 視窗。任何
+	而不是當前視窗。例如，設定 "區域性於視窗" 的選項涉及的是 $win 視窗。任何
 	涉及或查詢緩衝區的命令使用的該視窗所顯示的緩衝區 (亦即，"$win buffer"
 	所指定的緩衝區)。參見 |tcl-command|、|tcl-expr| 和 |tcl-option|。
 	示例: >
@@ -262,7 +265,7 @@ Tcl 完全通過 "::vim" 名稱空間的命令訪問 vim 的功能。已實現�
 ==============================================================================
 5. Tcl 緩衝區命令					*tcl-buffer-cmds*
 
-緩衝區命令代表 vim 的緩衝區。以下若干命令可以創建之:
+緩衝區命令代表 vim 的緩衝區。以下若干命令可以建立之:
 	::vim::buffer {N}			|tcl-buffer|
 	::vim::buffer list			|tcl-buffer|
 	"buffer" option of a window command	|tcl-window-buffer|
@@ -274,14 +277,14 @@ Tcl 完全通過 "::vim" 名稱空間的命令訪問 vim 的功能。已實現�
 讓我們假設緩衝區命令名儲存在 Tcl 變數 "buf" 中，亦即，$buf 呼叫該命令。那麼可
 以使用以下的選項: >
 
-	$buf append {n} {str}	# 在緩衝區的第 {n} 行之後添加一行內容。
+	$buf append {n} {str}	# 在緩衝區的第 {n} 行之後新增一行內容。
 	$buf command {cmd}	# 使用緩衝區上下文。執行 Ex 命令。
 	$buf count		# 報告緩衝區的行數。
 	$buf delcmd {cmd}	# 在緩衝區被刪除前，執行 Tcl 命令。
 	$buf delete {n}		# 刪除一行。
 	$buf delete {n} {m}	# 刪除多行。
 	$buf expr {expr}	# 使用視窗的上下文，計算 vim 表示式。
-	$buf get {n}		# 得到字元串形式的一行內容。
+	$buf get {n}		# 得到字串形式的一行內容。
 	$buf get {n} {m}	# 得到列表形式的多行內容。
 	$buf insert {n} {str}	# 在緩衝區裡插入一行，使之成為第 {n} 行。
 	$buf last		# 報告緩衝區末行的行號。
@@ -291,10 +294,10 @@ Tcl 完全通過 "::vim" 名稱空間的命令訪問 vim 的功能。已實現�
 	$buf option {opt} [val]	# 使用緩衝區的上下文，得到/設定 vim 選項。
 	$buf set {n} {text}	# 替換一行。
 	$buf set {n} {m} {list}	# 替換多行。
-	$buf windows		# 創建緩衝區對應視窗的 Tcl 命令。
+	$buf windows		# 建立緩衝區對應視窗的 Tcl 命令。
 <
 							*tcl-linenumbers*
-多數緩衝區命令需要行號作為參數。Tcl 如何處理這些數字取決於 "::vim::lbase" 變數
+多數緩衝區命令需要行號作為引數。Tcl 如何處理這些數字取決於 "::vim::lbase" 變數
 (參見 |tcl-var-lbase|)。除了數字形式的行號以外，還可以使用如下的關鍵字:
 "top"、"start"、"begin"、"first" (以上均代表首行)，"bottom"、"end" 和 "last"
 (以上均代表末行)。
@@ -302,7 +305,7 @@ Tcl 完全通過 "::vim" 名稱空間的命令訪問 vim 的功能。已實現�
 選項:
 	$buf append {n} {str}				*tcl-buffer-append*
 	$buf insert {n} {str}				*tcl-buffer-insert*
-	往緩衝區中加入一行。如果使用 "insert" 選項，字元串成為新的第 {n} 行。
+	往緩衝區中加入一行。如果使用 "insert" 選項，字串成為新的第 {n} 行。
 	而如果使用 "append"，它被插入在第 {n} 行之後。
 	例如: >
 		$buf insert top "This is the beginning."
@@ -314,7 +317,7 @@ Tcl 完全通過 "::vim" 名稱空間的命令訪問 vim 的功能。已實現�
 	報告緩衝區的行數。
 
 	$buf delcmd {cmd}				*tcl-buffer-delcmd*
-	註冊緩衝區的刪除回撥函數 {cmd}。該命令 (在全局範圍下) 在緩衝區被刪除前
+	註冊緩衝區的刪除回撥函式 {cmd}。該命令 (在全域性範圍下) 在緩衝區被刪除前
 	呼叫。複雜的命令應該用 "list" 構造: >
 		$buf delcmd [list puts vimerr "buffer [$buf number] gone"]
 <	另見 |tcl-window-delcmd|。
@@ -327,15 +330,15 @@ Tcl 完全通過 "::vim" 名稱空間的命令訪問 vim 的功能。已實現�
 <
 	$buf get {n}					*tcl-buffer-get*
 	$buf get {n} {m}
-	從緩衝區裡取得一行或多行。如果是前者，結果是字元串。如果是後者，結果是
-	字元串列表。例如: >
+	從緩衝區裡取得一行或多行。如果是前者，結果是字串。如果是後者，結果是
+	字串列表。例如: >
 		set topline [$buf get top]
 <
 	$buf last					*tcl-buffer-last*
 	報告末行的行號。行號和 "::vim::lbase" 有關。參見 |tcl-var-lbase|。
 
 	$buf mark {mark}				*tcl-buffer-mark*
-	報告命名位置標記的位置。結果以字元串形式出現，類似於視窗命令的
+	報告命名位置標記的位置。結果以字串形式出現，類似於視窗命令的
 	"cursor" 選項的游標位置 (參見 |tcl-window-cursor|)。它可以被轉換成 Tcl
 	陣列變數: >
 		array set mpos [$buf mark "a"]
@@ -343,7 +346,7 @@ Tcl 完全通過 "::vim" 名稱空間的命令訪問 vim 的功能。已實現�
 	產生標準 Tcl 錯誤。
 
 	$buf name
-	報告緩衝區使用的檔名。如果是無名緩衝區，返回空字元串。
+	報告緩衝區使用的檔名。如果是無名緩衝區，返回空字串。
 
 	$buf number
 	報告緩衝區號。參見 |:buffers|。
@@ -356,7 +359,7 @@ Tcl 完全通過 "::vim" 名稱空間的命令訪問 vim 的功能。已實現�
 	的部分被插入。如果不足，則未替換的部分從緩衝區裡刪除。
 
 	$buf windows					*tcl-buffer-windows*
-	創建緩衝區對應的所有的視窗命令，返回所有命令名字的列表。
+	建立緩衝區對應的所有的視窗命令，返回所有命令名字的列表。
 	示例: >
 		set winlist [$buf windows]
 		foreach win $winlist { $win height 4 }
@@ -366,7 +369,7 @@ Tcl 完全通過 "::vim" 名稱空間的命令訪問 vim 的功能。已實現�
 	$buf expr {expr}				*tcl-buffer-expr*
 	$buf option {opt} [val]				*tcl-buffer-option*
 	它們和 "::vim::command" 類似，只不過執行在 $buf 代表的緩衝區的上下文
-	下， 而不是當前緩衝區。例如，設定 "局部於緩衝區" 的選項涉及的是 $buf
+	下， 而不是當前緩衝區。例如，設定 "區域性於緩衝區" 的選項涉及的是 $buf
 	緩衝區。任何涉及或查詢視窗的命令使用的該緩衝區所處的視窗列表的第一個窗
 	口 (亦即，"$buf windows" 所指定的首個視窗)。參見 |tcl-command|、
 	|tcl-expr| 和 |tcl-option|。
@@ -377,7 +380,7 @@ Tcl 完全通過 "::vim" 名稱空間的命令訪問 vim 的功能。已實現�
 6. 雜項；Tcl 的輸出				*tcl-misc* *tcl-output*
 
 標準 Tcl 命令 "exit" 和 "catch" 被定製的版本所取代。 "exit" 終止當前 Tcl 指令碼
-並返回 vim，並關閉 Tcl 直譯器。 下一個 ":tcl" 的呼叫相應的創建一個新的 Tcl 解
+並返回 vim，並關閉 Tcl 直譯器。 下一個 ":tcl" 的呼叫相應的建立一個新的 Tcl 解
 釋器。"exit" 並_不_終止 vim！"catch" 和原先的工作方式相同，只不過，它不能防止
 指令碼從 "exit" 退出。退出時，非零的結束程式碼使得執行 Tcl 指令碼的 Ex 命令生成一個
 錯誤。
@@ -390,7 +393,7 @@ vimout 和 vimerr。從而，正常的 "puts" 命令可以用來在 vim 裡顯�
 7. 已知的漏洞和問題					*tcl-bugs*
 
 在 Tcl 裡呼叫另一個 Tcl 的 Ex 命令 (通過 "::vim::command") 可能有意想不到的副
-作用。該命令創建的新的直譯器和標準的直譯器的能力相同。因而，在安全的子直譯器裡
+作用。該命令建立的新的直譯器和標準的直譯器的能力相同。因而，在安全的子直譯器裡
 使得 "::vim::command" 可用使得該子直譯器不再安全。 (為了防止這一點而防止巢狀的
 :tcl* 呼叫很容易，但不切實際。因為根據具體的 vim 的配置，"::vim::command" 可以
 在任何其他的指令碼語言裡執行任何程式碼。) 在這個新的直譯器裡 "exit" 不會影響舊的解
@@ -445,7 +448,7 @@ vimout 和 vimerr。從而，正常的 "puts" 命令可以用來在 vim 裡顯�
 	}
 使用方法為: >
 	:tcl eachbuf %s/foo/bar/g
-小心使用 Tcl 的字元串和反斜槓替換，很麻煩。如果不確定，不妨在 Ex 命令前後括上
+小心使用 Tcl 的字串和反斜槓替換，很麻煩。如果不確定，不妨在 Ex 命令前後括上
 花括號。
 
 
@@ -458,16 +461,26 @@ vimout 和 vimerr。從而，正常的 "puts" 命令可以用來在 vim 裡顯�
 ==============================================================================
 9. 動態調入						*tcl-dynamic*
 
-MS-Windows 上，可以動態調入 Tcl 庫。|:version| 輸出這時應包括 |+tcl/dyn|。
+MS-Windows 和 Unix 上，可以動態調入 Tcl 庫。|:version| 輸出這時應包括
+|+tcl/dyn|。
 
-這意味著 Vim 只有在必要時才尋找 Tcl DLL 檔案。如果不使用 Tcl 介面，你就不需要
-它。這樣，即使沒有該 DLL 檔案，你也可使用 Vim。
+這意味著 Vim 只有在必要時才尋找 Tcl DLL 或共享庫檔案。如果不使用 Tcl 介面，你
+就不需要它。這樣，即使沒有該檔案，你也可使用 Vim。
 
-要使用 Tcl 介面，Tcl DLL 必須在搜索路徑上。控制檯視窗裡輸入 "path" 可以看到
-(搜索路徑) 當前使用的目錄。
 
-DLL 的名字必須匹配 Vim 編譯時所使用的 Tcl 版本。目前，該名字為 "tcl83.dll"，也
-就是 Tcl 8.3。要確信這一點，編輯 "gvim.exe" 檔案並查找 "tcl\d*.dll\c"。
+MS-Windows ~
+
+要使用 Tcl 介面，Tcl DLL 必須在搜尋路徑上。控制檯窗口裡輸入 "path" 可以看到
+(搜尋路徑) 當前使用的目錄。也可用 'tcldll' 選項指定 Tcl DLL。
+
+DLL 的名字必須匹配 Vim 編譯時所使用的 Tcl 版本。目前，該名字為 "tcl86.dll"，也
+就是 Tcl 8.6。要確信這一點，編輯 "gvim.exe" 檔案並查詢 "tcl\d*.dll\c"。
+
+
+Unix ~
+
+'tcldll' 選項可用來指定 Tcl 共享庫檔案，而不用編譯時指定的 DYNAMIC_TCL_DLL 文
+件。共享庫的版本必須和 Vim 編譯使用的 Tcl 版本保持一致。
 
 ==============================================================================
  vim:tw=78:ts=8:ft=help:norl:

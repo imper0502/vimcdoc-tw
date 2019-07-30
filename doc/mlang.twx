@@ -1,7 +1,7 @@
-*mlang.txt*	For Vim version 7.4.  最近更新: 2011年5月
+*mlang.txt*	For Vim version 8.0.  最近更新: 2017年8月
 
 
-		  VIM REFERENCE MANUAL    by Bram Moolenaar
+		  VIM 參考手冊    by Bram Moolenaar
 	  譯者: jwdu <junweidu@ustc.edu>，iCrazy <icrazy@ustc.edu>
 			    http://vimcdoc.sf.net
 
@@ -20,7 +20,7 @@
 同時請參看 |help-translated| 閱讀有關多語言幫助使用。
 
 {Vi 沒有以上的功能}
-{僅當編譯時加入 |+multi_lang| 特性纔有效}
+{僅當編譯時加入 |+multi_lang| 特性才有效}
 
 ==============================================================================
 1. 資訊							*multilang-messages*
@@ -47,13 +47,13 @@ Vim 從環境變數中獲取當前 locale 資訊。這意味著在大部分的�
 :lan[guage] cty[pe]
 :lan[guage] tim[e]
 			顯示當前的語言 (即 locale)。
-			使用 "messages" 參數會顯示出用作訊息的語言。術語:
+			使用 "messages" 引數會顯示出用作訊息的語言。術語:
 			LC_MESSAGES。
-			使用 "ctype" 參數，會顯示出用作字元編碼的語言。術語:
+			使用 "ctype" 引數，會顯示出用作字元編碼的語言。術語:
 			LC_CTYPE。
-			使用 "time" 參數會顯示出用作 strftime() 的語言。術語:
+			使用 "time" 引數會顯示出用作 strftime() 的語言。術語:
 			LC_TIME。
-			不加參數時顯示當地語言的全稱 (這個功能依賴於系統)。
+			不加引數時顯示當地語言的全稱 (這個功能依賴於系統)。
 			當前的語言同樣也可以通過變數 |v:lang|、|v:ctype| 和
 			|v:lc_time| 來獲得。
 
@@ -62,23 +62,23 @@ Vim 從環境變數中獲取當前 locale 資訊。這意味著在大部分的�
 :lan[guage] cty[pe] {name}
 :lan[guage] tim[e] {name}
 			把當前的語言 (即 locale) 設定成 {name}。
-			此處的 {name} 必須是你系統上的一個有效的語言。一些系統
+			此處的 {name} 必須是你係統上的一個有效的語言。一些系統
 			接受像 "en" 或 "en_US" 這樣的別名，但是，一些系統只接
 			受像 "en_US.ISO_8859-1" 這樣完整的名稱。Unix 系統上可
 			以用以下命令檢視支援的 locale: >
 				:!locale -a
-<			藉助於參數 "messages"，你就可以設定訊息使用的語言。如
+<			藉助於引數 "messages"，你就可以設定訊息使用的語言。如
 			果你希望的話，這兩者可以不同，例如: 當你編輯日文文字時
 			使用英文訊息。它設定 $LC_MESSAGES。
-			藉助於參數 "ctype"，你就可以設定用作字元編碼的語言。這
+			藉助於引數 "ctype"，你就可以設定用作字元編碼的語言。這
 			將會影響到 Vim 所連線的庫。一般不能將它和 'encoding'
 			設成不同的值，除非是 "C"。它設定 $LC_CTYPE。
-			藉助於參數 "time" 參數，你就可以設定用作時間和日期訊息
+			藉助於引數 "time" 引數，你就可以設定用作時間和日期訊息
 			的語言。它影響到 strftime()。它設定 $LC_TIME。
-			沒有參數時，以上兩者都會被設定，另外還會設定 $LANG。
+			沒有引數時，以上兩者都會被設定，另外還會設定 $LANG。
 			編譯時加上 |+float| 特性時，LC_NUMERIC 值總會被設為
 			"C"，以便浮點數使用 '.' 作為十進位制小數點。
-			這將會使那些依賴語言的項目 (資訊，時間和日期的格式) 看
+			這將會使那些依賴語言的專案 (資訊，時間和日期的格式) 看
 			起來有一些不同。這不是所有系統都完全支援的。
 			如果設定失敗，將會返回一個出錯資訊。如果設定成功，將不
 			會有任何資訊。例如: >
@@ -96,14 +96,16 @@ MS-WINDOWS 信 息 的 翻 譯				*win32-gettext*
 libintl.dll 檔案。可以從下面的網站得到它:
 
 	http://sourceforge.net/projects/gettext
+或:
+	https://mlocati.github.io/gettext-iconv-windows/
 
 這裡還包含了 xgettext，msgformat 以及其它工具。
 
 libintl.dll 應該和 (g)vim.exe 放在同一個目錄內，或者放在環境變數 PATH 指定的那
-些目錄裡。訊息資料檔案 (vim.mo) 應放在 "$VIMRUNTIME/lang/xx/LC_MESSAGES"，在這
-裡 "xx" 是語言的縮寫 (大部分是兩個字母)。
+些目錄裡。Vim 也會查詢 libintl-8.dll。訊息資料檔案 (vim.mo) 應放在
+"$VIMRUNTIME/lang/xx/LC_MESSAGES"，在這裡 "xx" 是語言的縮寫 (多數是兩個字母)。
 
-如果你制作了自己的翻譯，那麼，你需要生成 .po 檔案並把它轉化為 .mo 檔案。同時，
+如果你製作了自己的翻譯，那麼，你需要生成 .po 檔案並把它轉化為 .mo 檔案。同時，
 找到 Vim 的原始碼並閱讀 "src/po/README.txt" 檔案。
 
 如果你不想使用自動選擇的語言，那麼就把 $LANG 變數設為你希望的語言。如果你不希
@@ -118,7 +120,7 @@ libintl.dll 應該和 (g)vim.exe 放在同一個目錄內，或者放在環境�
 
 基本的使用請參看 |45.2|，尤其是 'langmenu' 的使用部分。
 
-注意 如果在翻譯後對選單作了更改，選單的一些選項可能會顯示成英文。請聯繫翻譯的
+注意 如果在翻譯後對選單作了更改，選單的一些選項可能會顯示成英文。請聯絡翻譯的
 維護者並請求他更新選單的翻譯。你可以在 "$VIMRUNTIME/lang/menu_<lang>.vim" 中找
 到翻譯者的名字和 e-mail 地址。
 
@@ -144,7 +146,7 @@ LOCALE 的 別 名
 
 	~/.vim/lang/menu_<v:lang>.vim
 
-檢查 'runtimepath' 選項以確定會搜索哪些目錄。在此檔案中寫一個命令來裝載那個使
+檢查 'runtimepath' 選項以確定會搜尋哪些目錄。在此檔案中寫一個命令來裝載那個使
 用不同名字的選單檔案: >
 
 	runtime lang/menu_<other_lang>.vim
@@ -165,6 +167,7 @@ LOCALE 的 別 名
 			將選單名稱 {english} 翻譯成 {mylang}。像 "&" 和
 			"<Tab>" 這樣的特殊字元也必須包括進去。如同其它 |:menu|
 			命令中的那樣，空格和句點需要用反斜槓來轉義。
+			忽略 {english} 中的大小寫。
 
 你可以在 $VIMRUNTIME/lang 目錄中找到例子。
 

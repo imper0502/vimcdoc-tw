@@ -1,4 +1,4 @@
-*help.txt*	For Vim version 7.4.  最近更新: 2013年8月
+*help.txt*	For Vim version 8.0.  最近更新: 2017年7月
 
 			VIM - 主幫助檔案
                                                                          k
@@ -10,24 +10,27 @@
    跳轉到一個主題:  將游標置於標籤 (例如 |bars|) 上然後輸入 CTRL-]。
          使用滑鼠:  ":set mouse=a" 啟動對滑鼠的支援 (用於 xterm 或 GUI)。
 		    在標籤 (例如 |bars|) 上雙擊。
-             跳回:  鍵入 CTRL-T 或 CTRL-O (重複則繼續向後)。
+             跳回:  鍵入 CTRL-T 或 CTRL-O。重複則繼續向後。
 
-     獲取特定幫助:  在 |:help| 命令後給出參數可以直接跳轉到任何的幫助主題。
-		    還可以進一步指定上下文:
-							*help-context*
+     獲取特定幫助:  在 |:help| 命令後給出引數可以直接跳轉到任何的幫助主題。
+		    還可以通過字首進一步指定上下文:            *help-context*
+
 		          類別			字首	   例子	~
-		      普通模式命令		(無)	   :help x
-		      可視模式命令		 v_	   :help v_u
-		      插入模式命令		 i_	   :help i_<Esc>
-		      命令列模式命令		 :	   :help :quit
-		      命令列編輯		 c_	   :help c_<Del>
-		      Vim 命令參數		 -	   :help -r
-		      選項			 '	   :help 'textwidth'
-	 查找幫助:  鍵入 ":help word"，接著鍵入 CTRL-D 可以看到匹配 "word" 的
+		      普通模式命令			   :help x
+		      可視模式命令		  v_	   :help v_u
+		      插入模式命令		  i_	   :help i_<Esc>
+		      命令列模式命令		  :	   :help :quit
+		      命令列編輯		  c_	   :help c_<Del>
+		      Vim 命令引數		  -	   :help -r
+		      選項			  '	   :help 'textwidth'
+		      正規表示式		  /	   :help /[
+		    更多上下文及說明參見 |help-summary|。
+
+	 查詢幫助:  鍵入 ":help word"，接著鍵入 CTRL-D 可以看到匹配 "word" 的
 	 	    幫助主題。
 		    也可用 ":helpgrep word"。|:helpgrep|
 
-VIM 代表 Vi IMproved。VIM 主要由 Bram Moolenaar 編寫，但沒有許多其他人的幫助是
+Vim 代表 Vi IMproved。Vim 主要由 Bram Moolenaar 編寫，但沒有許多其他人的幫助是
 不可能的。請見 |credits|。
 ------------------------------------------------------------------------------
 						*doc-file-list* *Q_ct*
@@ -66,7 +69,7 @@ VIM 代表 Vi IMproved。VIM 主要由 Bram Moolenaar 編寫，但沒有許多�
 |usr_24.txt|  快速插入
 |usr_25.txt|  編輯帶格式的文字
 |usr_26.txt|  重複
-|usr_27.txt|  查找命令及模式
+|usr_27.txt|  查詢命令及模式
 |usr_28.txt|  摺疊
 |usr_29.txt|  在程式碼間移動
 |usr_30.txt|  編輯程式
@@ -74,10 +77,10 @@ VIM 代表 Vi IMproved。VIM 主要由 Bram Moolenaar 編寫，但沒有許多�
 |usr_32.txt|  撤銷樹
 
 調節 Vim ~
-|usr_40.txt|  創建新的命令
+|usr_40.txt|  建立新的命令
 |usr_41.txt|  編寫 Vim 指令碼
-|usr_42.txt|  添加新的選單
-|usr_43.txt|  使用檔案類型
+|usr_42.txt|  新增新的選單
+|usr_43.txt|  使用檔案型別
 |usr_44.txt|  自定義語法高亮
 |usr_45.txt|  選擇你的語言
 
@@ -97,13 +100,13 @@ VIM 代表 Vi IMproved。VIM 主要由 Bram Moolenaar 編寫，但沒有許多�
 |tips.txt|	Vim 的各種竅門
 |message.txt|	(錯誤) 資訊及解釋
 |quotes.txt|	Vim 的使用者評價
-|todo.txt|	已知的問題以及擴展計劃
+|todo.txt|	已知的問題以及擴充套件計劃
 |develop.txt|	Vim 的開發
-|debug.txt|	偵錯 Vim 自身
-|uganda.txt|	Vim 發布條件和怎麼花你的 money
+|debug.txt|	除錯 Vim 自身
+|uganda.txt|	Vim 釋出條件和怎麼花你的 money
 
 基本編輯 ~
-|starting.txt|	啟動 Vim，Vim 命令參數，初始化
+|starting.txt|	啟動 Vim，Vim 命令引數，初始化
 |editing.txt|	編輯和寫入檔案
 |motion.txt|	有關移動的命令
 |scroll.txt|	在視窗中滾動文字
@@ -111,7 +114,7 @@ VIM 代表 Vi IMproved。VIM 主要由 Bram Moolenaar 編寫，但沒有許多�
 |change.txt|	刪除和替換文字
 |indent.txt|	C 及其它語言的自動縮排
 |undo.txt|	撤消和重做
-|repeat.txt|	重覆命令，Vim 指令碼及偵錯
+|repeat.txt|	重複命令，Vim 指令碼及除錯
 |visual.txt|	使用可視模式 (選擇一個文字區域)
 |various.txt|	各種其它命令
 |recover.txt|	從崩潰中恢復
@@ -119,9 +122,9 @@ VIM 代表 Vi IMproved。VIM 主要由 Bram Moolenaar 編寫，但沒有許多�
 高階編輯 ~
 |cmdline.txt|	命令列編輯
 |options.txt|	所有選項的描述
-|pattern.txt|	正規表示式及查找命令
+|pattern.txt|	正則表示式及查詢命令
 |map.txt|	鍵盤對映及縮寫
-|tagsrch.txt|	標籤及特殊查找
+|tagsrch.txt|	標籤及特殊查詢
 |quickfix.txt|	支援快速 編輯-編譯-修正 迴圈的命令
 |windows.txt|	使用多視窗多緩衝區的命令
 |tabpage.txt|	使用多個標籤頁的命令
@@ -129,8 +132,9 @@ VIM 代表 Vi IMproved。VIM 主要由 Bram Moolenaar 編寫，但沒有許多�
 |spell.txt|	拼寫檢查
 |diff.txt|	編輯同一文字的兩到四個版本
 |autocmd.txt|	當事件發生時自動執行命令
-|filetype.txt|	對某一類型檔案的專有設定
+|filetype.txt|	對某一型別檔案的專有設定
 |eval.txt|	表示式求值，條件執行命令
+|channel.txt|	作業、通道、程序間通訊
 |fold.txt|	隱藏 (摺疊) 一定範圍內的文字
 
 特殊問題 ~
@@ -145,13 +149,12 @@ VIM 代表 Vi IMproved。VIM 主要由 Bram Moolenaar 編寫，但沒有許多�
 |hebrew.txt|	希伯來語支援及編輯
 |russian.txt|	俄羅斯語支援及編輯
 |ft_ada.txt|	Ada (程式語言) 支援
-|ft_sql.txt|	SQL 檔案類型插件相關
+|ft_sql.txt|	SQL 檔案型別外掛相關
 |hangulin.txt|	Hangul (韓語) 輸入模式
 |rileft.txt|	從右向左的編輯模式
 
 GUI ~
 |gui.txt|	圖形使用者介面 (GUI)
-|gui_w16.txt|	Windows 3.1 GUI
 |gui_w32.txt|	Win32 GUI
 |gui_x11.txt|	X11 GUI
 
@@ -161,14 +164,13 @@ GUI ~
 |if_mzsch.txt|	MzScheme 介面
 |if_perl.txt|	Perl 介面
 |if_pyth.txt|	Python 介面
-|if_sniff.txt|	SNiFF+ 介面
 |if_tcl.txt|	Tcl 介面
 |if_ole.txt|	Win32 下的 OLE 介面
 |if_ruby.txt|	Ruby 介面
-|debugger.txt|	與偵錯程式的介面
+|debugger.txt|	與除錯程式的介面
 |workshop.txt|	Sun Visual Workshop 介面
 |netbeans.txt|	NetBeans 外部編輯器介面
-|sign.txt|	偵錯標號
+|sign.txt|	除錯標號
 
 版本 ~
 |vi_diff.txt|	Vim 和 Vi 之間的主要區別
@@ -176,6 +178,7 @@ GUI ~
 |version5.txt|	Vim 4.6 和 5.x 版本的區別
 |version6.txt|	Vim 5.7 和 6.x 版本的區別
 |version7.txt|	Vim 6.4 和 7.x 版本的區別
+|version8.txt|	Vim 7.4 和 8.x 版本的區別
 						*sys-file-list*
 特定系統相關 ~
 |os_390.txt|	OS/390 Unix
@@ -192,14 +195,15 @@ GUI ~
 |os_vms.txt|	VMS
 |os_win32.txt|	MS-Windows 95/98/NT
 					*standard-plugin-list*
-標準插件 ~
+標準外掛 ~
 |pi_getscript.txt| 下載 Vim 指令碼的最新版本
-|pi_gzip.txt|	 讀寫壓縮過的檔案
-|pi_netrw.txt|	 通過網路讀寫檔案
-|pi_paren.txt|	 高亮匹配括號
-|pi_tar.txt|	 Tar 檔案探索器
-|pi_vimball.txt|   創建自安裝的 Vim 指令碼
-|pi_zip.txt|	 Zip 歸檔探索器
+|pi_gzip.txt|	   讀寫壓縮過的檔案
+|pi_logipat.txt|   模式的邏輯操作符
+|pi_netrw.txt|	   通過網路讀寫檔案
+|pi_paren.txt|	   高亮匹配括號
+|pi_tar.txt|	   Tar 檔案探索器
+|pi_vimball.txt|   建立自安裝的 Vim 指令碼
+|pi_zip.txt|	   Zip 歸檔探索器
 
 本地附加文件
 |local-additions|	請查閱英文文件

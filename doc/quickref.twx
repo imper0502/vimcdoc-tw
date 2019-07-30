@@ -1,18 +1,18 @@
-*quickref.txt*	For Vim version 7.4.  最近更新: 2013年8月
+*quickref.txt*	For Vim version 8.0.  最近更新: 2017年8月
 
 
-		  VIM REFERENCE MANUAL    by Bram Moolenaar
+		  VIM 參考手冊    by Bram Moolenaar
 		     譯者: lang2 http://vimcdoc.sf.net
 
 			    快速參考指南
 
 							 *quickref* *Contents*
  標籤	  主題				 標籤	  主題	~
-|Q_ct|	幫助檔案清單			|Q_re|	重覆命令
+|Q_ct|	幫助檔案清單			|Q_re|	重複命令
 |Q_lr|	動作: 左右			|Q_km|	鍵盤對映
 |Q_ud|	動作: 上下			|Q_ab|	縮寫
 |Q_tm|	動作: 文字物件			|Q_op|	選項
-|Q_pa|	動作: 模式查找			|Q_ur|	撤銷/重做命令
+|Q_pa|	動作: 模式查詢			|Q_ur|	撤銷/重做命令
 |Q_ma|	動作: 位置標記			|Q_et|	外部命令
 |Q_vm|	動作: 其他			|Q_qf|	Quickfix 命令
 |Q_ta|	動作: 使用標籤			|Q_vc|	其他命令
@@ -21,7 +21,7 @@
 |Q_ai|	插入: 普通鍵			|Q_ex|	Ex: 特殊字元
 |Q_ss|	插入: 特殊鍵			|Q_st|	啟動 Vim
 |Q_di|	插入: 二合字母			|Q_ed|	檔案編輯
-|Q_si|	插入: 特殊插入			|Q_fl|	使用參數列表
+|Q_si|	插入: 特殊插入			|Q_fl|	使用引數列表
 |Q_de|	改動: 刪除文字			|Q_wq|	寫入與退出
 |Q_cm|	改動: 複製與移動		|Q_ac|	自動命令
 |Q_ch|	改動: 修改文字			|Q_wi|	多視窗命令
@@ -49,8 +49,8 @@ N 用來 (可選) 置於命令之前表示該命令執行的計數。
 |F|	N  F{char}	至左邊第 N 次出現 {char} 之處 (Find)
 |t|	N  t{char}	至右邊第 N 次出現 {char} 之前 (till)
 |T|	N  T{char}	至左邊第 N 次出現 {char} 之前 (Till)
-|;|	N  ;		重覆上次 "f"、"F"、"t" 或 "T" 命令 N 次
-|,|	N  ,		以相反方向重覆上次 "f"、"F"、"t" 或 "T" 命令 N 次
+|;|	N  ;		重複上次 "f"、"F"、"t" 或 "T" 命令 N 次
+|,|	N  ,		以相反方向重複上次 "f"、"F"、"t" 或 "T" 命令 N 次
 ------------------------------------------------------------------------------
 *Q_ud*		上下動作
 
@@ -97,24 +97,24 @@ N 用來 (可選) 置於命令之前表示該命令執行的計數。
 |[star|	N  [*		向後至第 N 個註釋的開始 "/*"
 |]star|	N  ]*		向前至第 N 個註釋的結束 "*/"
 ------------------------------------------------------------------------------
-*Q_pa*		模式查找
+*Q_pa*		模式查詢
 
 |/|	N  /{pattern}[/[offset]]<CR>
-			向前查找第 N 次出現 {pattern} 的地方
+			向前查詢第 N 次出現 {pattern} 的地方
 |?|	N  ?{pattern}[?[offset]]<CR>
-			向後查找第 N 次出現 {pattern} 的地方
-|/<CR>|	N  /<CR>	向前重覆上次查找
-|?<CR>|	N  ?<CR>	向後重覆上次查找
-|n|	N  n		重覆上次查找
-|N|	N  N		相反方向重覆上次查找
-|star|	N  *		向前查找游標下的標識符
-|#|	N  #		向後查找游標下的標識符
-|gstar|	N  g*		同 "*"，但也查找部分匹配
-|g#|	N  g#		同 "*"，但也查找部分匹配
-|gd|	   gd		至游標下標識符的局部聲明 (goto declaration)
-|gD|	   gD		至游標下標識符的全局聲明 (goto Declaration)
+			向後查詢第 N 次出現 {pattern} 的地方
+|/<CR>|	N  /<CR>	向前重複上次查詢
+|?<CR>|	N  ?<CR>	向後重複上次查詢
+|n|	N  n		重複上次查詢
+|N|	N  N		相反方向重複上次查詢
+|star|	N  *		向前查詢游標下的識別符號
+|#|	N  #		向後查詢游標下的識別符號
+|gstar|	N  g*		同 "*"，但也查詢部分匹配
+|g#|	N  g#		同 "*"，但也查詢部分匹配
+|gd|	   gd		至游標下識別符號的區域性宣告 (goto declaration)
+|gD|	   gD		至游標下識別符號的全域性宣告 (goto Declaration)
 
-|pattern|		查找模式中的特殊字元
+|pattern|		查詢模式中的特殊字元
 
 				含義	      magic   nomagic	~
 			    匹配任意單個字元	.	\.
@@ -124,7 +124,7 @@ N 用來 (可選) 置於命令之前表示該命令執行的計數。
 				匹配單詞結束	\>	\>
 		    匹配單個標定範圍中的字元	[a-z]	\[a-z]
 		匹配單個不在標定範圍中的字元	[^a-z]	\[^a-z]
-			  匹配一個標識符字元	\i	\i
+			  匹配一個識別符號字元	\i	\i
 			    同上但不包括數字	\I	\I
 			  匹配一個關鍵字字元	\k	\k
 			    同上但不包括數字	\K	\K
@@ -147,7 +147,7 @@ N 用來 (可選) 置於命令之前表示該命令執行的計數。
 			隔開兩種可替換的匹配	\|	\|
 			組合模式為單個匹配原	\(\)	\(\)
 
-|search-offset|		查找命令後可用的偏移量
+|search-offset|		查詢命令後可用的偏移量
 
     [num]	向下 [num] 行，位於第一列
     +[num]	向下 [num] 行，位於第一列
@@ -158,7 +158,7 @@ N 用來 (可選) 置於命令之前表示該命令執行的計數。
     s[-num]	匹配啟始 (start) 左方 [num] 個字元處
     b[+num]	同上 s[+num] (助記: begin)
     b[-num]	同上 s[-num] (助記: begin)
-    ;{search-command}	接著執行 {search-command} 查找命令
+    ;{search-command}	接著執行 {search-command} 查詢命令
 ------------------------------------------------------------------------------
 *Q_ma*		位置標記和相關動作
 
@@ -235,19 +235,19 @@ N 用來 (可選) 置於命令之前表示該命令執行的計數。
 ------------------------------------------------------------------------------
 *Q_in*		插入文字
 
-|a|	N  a	在游標後添加文字 (N 次)
-|A|	N  A	在行末添加文字 (N 次)
+|a|	N  a	在游標後新增文字 (N 次)
+|A|	N  A	在行末新增文字 (N 次)
 |i|	N  i	在游標前插入文字 (N 次) (亦: <Insert>)
 |I|	N  I	在當前行的第一個非空白字元前插入文字 (N 次)
 |gI|	N  gI	在第一欄中插入文字 (N 次)
-|o|	N  o	在當前行下方開始新行，添加文字 (N 次)
-|O|	N  O	在當前行上方開始新行，添加文字 (N 次)
-|:startinsert|	:star[tinsert][!]   開始插入模式，當使用 [!] 時添加文字
+|o|	N  o	在當前行下方開始新行，新增文字 (N 次)
+|O|	N  O	在當前行上方開始新行，新增文字 (N 次)
+|:startinsert|	:star[tinsert][!]   開始插入模式，當使用 [!] 時新增文字
 |:startreplace| :startr[eplace][!]  開始替換模式，當使用 [!] 時從行末開始
 
 在可視列塊模式下:
 |v_b_I|    I	在所有選中的行之前插入相同的文字
-|v_b_A|	   A	在所有選中的行之後添加相同的文字
+|v_b_A|	   A	在所有選中的行之後新增相同的文字
 ------------------------------------------------------------------------------
 *Q_ai*		插入模式鍵
 
@@ -276,9 +276,9 @@ N 用來 (可選) 置於命令之前表示該命令執行的計數。
 |i_CTRL-A|	CTRL-A		  插入上次插入的文字
 |i_CTRL-@|	CTRL-@		  插入上次插入的文字並結束
 				     插入模式
-|i_CTRL-R|	CTRL-R {0-9a-z%#:.-="}	插入寄存器的內容
-|i_CTRL-N|	CTRL-N		  將下一個匹配的標識符插入游標前
-|i_CTRL-P|	CTRL-P		  將上一個匹配的標識符插入游標前
+|i_CTRL-R|	CTRL-R {0-9a-z%#:.-="}	插入暫存器的內容
+|i_CTRL-N|	CTRL-N		  將下一個匹配的識別符號插入游標前
+|i_CTRL-P|	CTRL-P		  將上一個匹配的識別符號插入游標前
 |i_CTRL-X|	CTRL-X ...	  以各種方式補全游標前的單詞
 
 |i_<BS>|	<BS> 或 CTRL-H	  刪除游標前的一個字元
@@ -320,19 +320,19 @@ N 用來 (可選) 置於命令之前表示該命令執行的計數。
 |v_J|	   {visual}J	連線高亮的行
 |gJ|	N  gJ		同 "J"，但不插入空格
 |v_gJ|	   {visual}gJ	同 "{visual}J"，但不插入空格
-|:d|	:[range]d [x]	刪除範圍 [range] 覆蓋的行 [存入寄存器 x]
+|:d|	:[range]d [x]	刪除範圍 [range] 覆蓋的行 [存入暫存器 x]
 ------------------------------------------------------------------------------
 *Q_cm*		複製與移動文字
 
-|quote|	  "{char}	在接下來的刪除、抽出或放置命令中使用寄存器 {char}
-|:reg|	  :reg		顯示所有寄存器的內容
-|:reg|	  :reg {arg}	顯示寄存器 {arg} 的內容
-|y|	  N  y{motion}	將動作 {motion} 覆蓋的文字抽出至一個寄存器
-|v_y|	     {visual}y	將高亮的文字抽出至一個寄存器
-|yy|	  N  yy		抽出 N 行至寄存器
-|Y|	  N  Y		抽出 N 行至寄存器
-|p|	  N  p		將一個寄存器的內容放置在游標位置後 (N 次)
-|P|	  N  P		將一個寄存器的內容放置在游標位置前 (N 次)
+|quote|	  "{char}	在接下來的刪除、抽出或放置命令中使用暫存器 {char}
+|:reg|	  :reg		顯示所有暫存器的內容
+|:reg|	  :reg {arg}	顯示暫存器 {arg} 的內容
+|y|	  N  y{motion}	將動作 {motion} 覆蓋的文字抽出至一個暫存器
+|v_y|	     {visual}y	將高亮的文字抽出至一個暫存器
+|yy|	  N  yy		抽出 N 行至暫存器
+|Y|	  N  Y		抽出 N 行至暫存器
+|p|	  N  p		將一個暫存器的內容放置在游標位置後 (N 次)
+|P|	  N  P		將一個暫存器的內容放置在游標位置前 (N 次)
 |]p|	  N  ]p		同 p，但調整當前行的縮排
 |[p|	  N  [p		同 P，但調整當前行的縮排
 |gp|	  N  gp		同 p，但將游標留在新文字之後
@@ -402,8 +402,8 @@ N 用來 (可選) 置於命令之前表示該命令執行的計數。
 			   與 [g] 共用，替代所有的出現的 {pattern}；
 			   與 [c] 共用，確認每一次替代
 |:s|	   :[range]s[ubstitute] [g][c]
-			以新的範圍和選項重覆上一次的 ":s" 命令
-|&|	      &		不帶選項在當前行上重覆上一次的 ":s" 命令
+			以新的範圍和選項重複上一次的 ":s" 命令
+|&|	      &		不帶選項在當前行上重複上一次的 ":s" 命令
 |:ret|	   :[range]ret[ab][!] [tabstop]
 			置 'tabstop' 為新值並依據此值調整空白字元
 ------------------------------------------------------------------------------
@@ -438,24 +438,24 @@ N 用來 (可選) 置於命令之前表示該命令執行的計數。
 |v_i>|	   N  i>	選擇 "內含 <> 塊"
 |v_at|	   N  at	選擇 "一個標籤塊" (從 <aaa> 到 </aaa>) (tag)
 |v_it|	   N  it	選擇 "內含標籤塊" (從 <aaa> 到 </aaa>)
-|v_a'|	   N  a'	選擇 "一個單引號字元串"
-|v_i'|	   N  i'	選擇 "內含單引號字元串"
-|v_aquote| N  a"	選擇 "一個雙引號字元串"
-|v_iquote| N  i"	選擇 "內含雙引號字元串"
-|v_a`|	   N  a`	選擇 "一個反引號字元串"
-|v_i`|	   N  i`	選擇 "內含反引號字元串"
+|v_a'|	   N  a'	選擇 "一個單引號字串"
+|v_i'|	   N  i'	選擇 "內含單引號字串"
+|v_aquote| N  a"	選擇 "一個雙引號字串"
+|v_iquote| N  i"	選擇 "內含雙引號字串"
+|v_a`|	   N  a`	選擇 "一個反引號字串"
+|v_i`|	   N  i`	選擇 "內含反引號字串"
 
 ------------------------------------------------------------------------------
-*Q_re*		重覆命令
+*Q_re*		重複命令
 
 |.|	   N  .		重複最近一次改動 (將計數改為 N)
-|q|	      q{a-z}	記錄鍵入的字元，存入寄存器 {a-z}
-|q|	      q{A-Z}	記錄鍵入的字元，添加進寄存器 {a-z}
+|q|	      q{a-z}	記錄鍵入的字元，存入暫存器 {a-z}
+|q|	      q{A-Z}	記錄鍵入的字元，新增進暫存器 {a-z}
 |q|	      q		終止記錄
-|@|	   N  @{a-z}	執行寄存器 {a-z} 的內容 (N 次)
-|@@|	   N  @@	重覆上次的 @{a-z} 操作 (N 次)
-|:@|	   :@{a-z}	將寄存器 {a-z} 的內容當作 Ex 命令來執行
-|:@@|	   :@@		重覆上次的 :@{a-z} 操作
+|@|	   N  @{a-z}	執行暫存器 {a-z} 的內容 (N 次)
+|@@|	   N  @@	重複上次的 @{a-z} 操作 (N 次)
+|:@|	   :@{a-z}	將暫存器 {a-z} 的內容當作 Ex 命令來執行
+|:@@|	   :@@		重複上次的 :@{a-z} 操作
 |:g|	   :[range]g[lobal]/{pattern}/[cmd]
 			對 [range] 內所有匹配 {pattern} 的行執行
 			   Ex 命令 [cmd] (預設: ":p")
@@ -508,7 +508,7 @@ N 用來 (可選) 置於命令之前表示該命令執行的計數。
 |:mkvimrc|   :mkv[imrc][!] [file]
 				  同 ":mkexrc"，但預設為 ".vimrc"
 |:mksession| :mks[ession][!] [file]
-				  同 ":mkvimrc"，但同時存儲當前檔案、視窗等信
+				  同 ":mkvimrc"，但同時儲存當前檔案、視窗等信
 				     息，使得使用者將來可以繼續當前對話
 ------------------------------------------------------------------------------
 *Q_ab*		縮寫
@@ -529,20 +529,20 @@ N 用來 (可選) 置於命令之前表示該命令執行的計數。
 |:set|		:se[t]			  顯示所有被改動的選項
 |:set|		:se[t] all		  顯示所有非 termcap 選項
 |:set|		:se[t] termcap		  顯示所有 termcap 選項
-|:set|		:se[t] {option}		  置位布爾選項 (開啟)
-					  顯示字元串或數值選項
-|:set|		:se[t] no{option}	  復位布爾選項 (關閉)
-|:set|		:se[t] inv{option}	  逆轉布爾選項的值
-|:set|		:se[t] {option}={value}	  設定字元串/數值選項的值為 {value}
-|:set|		:se[t] {option}+={value}  將 {value} 附加到字元串選項裡，將
+|:set|		:se[t] {option}		  置位布林選項 (開啟)
+					  顯示字串或數值選項
+|:set|		:se[t] no{option}	  復位布林選項 (關閉)
+|:set|		:se[t] inv{option}	  逆轉布林選項的值
+|:set|		:se[t] {option}={value}	  設定字串/數值選項的值為 {value}
+|:set|		:se[t] {option}+={value}  將 {value} 附加到字串選項裡，將
 					  {value} 加到數值選項上
-|:set|		:se[t] {option}-={value}  從 {value} 從字元串選項裡刪除，從
+|:set|		:se[t] {option}-={value}  從 {value} 從字串選項裡刪除，從
 					  數值選項裡減去 {value}
 |:set|		:se[t] {option}?	  顯示 {option} 的值
 |:set|		:se[t] {option}&	  重置 {option} 為其預設值
 
-|:setlocal|	:setl[ocal]		  同 ":set"，但對局部選項只設定局部值
-|:setglobal|	:setg[lobal]		  同 ":set"，但對局部選項設定其全局值
+|:setlocal|	:setl[ocal]		  同 ":set"，但對區域性選項只設定區域性值
+|:setglobal|	:setg[lobal]		  同 ":set"，但對區域性選項設定其全域性值
 
 |:fix|		:fix[del]		  根據 't_kb' 的值設定 't_kD'
 |:options|	:opt[ions]		  開啟一個新視窗，用來參看並設定選項，
@@ -560,7 +560,7 @@ N 用來 (可選) 置於命令之前表示該命令執行的計數。
 'arabicshape'	  'arshape' 阿拉伯語的字型重整
 'autoindent'	  'ai'	    根據上一行決定新行的縮排
 'autoread'	  'ar'	    有 Vim 之外的改動時自動重讀檔案
-'autowrite'	  'aw'	    有改動時自動寫迴檔案
+'autowrite'	  'aw'	    有改動時自動寫回檔案
 'autowriteall'	  'awa'     類似於 'autowrite'，但適用於更多命令
 'background'	  'bg'	    "dark" 或 "light"，用於色彩的高亮
 'backspace'	  'bs'	    在一行開頭按退格鍵如何處理
@@ -572,23 +572,26 @@ N 用來 (可選) 置於命令之前表示該命令執行的計數。
 'balloondelay'	  'bdlay'   彈出氣泡之前的延遲 (以毫秒計)
 'ballooneval'	  'beval'   開啟氣泡表示式求值功能
 'balloonexpr'	  'bexpr'   計算氣泡顯示內容的表示式
+'belloff'	  'bo'	    為這些原因不響鈴
 'binary'	  'bin'     二進位制方式讀/寫/編輯檔案
 'bioskey'	  'biosk'   MS-DOS: 用 bios 呼叫取得字元輸入
 'bomb'			    檔案頭附加位元組順序標記 (Byte Order Mark)
 'breakat'	  'brk'     可以在此斷行的字元
+'breakindent'	  'bri'     迴繞行重複縮排
+'breakindentopt'  'briopt'  'breakindent' 的設定
 'browsedir'	  'bsdir'   開始瀏覽檔案的目錄
 'bufhidden'	  'bh'	    緩衝區不再在視窗顯示時的行為
 'buflisted'	  'bl'	    緩衝區是否顯示在緩衝區列表中
-'buftype'	  'bt'	    緩衝區的特殊類型
+'buftype'	  'bt'	    緩衝區的特殊型別
 'casemap'	  'cmp'     指定字母大小寫如何改變
-'cdpath'	  'cd'	    ":cd" 搜索的目錄列表
+'cdpath'	  'cd'	    ":cd" 搜尋的目錄列表
 'cedit'			    開啟命令列視窗的鍵
 'charconvert'	  'ccv'     完成字元編碼轉換的表示式
 'cindent'	  'cin'     實現 C 程式的縮排
 'cinkeys'	  'cink'    設定 'cindent' 時啟動縮排的鍵
 'cinoptions'	  'cino'    設定 'cindent' 時如何縮排
 'cinwords'	  'cinw'    'si' 和 'cin' 在這些詞後加入額外的縮排
-'clipboard'	  'cb'	    使用剪貼簿作為無名的寄存器
+'clipboard'	  'cb'	    使用剪貼簿作為無名的暫存器
 'cmdheight'	  'ch'	    命令列使用的行數
 'cmdwinheight'	  'cwh'     命令列視窗的高度
 'colorcolumn'	  'cc'	    高亮指定列
@@ -597,7 +600,7 @@ N 用來 (可選) 置於命令之前表示該命令執行的計數。
 'commentstring'   'cms'     註釋的樣板；用於摺疊的標誌
 'compatible'	  'cp'	    儘可能做到與 Vi 相容
 'complete'	  'cpt'     指定插入模式的自動補全如何工作
-'completefunc'	  'cfu'     插入模式補全使用的函數
+'completefunc'	  'cfu'     插入模式補全使用的函式
 'completeopt'	  'cot'     插入模式補全使用的選項
 'concealcursor'	  'cocu'    是否隱藏游標所在行的可隱藏文字
 'conceallevel'	  'cole'    是否顯示可隱藏文字
@@ -611,13 +614,13 @@ N 用來 (可選) 置於命令之前表示該命令執行的計數。
 'cscopequickfix'  'csqf'    用 quickfix 視窗得到 cscope 的結果
 'cscoperelative'  'csre'    用 cscope.out 路徑目錄名作為字首
 'cscopetag'	  'cst'     用 cscope 處理標籤命令
-'cscopetagorder'  'csto'    決定 ":cstag" 的搜索順序
+'cscopetagorder'  'csto'    決定 ":cstag" 的搜尋順序
 'cscopeverbose'   'csverb'  增加 cscope 資料庫時給出訊息
 'cursorbind'	  'crb'     游標移動時同時在其它視窗移動
 'cursorcolumn'	  'cuc'     高亮游標所在螢幕列
 'cursorline'	  'cul'     高亮游標所在螢幕行
 'debug'			    設為 "msg" 可以看到所有的錯誤訊息
-'define'	  'def'     查找宏定義所使用的模式
+'define'	  'def'     查詢巨集定義所使用的模式
 'delcombine'	  'deco'    在單獨使用時刪除組合用字元
 'dictionary'	  'dict'    關鍵字自動補全所用的檔名
 'diff'			    當前視窗使用 diff 模式
@@ -628,6 +631,7 @@ N 用來 (可選) 置於命令之前表示該命令執行的計數。
 'display'	  'dy'	    如何顯示文字的標誌位列表
 'eadirection'	  'ead'     'equalalways' 工作的方向
 'edcompatible'	  'ed'	    切換 ":substitute" 命令的標誌位
+'emoji'		  'emo'	    emoji 字元視作全寬
 'encoding'	  'enc'     內部使用的編碼方式
 'endofline'	  'eol'     檔案最後一行寫入換行符 <EOL>
 'equalalways'	  'ea'	    自動使所有視窗大小相同
@@ -644,8 +648,9 @@ N 用來 (可選) 置於命令之前表示該命令執行的計數。
 'fileformat'	  'ff'	    檔案輸入輸出使用的格式
 'fileformats'	  'ffs'     參與自動檢測的 'fileformat' 的格式
 'fileignorecase'  'fic'     使用檔名時忽略大小寫
-'filetype'	  'ft'	    自動命令使用的檔案類型
-'fillchars'	  'fcs'     顯示特殊項目所使用的字元
+'filetype'	  'ft'	    自動命令使用的檔案型別
+'fillchars'	  'fcs'     顯示特殊專案所使用的字元
+'fixendofline'	  'fixeol'  確保檔案的末行有 <EOL>
 'fkmap'		  'fk'	    波斯鍵盤對映
 'foldclose'	  'fcl'     當游標離開時關閉摺疊
 'foldcolumn'	  'fdc'     設定指示摺疊的列寬度
@@ -655,15 +660,15 @@ N 用來 (可選) 置於命令之前表示該命令執行的計數。
 'foldlevel'	  'fdl'     當摺疊級別高於此值時關閉摺疊
 'foldlevelstart'  'fdls'    開始編輯檔案的 'foldlevel'
 'foldmarker'	  'fmr'     當 'foldmethod' 為 "marker" 時的標誌
-'foldmethod'	  'fdm'     摺疊的類型
+'foldmethod'	  'fdm'     摺疊的型別
 'foldminlines'	  'fml'     摺疊關閉所需的最少行數
 'foldnestmax'	  'fdn'     最大摺疊深度
 'foldopen'	  'fdo'     開啟摺疊所使用的命令
 'foldtext'	  'fdt'     顯示關閉的摺疊所用的表示式
+'formatexpr'	  'fex'     "gq" 命令使用的表示式
 'formatlistpat'   'flp'     識別列表頭部的模式
 'formatoptions'   'fo'	    自動排版完成的方式
 'formatprg'	  'fp'	    "gq" 命令使用的外部程式
-'formatexpr'	  'fex'     "gq" 命令使用的表示式
 'fsync'		  'fs'	    檔案寫回後是否啟用 fsync()
 'gdefault'	  'gd'	    預設開啟 ":substitute" 的 'g' 標誌
 'grepformat'	  'gfm'     'grepprg' 的輸出格式
@@ -682,29 +687,29 @@ N 用來 (可選) 置於命令之前表示該命令執行的計數。
 'helplang'	  'hlg'     首選幫助語言
 'hidden'	  'hid'     當緩衝區被放棄 (|abandon|) 時不解除安裝之
 'highlight'	  'hl'	    設定若干場合下的高亮模式
-'hlsearch'	  'hls'     高亮最近的匹配搜索模式
 'history'	  'hi'	    記住的命令列的行數
 'hkmap'		  'hk'	    希伯來語的鍵盤對映
 'hkmapp'	  'hkp'     希伯來語的音節 (phonetic) 鍵盤對映
+'hlsearch'	  'hls'     高亮最近的匹配搜尋模式
 'icon'			    讓 Vim 設定視窗圖示的文字
-'iconstring'		    Vim 圖示文字所用的字元串
-'ignorecase'	  'ic'	    搜索模式時忽略大小寫
+'iconstring'		    Vim 圖示文字所用的字串
+'ignorecase'	  'ic'	    搜尋模式時忽略大小寫
+'imactivatefunc'  'imaf'    啟用/關閉 X 輸入方法的函式
 'imactivatekey'   'imak'    啟用 X 輸入方法 (X input method) 的鍵擊
-'imactivatefunc'  'imaf'    啟用/關閉 X 輸入方法的函數
 'imcmdline'	  'imc'     開始編輯命令列時使用 IM
 'imdisable'	  'imd'     任何模式下不使用 IM
 'iminsert'	  'imi'     插入模式下使用 :lmap 或 IM
-'imsearch'	  'ims'     輸入搜索模式時使用 :lmap 或 IM
-'imstatusfunc'    'imsf'    獲得 X 輸入方法的狀態的函數
-'include'	  'inc'     查找包含檔案所使用的模式
+'imsearch'	  'ims'     輸入搜尋模式時使用 :lmap 或 IM
+'imstatusfunc'    'imsf'    獲得 X 輸入方法的狀態的函式
+'include'	  'inc'     查詢包含檔案所使用的模式
 'includeexpr'	  'inex'    處理包含檔案行所使用的表示式
-'incsearch'	  'is'	    輸入搜索模式時同時高亮部分的匹配
+'incsearch'	  'is'	    輸入搜尋模式時同時高亮部分的匹配
 'indentexpr'	  'inde'    得到一行的縮排位置的表示式
 'indentkeys'	  'indk'    使用 'indentexpr' 時啟動縮排的鍵
 'infercase'	  'inf'     關鍵字自動補全的匹配調整大小寫
 'insertmode'	  'im'	    開始編輯檔案時進入插入模式
 'isfname'	  'isf'     檔案和路徑名可用的字元
-'isident'	  'isi'     標識符可用的字元
+'isident'	  'isi'     識別符號可用的字元
 'iskeyword'	  'isk'     關鍵字可用的字元
 'isprint'	  'isp'     可顯示的字元
 'joinspaces'	  'js'	    連線命令在句號之後加兩個空格
@@ -714,8 +719,9 @@ N 用來 (可選) 置於命令之前表示該命令執行的計數。
 'keywordprg'	  'kp'	    "K" 命令所使用的程式
 'langmap'	  'lmap'    其他語言模式用的字母表字元
 'langmenu'	  'lm'	    選單使用的語言
+'langremap'	  'lrm'	    對映字元適用 'langmap'
 'laststatus'	  'ls'	    當最近的視窗有狀態行時提示
-'lazyredraw'	  'lz'	    執行宏時不重畫
+'lazyredraw'	  'lz'	    執行巨集時不重畫
 'linebreak'	  'lbr'     在空白處迴繞長行
 'lines'			    顯示螢幕的行數
 'linespace'	  'lsp'     字元之間的畫素行數
@@ -723,21 +729,23 @@ N 用來 (可選) 置於命令之前表示該命令執行的計數。
 'lispwords'	  'lw'	    改變 lisp 縮排方式的單詞
 'list'			    顯示 <Tab> 和 <EOL>
 'listchars'	  'lcs'     list 模式下顯示用的字元
-'loadplugins'	  'lpl'     啟動時調入插件指令碼
+'loadplugins'	  'lpl'     啟動時調入外掛指令碼
+'luadll'		    Lua 動態庫名
 'macatsui'		    Mac GUI: 使用 ATSUI 文字繪製
-'magic'			    改變搜索模式所用的特殊字元
+'magic'			    改變搜尋模式所用的特殊字元
 'makeef'	  'mef'     ":make" 所用的錯誤檔名
+'makeencoding'	  'menc'    外部 make/grep 命令使用的編碼
 'makeprg'	  'mp'	    ":make" 命令所用的程式
 'matchpairs'	  'mps'     "%" 能匹配的字元對
 'matchtime'	  'mat'     顯示匹配括號的時間 (以十分之一秒計)
 'maxcombine'	  'mco'     顯示的最大組合用字元數
-'maxfuncdepth'	  'mfd'     使用者函數的最大遞迴深度
+'maxfuncdepth'	  'mfd'     使用者函式的最大遞迴深度
 'maxmapdepth'	  'mmd'     對映的最大遞迴深度
-'maxmem'	  'mm'	    單個緩衝區可用的最大內存 (以千位元組計)
-'maxmempattern'   'mmp'     模式匹配使用的最大內存 (以千位元組計)
-'maxmemtot'	  'mmt'     所有緩衝區可用的最大內存 (以千位元組計)
-'menuitems'	  'mis'     選單可用的最大項目數
-'mkspellmem'	  'msm'     在 |:mkspell| 壓縮樹前可用的內存
+'maxmem'	  'mm'	    單個緩衝區可用的最大記憶體 (以千位元組計)
+'maxmempattern'   'mmp'     模式匹配使用的最大記憶體 (以千位元組計)
+'maxmemtot'	  'mmt'     所有緩衝區可用的最大記憶體 (以千位元組計)
+'menuitems'	  'mis'     選單可用的最大專案數
+'mkspellmem'	  'msm'     在 |:mkspell| 壓縮樹前可用的記憶體
 'modeline'	  'ml'	    在檔案開頭或結尾識別模式行
 'modelines'	  'mls'     模式行的檢查行數
 'modifiable'	  'ma'	    可否修改文字
@@ -745,28 +753,30 @@ N 用來 (可選) 置於命令之前表示該命令執行的計數。
 'more'			    全屏顯示時暫停列表
 'mouse'			    允許使用滑鼠點選
 'mousefocus'	  'mousef'  鍵盤焦點追隨滑鼠點選
-'mousehide'	  'mh'	    輸入時隱藏滑鼠指針
+'mousehide'	  'mh'	    輸入時隱藏滑鼠指標
 'mousemodel'	  'mousem'  改變滑鼠按鈕的含義
-'mouseshape'	  'mouses'  不同模式下改變滑鼠指針的形狀
+'mouseshape'	  'mouses'  不同模式下改變滑鼠指標的形狀
 'mousetime'	  'mouset'  滑鼠雙擊之間的最大時間
 'mzquantum'	  'mzq'     MzScheme 執行緒的輪詢間隔
 'nrformats'	  'nf'	    CTRL-A 命令識別的數字格式
 'number'	  'nu'	    行前顯示行號
 'numberwidth'	  'nuw'     行號使用的列數
-'omnifunc'	  'ofu'     檔案類型特定補全使用的函數
+'omnifunc'	  'ofu'     檔案型別特定補全使用的函式
 'opendevice'	  'odev'    MS-Windows 上允許讀/寫裝置
-'operatorfunc'	  'opfunc'  |g@| 操作符呼叫的函數
+'operatorfunc'	  'opfunc'  |g@| 操作符呼叫的函式
 'osfiletype'	  'oft'     不再支援
-'paragraphs'	  'para'    分隔段落的 nroff 宏
+'packpath'	  'pp'      軟體包使用的目錄列表
+'paragraphs'	  'para'    分隔段落的 nroff 巨集
 'paste'			    允許貼上文字
 'pastetoggle'	  'pt'	    切換 'paste' 的鍵盤程式碼
 'patchexpr'	  'pex'     用於給檔案打補丁的表示式
 'patchmode'	  'pm'	    保留檔案最老的版本
-'path'		  'pa'	    "gf" 等命令搜索用的目錄列表
+'path'		  'pa'	    "gf" 等命令搜尋用的目錄列表
+'perldll'		    Perl 動態庫名
 'preserveindent'  'pi'	    重排時保持原有的縮排結構
 'previewheight'   'pvh'     預覽視窗的高度
 'previewwindow'   'pvw'     標識預覽視窗
-'printdevice'	  'pdev'    用於 :hardcopy 的列印機名
+'printdevice'	  'pdev'    用於 :hardcopy 的印表機名
 'printencoding'   'penc'    用於列印的編碼方式
 'printexpr'	  'pexpr'   用於 :hardcopy 列印 PostScript 的表示式
 'printfont'	  'pfn'     用於 :hardcopy 的字型名
@@ -774,36 +784,42 @@ N 用來 (可選) 置於命令之前表示該命令執行的計數。
 'printmbcharset'  'pmbcs'   用於 :hardcopy 的 CJK 字符集
 'printmbfont'	  'pmbfn'   用於 :hardcopy 的 CJK 輸出的字型名
 'printoptions'	  'popt'    控制 :hardcopy 輸出格式
+'prompt'	  'prompt'  Ex 模式開啟提示
 'pumheight'	  'ph'	    彈出視窗的最大高度
-'quoteescape'	  'qe'	    字元串裡使用的轉義字元
+'pythondll'		    Python 2 動態庫名
+'pythonthreedll'	    Python 3 動態庫名
+'pyxversion'	  'pyx'	    pyx* 命令使用的 Python 版本
+'quoteescape'	  'qe'	    字串裡使用的轉義字元
 'readonly'	  'ro'	    禁止寫入緩衝區
 'redrawtime'	  'rdt'     'hlsearch' 和 |:match| 高亮的超時
 'regexpengine'	  're'	    使用的預設正規表示式引擎
 'relativenumber'  'rnu'	    每行前顯示相對行號
 'remap'			    允許對映可以遞迴呼叫
+'renderoptions'	  'rop'	    Window 上文字渲染選項
 'report'		    報告行改變的行數下限
 'restorescreen'   'rs'	    Win32: 退出時恢復螢幕
 'revins'	  'ri'	    字元插入會反向進行
 'rightleft'	  'rl'	    視窗為從右到左模式
 'rightleftcmd'	  'rlc'     從右到左模式工作的編輯命令
+'rubydll'		    Ruby 動態庫名
 'ruler'		  'ru'	    標尺，在狀態行裡顯示游標的行號和列號
 'rulerformat'	  'ruf'     定製標尺格式
-'runtimepath'	  'rtp'     用於運行時檔案的目錄列表
+'runtimepath'	  'rtp'     用於執行時檔案的目錄列表
 'scroll'	  'scr'     用 CTRL-U 和 CTRL-O 滾動的行數
 'scrollbind'	  'scb'     其他視窗滾動時滾動當前視窗
 'scrolljump'	  'sj'	    滾動所需的最少行數
 'scrolloff'	  'so'	    游標上下的最少行數
 'scrollopt'	  'sbo'     'scrollbind' 的行為方式
-'sections'	  'sect'    分隔小節的 nroff 宏
+'sections'	  'sect'    分隔小節的 nroff 巨集
 'secure'		    在當前目錄下以安全模式讀入 .vimrc
 'selection'	  'sel'     使用何種選擇方式
 'selectmode'	  'slm'     何時使用選擇模式而不是可視模式
 'sessionoptions'  'ssop'    :mksession 的選項
 'shell'		  'sh'	    使用外部命令的 shell 程式名字
-'shellcmdflag'	  'shcf'    執行命令所使用的 shell 的參數
-'shellpipe'	  'sp'	    把 ":make" 結果輸出到錯誤檔案的字元串
+'shellcmdflag'	  'shcf'    執行命令所使用的 shell 的引數
+'shellpipe'	  'sp'	    把 ":make" 結果輸出到錯誤檔案的字串
 'shellquote'	  'shq'     括起 shell 命令的字元
-'shellredir'	  'srr'     把過濾命令的輸出存到暫時檔案的字元串
+'shellredir'	  'srr'     把過濾命令的輸出存到暫時檔案的字串
 'shellslash'	  'ssl'     shell 檔名使用正斜槓
 'shelltemp'	  'stmp'    shell 命令是否使用臨時檔案
 'shelltype'	  'st'	    Amiga: 影響如何使用 shell
@@ -813,7 +829,7 @@ N 用來 (可選) 置於命令之前表示該命令執行的計數。
 'shiftwidth'	  'sw'	    (自動) 縮排使用的步進單位，以空白數目計
 'shortmess'	  'shm'     縮短訊息長度的標誌位列表
 'shortname'	  'sn'	    非 MS-DOS: 檔名假定為 8.3 字元
-'showbreak'	  'sbr'     用於提示迴繞行開始的字元串
+'showbreak'	  'sbr'     用於提示迴繞行開始的字串
 'showcmd'	  'sc'	    在狀態行裡顯示 (部分) 命令
 'showfulltag'	  'sft'     自動補全標籤時顯示完整的標籤匹配模式
 'showmatch'	  'sm'	    插入括號時短暫跳轉到匹配的括號
@@ -821,6 +837,7 @@ N 用來 (可選) 置於命令之前表示該命令執行的計數。
 'showtabline'	  'stal'    是否顯示標籤頁行
 'sidescroll'	  'ss'	    橫向滾動的最少列數
 'sidescrolloff'   'siso'    在游標左右最少出現的列數
+'signcolumn'	  'scl'	    何時顯示標號列
 'smartcase'	  'scs'     模式中有大寫字母時不忽略大小寫
 'smartindent'	  'si'	    C 程式智慧自動縮排
 'smarttab'	  'sta'     插入 <Tab> 時使用 'shiftwidth'
@@ -835,23 +852,26 @@ N 用來 (可選) 置於命令之前表示該命令執行的計數。
 'startofline'	  'sol'     命令移動游標到行的第一個非空白
 'statusline'	  'stl'     狀態行的定製格式
 'suffixes'	  'su'	    多個匹配所忽略的字尾
-'suffixesadd'	  'sua'     搜索檔案時附加的字尾
+'suffixesadd'	  'sua'     搜尋檔案時附加的字尾
 'swapfile'	  'swf'     緩衝區是否使用交換檔案
 'swapsync'	  'sws'     和交換檔案同步的方式
 'switchbuf'	  'swb'     設定切換到別的緩衝區時的行為
-'synmaxcol'	  'smc'     尋找語法項目的最大列數
+'synmaxcol'	  'smc'     尋找語法專案的最大列數
 'syntax'	  'syn'     讀入當前緩衝區的語法
-'tabstop'	  'ts'	    <Tab> 在檔案裡使用的空格數
 'tabline'	  'tal'     終端標籤頁行的定製格式
 'tabpagemax'	  'tpm'     |-p| 和 "tab all" 的最大標籤頁數
-'tagbsearch'	  'tbs'     標籤檔案裡用二分法查找
+'tabstop'	  'ts'	    <Tab> 在檔案裡使用的空格數
+'tagbsearch'	  'tbs'     標籤檔案裡用二分法查詢
+'tagcase'	  'tc'      標籤檔案查詢時如何處理大小寫
 'taglength'	  'tl'	    標籤裡的有效字元數
 'tagrelative'	  'tr'	    標籤檔案裡的檔名是相對路徑
 'tags'		  'tag'     標籤命令使用的檔名列表
 'tagstack'	  'tgst'    把標籤推入標籤棧
+'tcldll'		    Tcl 動態庫名
 'term'			    終端名
 'termbidi'	  'tbidi'   終端支援雙向文字
 'termencoding'	  'tenc'    終端使用的編碼方式
+'termguicolors'	  'tgc'     終端使用 GUI 顏色
 'terse'			    簡化部分訊息
 'textauto'	  'ta'	    已廢止，用 'fileformats'
 'textmode'	  'tx'	    已廢止，用 'fileformat'
@@ -863,14 +883,14 @@ N 用來 (可選) 置於命令之前表示該命令執行的計數。
 'title'			    讓 Vim 設定視窗標題
 'titlelen'		    用於視窗標題的 'columns' 比例
 'titleold'		    舊的標題，用於退出時恢復
-'titlestring'		    用於 Vim 視窗標題的字元串
-'toolbar'	  'tb'	    GUI: 工具欄顯示何種項目
+'titlestring'		    用於 Vim 視窗標題的字串
+'toolbar'	  'tb'	    GUI: 工具欄顯示何種專案
 'toolbariconsize' 'tbis'    工具欄圖示的大小 (只適用於 GTK 2)
 'ttimeout'		    對映等待超時
 'ttimeoutlen'	  'ttm'     鍵盤程式碼超時時間 (以毫秒計)
 'ttybuiltin'	  'tbi'     在外部 termcap 之前先用內建的 termcap
 'ttyfast'	  'tf'	    指示一個快速的終端連線
-'ttymouse'	  'ttym'    滑鼠產生程式碼的類型
+'ttymouse'	  'ttym'    滑鼠產生程式碼的型別
 'ttyscroll'	  'tsl'     滾動的最大行數
 'ttytype'	  'tty'     'term' 的別名
 'undodir'	  'udir'    儲存撤銷檔案的位置
@@ -881,7 +901,7 @@ N 用來 (可選) 置於命令之前表示該命令執行的計數。
 'updatetime'	  'ut'	    重新整理交換檔案所需的毫秒數
 'verbose'	  'vbs'     給出詳細資訊
 'verbosefile'	  'vfile'   訊息寫入的檔案
-'viewdir'	  'vdir'    :mkview 存儲檔案的所在目錄
+'viewdir'	  'vdir'    :mkview 儲存檔案的所在目錄
 'viewoptions'	  'vop'     指定 :mkview 儲存的內容
 'viminfo'	  'vi'	    啟動和退出時使用 .viminfo 檔案
 'virtualedit'	  've'	    何時使用虛擬編輯
@@ -889,12 +909,12 @@ N 用來 (可選) 置於命令之前表示該命令執行的計數。
 'warn'			    當緩衝區改變時，對 shell 命令給出警告
 'weirdinvert'	  'wiv'	    用於有特殊反轉方法的終端
 'whichwrap'	  'ww'	    允許指定鍵跨越行邊界
-'wildchar'	  'wc'	    用於通配符擴展的命令列字元
+'wildchar'	  'wc'	    用於萬用字元擴充套件的命令列字元
 'wildcharm'	  'wcm'     同 'wildchar'，但對對映情況也適用
 'wildignore'	  'wig'     匹配這些模式的檔案不會參與自動補全
 'wildignorecase'  'wic'     匹配檔名時忽略大小寫
 'wildmenu'	  'wmnu'    命令列自動補全所使用的選單
-'wildmode'	  'wim'     'wildchar' 命令列擴展所用的模式
+'wildmode'	  'wim'     'wildchar' 命令列擴充套件所用的模式
 'wildoptions'	  'wop'     指定如何完成命令列補全
 'winaltkeys'	  'wak'     何時視窗系統處理 ALT 鍵
 'window'	  'wi'	    CTRL-F 和 CTRL-B 滾動的行數
@@ -906,11 +926,11 @@ N 用來 (可選) 置於命令之前表示該命令執行的計數。
 'winwidth'	  'wiw'     當前視窗的最少列數
 'wrap'			    長行迴繞並在下一行繼續
 'wrapmargin'	  'wm'	    使 (硬) 迴繞開始的從右側起算的字元數
-'wrapscan'	  'ws'	    搜索在檔案尾折迴檔案頭
+'wrapscan'	  'ws'	    搜尋在檔案尾折回檔案頭
 'write'			    允許寫入檔案
 'writeany'	  'wa'	    寫入檔案不需 "!" 強制
 'writebackup'	  'wb'	    覆蓋檔案時建立備份
-'writedelay'	  'wd'	    每個字元延遲 (以毫秒計) (用於偵錯)
+'writedelay'	  'wd'	    每個字元延遲 (以毫秒計) (用於除錯)
 ------------------------------------------------------------------------------
 *Q_ur*		撤銷/重做命令
 
@@ -952,8 +972,8 @@ N 用來 (可選) 置於命令之前表示該命令執行的計數。
 |g8|		   g8		對 utf-8 編碼: 顯示游標所在字元的十六進位制位元組
 				   序列
 |g_CTRL-G|	   g CTRL-G	顯示當前游標的列、行、以及字元位置
-|CTRL-C|	   CTRL-C	在查找中: 中斷查找
-|dos-CTRL-Break|   CTRL-Break	MS-DOS: 在查找中: 中斷查找
+|CTRL-C|	   CTRL-C	在查詢中: 中斷查詢
+|dos-CTRL-Break|   CTRL-Break	MS-DOS: 在查詢中: 中斷查詢
 |<Del>|		   <Del>	當輸入一個計數時: 刪除前一個輸入字元
 |:version|	:ve[rsion]	顯示版本資訊
 |:mode|		:mode N		MS-DOS: 置螢幕模式為 N (數值、C80、C4350 等)
@@ -969,7 +989,7 @@ N 用來 (可選) 置於命令之前表示該命令執行的計數。
 ------------------------------------------------------------------------------
 *Q_ce*		命令列編輯
 
-|c_<Esc>|	<Esc>		   放棄命令列 (如果 'wildchar' 通配符是
+|c_<Esc>|	<Esc>		   放棄命令列 (如果 'wildchar' 萬用字元是
 				      <Esc>，鍵入兩次)
 
 |c_CTRL-V|	CTRL-V {char}	   按字面插入 {char}
@@ -977,7 +997,7 @@ N 用來 (可選) 置於命令之前表示該命令執行的計數。
 |c_CTRL-K|	CTRL-K {char1} {char2}
 				   鍵入二合字母 (參見 |Q_di|)
 |c_CTRL-R|	CTRL-R {0-9a-z"%#:-=}
-				   插入指定寄存器的內容
+				   插入指定暫存器的內容
 
 |c_<Left>|	<Left>/<Right>	   游標左移/右移
 |c_<S-Left>|	<S-Left>/<S-Right> 游標左移/右移一個單詞
@@ -988,8 +1008,10 @@ N 用來 (可選) 置於命令之前表示該命令執行的計數。
 |c_CTRL-W|	CTRL-W		   刪除游標前的單詞
 |c_CTRL-U|	CTRL-U		   刪除所有字元
 
-|c_<Up>|	<Up>/<Down>	   搜索以當前命令列開始的較早/較晚的命令
+|c_<Up>|	<Up>/<Down>	   搜尋以當前命令列開始的較早/較晚的命令
 |c_<S-Up>|	<S-Up>/<S-Down>	   從命令列歷史中回憶較早/較晚的命令
+|c_CTRL-G|	CTRL-G		   'incsearch' 啟用時下次匹配
+|c_CTRL-T|	CTRL-T		   'incsearch' 啟用時前次匹配
 |:history|	:his[tory]	   顯示命令列歷史
 
 上下文關聯的命令列補全:
@@ -1053,7 +1075,7 @@ N 用來 (可選) 置於命令之前表示該命令執行的計數。
 |-tag|	   vim [options] -t {tag}	編輯與標籤 {tag} 關聯的檔案
 |-qf|	   vim [options] -q [fname]	以 QuickFix 模式開始編輯並顯示首個錯誤
 
-	最有用的 Vim 參數 (完整列表見 |startup-options|)
+	最有用的 Vim 引數 (完整列表見 |startup-options|)
 
 |-gui|	-g		    啟動 GUI (同時允許其他選項)
 
@@ -1075,20 +1097,20 @@ N 用來 (可選) 置於命令之前表示該命令執行的計數。
 |-N|	-N		    不相容，復位 'compatible' 選項
 |-r|	-r		    給出交換檔案列表
 |-r|	-r {file} ..	    恢復中斷的編輯
-|-n|	-n		    不創建交換檔案
+|-n|	-n		    不建立交換檔案
 |-o|	-o [num]	    開啟 [num] 個視窗 (預設: 每個檔案一個視窗)
 |-f|	-f		    GUI: 前臺程序，不呼叫 fork
 			    Amiga: 不開啟新視窗啟動 Vim (比如，用於 mail)
 |-s|	-s {scriptin}	    先從檔案 {scriptin} 讀入命令
-|-w|	-w {scriptout}	    把鍵入的字元寫進檔案 {scriptout} (添加)
+|-w|	-w {scriptout}	    把鍵入的字元寫進檔案 {scriptout} (新增)
 |-W|	-W {scriptout}	    把鍵入的字元寫進檔案 {scriptout} (覆蓋)
 |-T|	-T {terminal}	    設定終端名
 |-d|	-d {device}	    Amiga: 開啟 {device} 作為控制檯使用
 |-u|	-u {vimrc}	    從檔案 {vimrc} 而非其它檔案讀入初始化命令
 |-U|	-U {gvimrc}	    同上，但用於啟動 GUI 時
 |-i|	-i {viminfo}	    從檔案 {viminfo} 而不是其它檔案讀入資訊
-|---|	--		    結束選項，其餘的參數都將是檔名
-|--help|    --help	    顯示參數列表並退出
+|---|	--		    結束選項，其餘的引數都將是檔名
+|--help|    --help	    顯示引數列表並退出
 |--version| --version	    顯示版本資訊並退出
 |--|	-		    從標準輸入讀入檔案
 ------------------------------------------------------------------------------
@@ -1099,7 +1121,7 @@ N 用來 (可選) 置於命令之前表示該命令執行的計數。
 |:edit_f|  :e[dit][!] {file}	編輯 {file}
 |:edit|	   :e[dit][!]		重新載入當前檔案
 |:enew|	   :ene[w][!]		編輯一個無名的新緩衝區
-|:find|    :fin[d][!] {file}	在 'path' 當中查找檔案 {file} 並編輯之
+|:find|    :fin[d][!] {file}	在 'path' 當中查詢檔案 {file} 並編輯之
 
 |CTRL-^|   N   CTRL-^		編輯第 N 個輪換檔名 (同 ":e #N")
 |gf|	       gf  或 ]f	編輯游標下的檔名對應的檔案 (goto file)
@@ -1110,10 +1132,10 @@ N 用來 (可選) 置於命令之前表示該命令執行的計數。
 |:file|	   :f[ile] {name}	置當前檔名為 {name}
 |:files|   :files		顯示所有的輪換檔名
 ------------------------------------------------------------------------------
-*Q_fl*		使用參數列表				|argument-list|
+*Q_fl*		使用引數列表				|argument-list|
 
-|:args|	   :ar[gs]		顯示參數列表，當前檔案顯示在 "[]" 中
-|:all|	   :all  或 :sall	為參數列表中的每個檔案開啟一個視窗
+|:args|	   :ar[gs]		顯示引數列表，當前檔案顯示在 "[]" 中
+|:all|	   :all  或 :sall	為引數列表中的每個檔案開啟一個視窗
 |:wn|	   :wn[ext][!]		寫入當前檔案並編輯下一個檔案
 |:wn|	   :wn[ext][!] {file}	寫到 {file} 並編輯下一個檔案，除非檔案 {file}
 				   已經存在。使用 !，覆蓋已存在的檔案
@@ -1133,8 +1155,8 @@ N 用來 (可選) 置於命令之前表示該命令執行的計數。
 |:w|	  :[range]w[rite][!]		寫入當前檔案
 |:w_f|	  :[range]w[rite] {file}	寫入至檔案 {file}，除非其已經存在
 |:w_f|	  :[range]w[rite]! {file}	寫入至檔案 {file}。覆蓋已存在的檔案
-|:w_a|	  :[range]w[rite][!] >>		添加至當前檔案
-|:w_a|	  :[range]w[rite][!] >> {file}	添加至檔案 {file}
+|:w_a|	  :[range]w[rite][!] >>		新增至當前檔案
+|:w_a|	  :[range]w[rite][!] >> {file}	新增至檔案 {file}
 |:w_c|	  :[range]w[rite] !{cmd}	執行命令 {cmd}，以 [range] 限定的行作
                                            為標準輸入
 |:up|	  :[range]up[date][!]		如果當前檔案被改動則寫入
@@ -1162,7 +1184,7 @@ N 用來 (可選) 置於命令之前表示該命令執行的計數。
 ------------------------------------------------------------------------------
 *Q_ac*		自動命令
 
-|viminfo-file|	啟動時讀入寄存器、標記、歷史記錄，退出時存儲這些資訊。
+|viminfo-file|	啟動時讀入暫存器、標記、歷史記錄，退出時儲存這些資訊。
 
 |:rviminfo|	:rv[iminfo] [file]	從檔案 [file] 讀入 viminfo 資訊
 |:rviminfo|	:rv[iminfo]! [file]	同上，但覆蓋已存在的資訊
@@ -1173,7 +1195,7 @@ N 用來 (可選) 置於命令之前表示該命令執行的計數。
 
 |modeline|	vim:{set-arg}: ..	置於檔案的前面或後面數行 (參見 'ml' 選
 					   項)，{set-arg} 為傳遞給 ":set" 命令
-					   的參數
+					   的引數
 
 |autocommand|	特定事件發生時自動執行命令。
 
@@ -1202,7 +1224,7 @@ N 用來 (可選) 置於命令之前表示該命令執行的計數。
 |CTRL-W_]|	CTRL-W ]		分割視窗並跳轉到游標下的標籤
 |CTRL-W_f|	CTRL-W f		分割視窗並編輯游標下的檔名 (file)
 |CTRL-W_^|	CTRL-W ^		分割視窗並編輯輪換檔案
-|CTRL-W_n|	CTRL-W n  或  :new	創建新空白視窗              (new)
+|CTRL-W_n|	CTRL-W n  或  :new	建立新空白視窗              (new)
 |CTRL-W_q|	CTRL-W q  或  :q[uit]	退出編輯並關閉視窗          (quit)
 |CTRL-W_c|	CTRL-W c  或  :cl[ose]	隱藏當前緩衝區並關閉視窗    (close)
 |CTRL-W_o|	CTRL-W o  或  :on[ly]	使當前視窗成為唯一視窗      (only)
@@ -1219,29 +1241,33 @@ N 用來 (可選) 置於命令之前表示該命令執行的計數。
 |CTRL-W_R|	CTRL-W R		向上旋轉視窗                (Rotate)
 |CTRL-W_x|	CTRL-W x		將當前視窗與下一個視窗對調  (eXchange)
 
-|CTRL-W_=|	CTRL-W =		使所有視窗等高
+|CTRL-W_=|	CTRL-W =		使所有視窗等高等寬
 |CTRL-W_-|	CTRL-W -		減少當前視窗高度
 |CTRL-W_+|	CTRL-W +		增加當前視窗高度
 |CTRL-W__|	CTRL-W _		設定當前視窗高度 (預設: 很高)
+
+|CTRL-W_<|	CTRL-W <		減少當前視窗寬度
+|CTRL-W_>|	CTRL-W >		增加當前視窗寬度
+|CTRL-W_bar|	CTRL-W |		設定當前視窗寬度 (預設: 儘可能寬)
 ------------------------------------------------------------------------------
 *Q_bu*		緩衝區列表命令
 
 |:buffers|	:buffers  或  :files	列出所有已知的緩衝區和檔名
 
-|:ball|		:ball	  或  :sball	編輯所有的參數/緩衝區
+|:ball|		:ball	  或  :sball	編輯所有的引數/緩衝區
 |:unhide|	:unhide   或  :sunhide	編輯所有載入的緩衝區
 
 |:badd|		:badd {fname}		加入檔名 {fname} 到列表中
-|:bunload|	:bunload[!] [N]		從內存中解除安裝緩衝區 [N]
-|:bdelete|	:bdelete[!] [N]		從內存中解除安裝緩衝區 [N]  並從列表中刪除
+|:bunload|	:bunload[!] [N]		從記憶體中解除安裝緩衝區 [N]
+|:bdelete|	:bdelete[!] [N]		從記憶體中解除安裝緩衝區 [N]  並從列表中刪除
 
 		當前視窗內         新視窗內	~
-|:buffer|	:[N]buffer [N]     :[N]sbuffer [N]     至參數/緩衝區 N
-|:bnext|	:[N]bnext [N]      :[N]sbnext [N]      至往後第 N 個參數/緩衝區
-|:bNext|	:[N]bNext [N]      :[N]sbNext [N]      至往前第 N 個參數/緩衝區
-|:bprevious|	:[N]bprevious [N]  :[N]sbprevious [N]  至往前第 N 個參數/緩衝區
-|:bfirst|	:bfirst            :sbfirst            至第一個參數/緩衝區
-|:blast|	:blast             :sblast             至最後一個參數/緩衝區
+|:buffer|	:[N]buffer [N]     :[N]sbuffer [N]     至引數/緩衝區 N
+|:bnext|	:[N]bnext [N]      :[N]sbnext [N]      至往後第 N 個引數/緩衝區
+|:bNext|	:[N]bNext [N]      :[N]sbNext [N]      至往前第 N 個引數/緩衝區
+|:bprevious|	:[N]bprevious [N]  :[N]sbprevious [N]  至往前第 N 個引數/緩衝區
+|:bfirst|	:bfirst            :sbfirst            至第一個引數/緩衝區
+|:blast|	:blast             :sblast             至最後一個引數/緩衝區
 |:bmodified|	:[N]bmod [N]       :[N]sbmod [N]       至第 N 個改動過的緩衝區
 ------------------------------------------------------------------------------
 *Q_sy*		語法高亮
@@ -1250,23 +1276,23 @@ N 用來 (可選) 置於命令之前表示該命令執行的計數。
 |:syn-off|	:syntax off		停止使用語法高亮
 
 |:syn-keyword|	:syntax keyword {group-name} {keyword} ..
-					添加語法關鍵字項目
+					新增語法關鍵字專案
 |:syn-match|	:syntax match {group-name} {pattern} ...
-					加入語法匹配項目
+					加入語法匹配專案
 |:syn-region|	:syntax region {group-name} {pattern} ...
-					添加語法區域項目
+					新增語法區域專案
 |:syn-sync|	:syntax sync [ccomment | lines {N} | ...]
 					設定語法高亮的同步方式
-|:syntax|	:syntax [list]		列出當前語法項目
+|:syntax|	:syntax [list]		列出當前語法專案
 |:syn-clear|	:syntax clear		清除所有語法資訊
 
 |:highlight|	:highlight clear	清除所有高亮資訊
 |:highlight|	:highlight {group-name} {key}={arg} ..
 					為語法組 {group-name} 設定高亮
 
-|:filetype|	:filetype on		開啟檔案類型檢測，不啟用語法高亮
+|:filetype|	:filetype on		開啟檔案型別檢測，不啟用語法高亮
 |:filetype|	:filetype plugin indent on
-					開啟檔案類型檢測，包括自動縮排及設定
+					開啟檔案型別檢測，包括自動縮排及設定
 ------------------------------------------------------------------------------
 *Q_gu*		GUI 命令
 
@@ -1288,7 +1314,7 @@ N 用來 (可選) 置於命令之前表示該命令執行的計數。
 
 |'foldmethod'|	set foldmethod=manual	手動摺疊
 		set foldmethod=indent	按照縮排摺疊
-		set foldmethod=expr	按照表示式 'foldexpr' 摺疊
+		set foldmethod=expr	按照表達式 'foldexpr' 摺疊
 		set foldmethod=syntax	按照語法區域摺疊
 		set foldmethod=marker	按照標誌 'foldmarker' 摺疊
 
@@ -1307,7 +1333,7 @@ N 用來 (可選) 置於命令之前表示該命令執行的計數。
 |zr|		zr			減少摺疊: 增加 'foldlevel'  (reduce)
 |zR|		zR			開啟所有摺疊: 置 'foldlevel' 為最大
 
-|zn|		zn			不摺疊: 復位 'foldenable'   (none)
+|zn|		zn			不折疊: 復位 'foldenable'   (none)
 |zN|		zN			正常摺疊: 置位 'foldenable' (Normal)
 |zi|		zi			反轉 'foldenable'           (invert)
 

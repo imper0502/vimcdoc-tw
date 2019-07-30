@@ -1,7 +1,7 @@
-*if_ole.txt*    For Vim version 7.4.  最後更新: 2009年4月
+*if_ole.txt*    For Vim version 8.0.  最近更新: 2017年7月
 
 
-		  VIM 參 考 手 冊    作者: Paul Moore
+		  VIM 參考手冊    by Paul Moore
 		                     譯者: Dasn
 		                     http://vimcdoc.sf.net
 
@@ -16,13 +16,13 @@ Vim 的 OLE 介面						*ole-interface*
 
 {Vi 沒有這些功能}
 
-OLE 只有在編譯時加入 |+ole| 纔可以使用。參見 src/if_ole.INSTALL。
+OLE 只有在編譯時加入 |+ole| 才可以使用。參見 src/if_ole.INSTALL。
 有一點不同之處在於它使用 客戶機伺服器 模式進行通訊 |clientserver|。
 
 ==============================================================================
 1. 啟用 OLE 功能					*ole-activation*
 
-Vim 可以作為 OLE 伺服器運行，能被任意的 OLE 客戶端訪問，例如: 我們可以用
+Vim 可以作為 OLE 伺服器執行，能被任意的 OLE 客戶端訪問，例如: 我們可以用
 Visual Basic，Python，或者 Perl 與 Vim 通訊。Vim 的程式名 (在 OLE 中稱為
 "ProgID") 是 "Vim.Application"。
 
@@ -42,14 +42,14 @@ Visual Basic，Python，或者 Perl 與 Vim 通訊。Vim 的程式名 (在 OLE �
 	$vim = new Win32::OLE 'Vim.Application';
 
 [C#] >
-        // 在項目中加入 VIM 的引用。
+        // 在專案中加入 Vim 的引用。
         // 選擇 COM 標籤頁。
-        // 選擇 "VIM Ole Interface 1.1 Type Library"
+        // 選擇 "Vim Ole Interface 1.1 Type Library"
 	Vim.Vim vimobj = new Vim.Vim();
 
-Vim 不能作為 "隱藏" 的 OLE 伺服器來運行，這一點 Vim 不像其它一些 OLE 伺服器。
+Vim 不能作為 "隱藏" 的 OLE 伺服器來執行，這一點 Vim 不像其它一些 OLE 伺服器。
 Vim 的 OLE 客戶端啟動時，一個 Vim 程式的例項會立刻顯現出來。簡單地斷開 OLE 連
-接不能關掉 Vim 例項，需要顯式地執行退出命令纔可以 (例如，:qa!，:wqa)。
+接不能關掉 Vim 例項，需要顯式地執行退出命令才可以 (例如，:qa!，:wqa)。
 
 ==============================================================================
 2. 方法							*ole-methods*
@@ -59,7 +59,7 @@ Vim 為客戶端提供了四種方法。
 							*ole-sendkeys*
 SendKeys(keys)		執行一系列鍵擊。
 
-這個函數只需要一個參數，參數 keys 代表要敲擊的字元串。通過此函數發送這些字元串
+這個函式只需要一個引數，引數 keys 代表要敲擊的字串。通過此函式傳送這些字串
 和你直接在 Vim 裡敲擊鍵盤的效果是一樣的。特殊鍵可以用它們的 <..> 名字，就像映
 射的右手邊裡的格式一樣 (參考 |:map| 特殊鍵的表達方式譯者)。備註: 不支援 Ex 模
 式下的 "normal" 命令  見下面 |ole-normal|。
@@ -80,23 +80,23 @@ CTRL-\ CTRL-N，就像這樣: >
 	備註: 在 Perl 語法裡，特殊字元前需要加 "\"。)
 
 CTRL-\ CTRL-N 使得 Vim 從插入模式或命令列模式返回普通模式。
-備註: 不能用這個命令發送 Vim 命令的一部分。
+備註: 不能用這個命令傳送 Vim 命令的一部分。
 							*ole-eval*
 Eval(expr)		計算表示式的值。
 
-函數只有一個參數 expr，Vim 正常格式的表示式 (參考 |expression|)。返回值是一個
-包含表示式結果的字元串。|List| 通過連線項目並插入換行符以轉化為字元串。
+函式只有一個引數 expr，Vim 正常格式的表示式 (參考 |expression|)。返回值是一個
+包含表示式結果的字串。|List| 通過連線專案並插入換行符以轉化為字串。
 
 例子: (Visual Basic 語法) >
 
 	Line20 = Vim.Eval("getline(20)")
-	Twelve = Vim.Eval("6 + 6")		' 注意，這是一個字元串。
+	Twelve = Vim.Eval("6 + 6")		' 注意，這是一個字串。
 	Font = Vim.Eval("&guifont")
 <
 							*ole-setforeground*
 SetForeground()		讓 Vim 視窗轉入前臺工作。
 
-這個函數沒有參數，沒有返回值。
+這個函式沒有引數，沒有返回值。
 
 例子: (Visual Basic 語法) >
 
@@ -105,7 +105,7 @@ SetForeground()		讓 Vim 視窗轉入前臺工作。
 							*ole-gethwnd*
 GetHwnd()	返回 Vim 視窗的控制代碼。
 
-這個函數沒有參數，它返回 Vim 主視窗的控制代碼。你可以用它來控制 Vim 視窗，或者跟蹤
+這個函式沒有引數，它返回 Vim 主視窗的控制代碼。你可以用它來控制 Vim 視窗，或者跟蹤
 視窗的 z-深度 等位置。
 
 例子: (Visual Basic 語法) >
@@ -124,29 +124,29 @@ GetHwnd()	返回 Vim 視窗的控制代碼。
 ==============================================================================
 4. 註冊						*ole-registration* *E243*
 
-在 Vim 作為 OLE 伺服器運行之前，必須向系統註冊。如果你想註冊，可以在運行 Vim
-的時候加一個參數 "-register"。
+在 Vim 作為 OLE 伺服器執行之前，必須向系統註冊。如果你想註冊，可以在執行 Vim
+的時候加一個引數 "-register"。
 							*-register*  >
 	gvim -register
 
-如果運行 OLE 版本的 gvim 時，Vim 的 OLE 服務沒有註冊，gvim 會彈出一個對話方塊，
+如果執行 OLE 版本的 gvim 時，Vim 的 OLE 服務沒有註冊，gvim 會彈出一個對話方塊，
 讓你選擇是否註冊，選擇 "Yes" 註冊。
 
-有時候可能註冊不會成功，這可能是因為註冊表不可寫。如果是這個原因，你需要以管理
-員的身份來運行 gvim。
+有時候可能註冊不會成功，這可能是因為登錄檔不可寫。如果是這個原因，你需要以管理
+員的身份來執行 gvim。
 
-一旦註冊，Vim 的路徑就會被存儲到註冊表裡。在你移動、刪除或升級 Vim 之前，應該
+一旦註冊，Vim 的路徑就會被儲存到登錄檔裡。在你移動、刪除或升級 Vim 之前，應該
 使用 "-unregister" 清除這些註冊資訊。
 							*-unregister*  >
 	gvim -unregister
 
-系統會使用最先註冊的 Vim 執行 OLE 命令。如果 Vim 已經運行，那麼就使用當前運行
+系統會使用最先註冊的 Vim 執行 OLE 命令。如果 Vim 已經執行，那麼就使用當前執行
 的 Vim。如果你不想讓 (多個) Vim 響應 OLE 命令，請使用非 OLE 版本的 Vim，並且把
 它放到別的目錄裡。這時，OLE 版本的 Vim 路徑不應包含在你的正常路徑裡，這樣當你
-鍵入 "gvim" 時啟動的纔是非 OLE 版本。
+鍵入 "gvim" 時啟動的才是非 OLE 版本。
 
 							*-silent*
-如果不想讓 Vim 在註冊時彈出對話方塊，可以在前面加 "-silent" 參數:
+如果不想讓 Vim 在註冊時彈出對話方塊，可以在前面加 "-silent" 引數:
 >
 	gvim -silent -register
 	gvim -silent -unregister
@@ -181,7 +181,7 @@ Vim 的 OLE 版本可以用做 Visual Studio 的文字編輯器。這被稱作 "
 
 --servername VS_NET
 建立 vim 的新例項，名為 VS_NET。這樣如果你從 VS 裡開啟多個檔案，它們會使用相同
-的 Vim 例項。這樣，你可以運行多個 Vim 的備份，但可以控制在哪個裡編輯 VS 檔案。
+的 Vim 例項。這樣，你可以執行多個 Vim 的備份，但可以控制在哪個裡編輯 VS 檔案。
 
 --remote-silent "+call cursor(10, 27)"
               - 把游標放在第 10 行第 27 列

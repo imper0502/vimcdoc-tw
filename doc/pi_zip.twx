@@ -1,4 +1,4 @@
-*pi_zip.txt*	For Vim version 7.4.  最近更新: 2013年8月
+*pi_zip.txt*	For Vim version 8.0.  最近更新: 2017年8月
 
 				+====================+
 				|    Zip 檔案介面    |
@@ -8,7 +8,7 @@
 
 Author:  Charles E. Campbell  <NdrOchip@ScampbellPfamily.AbizM>
 	  (remove NOSPAM from Campbell's email first)
-Copyright: Copyright (C) 2005-2011 Charles E Campbell *zip-copyright*
+Copyright: Copyright (C) 2005-2015 Charles E Campbell *zip-copyright*
 	The VIM LICENSE (see |copyright|) applies to the files in this
 	package, including zipPlugin.vim, zip.vim, and pi_zip.vim.  except use
 	"zip.vim" instead of "VIM".  Like anything else that's free, zip.vim
@@ -29,9 +29,12 @@ Copyright: Copyright (C) 2005-2011 Charles E Campbell *zip-copyright*
 ==============================================================================
 2. 用法							*zip-usage* *zip-manual*
 
-   編輯 *.zip 檔案時，此插件進行處理，顯示內容頁面。移動游標到檔案上，然後按
+   編輯 *.zip 檔案時，此外掛進行處理，顯示內容頁面。移動游標到檔案上，然後按
    <return> 鍵，就可以選擇該檔案進行編輯。編輯後，可以寫回該檔案。目前，不能用
-   該插件建立新的 zip 歸檔檔案。
+   該外掛建立新的 zip 歸檔檔案。
+
+								*zip-x*
+   x : 游標在列出檔名上時可以進行提取
 
    選 項
 
@@ -55,10 +58,14 @@ Copyright: Copyright (C) 2005-2011 Charles E Campbell *zip-copyright*
    省: >
    	let g:zip_zipcmd= "zip"
 <
+							*g:zip_extractcmd*
+   用此選項指定程式 (和所需的選項)，用於從 zip 歸檔檔案提取檔案。預設 >
+	let g:zip_extractcmd= g:zip_unzipcmd
+<
    禁 止 載 入~
 
    如果由於某種原因你不想 vim 檢查 zip 檔案，在 <.vimrc> 中定義兩個變數就可以
-   不載入 zip 插件: >
+   不載入 zip 外掛: >
 
 	let g:loaded_zipPlugin= 1
 	let g:loaded_zip      = 1
@@ -72,10 +79,27 @@ Copyright: Copyright (C) 2005-2011 Charles E Campbell *zip-copyright*
 
 	au BufReadCmd *.jar,*.xpi call zip#Browse(expand("<amatch>"))
 <
-   你可以自由擴展該行以包含更多應被當作 zip 檔案的副檔名。
+   你可以自由擴充套件該行以包含更多應被當作 zip 檔案的副檔名。
+
+   此外，也可以在 .vimrc 裡改變 *g:zipPlugin_ext* 。 當前 (11/30/15) 包含了: >
+
+	let g:zipPlugin_ext= '*.zip,*.jar,*.xpi,*.ja,*.war,*.ear,*.celzip,
+       \ *.oxt,*.kmz,*.wsz,*.xap,*.docx,*.docm,*.dotx,*.dotm,*.potx,*.potm,
+       \ *.ppsx,*.ppsm,*.pptx,*.pptm,*.ppam,*.sldx,*.thmx,*.xlam,*.xlsx,*.xlsm,
+       \ *.xlsb,*.xltx,*.xltm,*.xlam,*.crtx,*.vdw,*.glox,*.gcsx,*.gqsx,*.epub'
 
 ==============================================================================
 4. 歷史 (英文)							*zip-history* {{{1
+   v28 Oct 08, 2014 * changed the sanity checks for executables to reflect
+		      the command actually to be attempted in zip#Read()
+		      and zip#Write()
+		    * added the extraction of a file capability
+       Nov 30, 2015 * added *.epub to the |g:zipPlugin_ext| list
+       Sep 13, 2016 * added *.apk to the |g:zipPlugin_ext| list and
+		      sorted the suffices.
+   v27 Jul 02, 2013 * sanity check: zipfile must have "PK" as its first
+		      two bytes.
+		    * modified to allow zipfile: entries in quickfix lists
    v26 Nov 15, 2012 * (Jason Spiro) provided a lot of new extensions that
 		      are synonyms for .zip
    v25 Jun 27, 2011 * using keepj with unzip -Z
