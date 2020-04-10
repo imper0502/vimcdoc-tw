@@ -4,7 +4,11 @@ vimcdoc
 Vim 中文文件計劃
 
 # 關 於
+Vimcdoc-tw is the Vimcdoc (GitHub) of Traditional Chinese, we can to do :help and read documentation of Traditional Chinese at Vim.
 
+It has built with OpenCC and Zsh, if you want to rebuild it, you can see the 手把手玩Linux: Vim 中文用戶手冊（繁體字）.
+
+---
 Vim (http://www.vim.org) 是一個功能非常強大，且具有很強擴充套件性的編輯器。而且 Vim
 本身帶有一個完備的幫助系統。本專案的目的就是將 Vim 的這些文件翻譯成中文，以便更
 多的人認識及更好地使用這個非常強大的編輯器。文件分成使用者手冊和參考手冊兩部分，
